@@ -24,16 +24,6 @@ public class MainPage {
     public MainPage(Stage primaryStage) {
         this.primaryStage = primaryStage;
         button = new Button("click");
-//        button.setOnAction(e -> {
-//            EntityManager em = DB.getEntityManager();
-//            EntityTransaction tx = em.getTransaction();
-//            tx.begin();
-//            Library library = new Library();
-//            library.setName("SUNY");
-//            em.persist(library);
-//            tx.commit();
-//            em.close();
-//        });
         label = new Label("Hello world");
         hBox = new HBox();
         hBox.getChildren().addAll(label, button);

@@ -4,25 +4,31 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "type")
+@DiscriminatorColumn(name = "dtype")
 public abstract class Account {
 
     @Id
-    @Column(name = "account_id")
+    @Column(name = "account_id", length = 15)
     private String id;
 
+    @Column(nullable = false, length = 13)
     private String pw;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "auth", nullable = false)
+    protected AccountType accountType;
+
+    @Column(nullable = false, length = 30)
     private String name;
+
+    @Column(nullable = false, length = 11)
     private String contact;
 
-    public Account() {
+    protected Account() {
     }
 
-    public Account(String id, String pw, String name, String contact) {
+    protected Account(String id) {
         this.id = id;
-        this.pw = pw;
-        this.name = name;
-        this.contact = contact;
     }
 
     public String getId() {

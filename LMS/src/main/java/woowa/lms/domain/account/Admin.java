@@ -7,10 +7,15 @@ import javax.persistence.DiscriminatorValue;
 @DiscriminatorValue("admin")
 public class Admin extends Account {
 
-	public Admin() {
+	protected Admin() {
 	}
 
-	public Admin(String id, String pw, String name, String contact) {
-		super(id, pw, name, contact);
+	private Admin(String id) {
+		super(id);
+		accountType = AccountType.ADMIN;
+	}
+
+	public static Admin of(String id) {
+		return new Admin(id);
 	}
 }

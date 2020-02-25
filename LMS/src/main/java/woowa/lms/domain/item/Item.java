@@ -8,15 +8,16 @@ import javax.persistence.*;
 public abstract class Item {
 
     @Id @GeneratedValue
-    @Column(name = "item_id")
     private Long id;
 
     private String title;
     private String author;
+
+    @Enumerated(value = EnumType.STRING)
     private ItemStatus status;
     private int stock;
 
-    public Item() {
+    protected Item() {
     }
 
     public Item(Long id) {

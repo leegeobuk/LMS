@@ -7,6 +7,7 @@
         <class>woowa.lms.domain.account.Owner</class>
         <class>woowa.lms.domain.account.Admin</class>
         <class>woowa.lms.domain.account.Customer</class>
+        <class>woowa.lms.domain.OwnerLibrary</class>
         <class>woowa.lms.domain.Library</class>
 
         <properties>
@@ -20,7 +21,7 @@
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
         </properties>
     </persistence-unit>
 </persistence>

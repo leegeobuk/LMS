@@ -5,18 +5,29 @@ import woowa.lms.domain.OwnerLibrary;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue("owner")
 public class Owner extends Account {
 
-//    @OneToMany()
-//    private OwnerLibrary ownerLibrary;
+    @OneToMany(mappedBy = "owner")
+    private List<OwnerLibrary> ownerLibraries = new ArrayList<>();
 
-    public Owner() {
+    protected Owner() {
     }
 
-    public Owner(String id, String pw, String name, String contact) {
-        super(id, pw, name, contact);
+    private Owner(String id) {
+        super(id);
+        accountType = AccountType.OWNER;
+    }
+
+    public static Owner of(String id) {
+        return new Owner(id);
+    }
+
+    public List<OwnerLibrary> getOwnerLibraries() {
+        return ownerLibraries;
     }
 }

@@ -7,10 +7,15 @@ import javax.persistence.DiscriminatorValue;
 @DiscriminatorValue("customer")
 public class Customer extends Account {
 
-	public Customer() {
+	protected Customer() {
 	}
 
-	public Customer(String id, String pw, String name, String contact) {
-		super(id, pw, name, contact);
+	private Customer(String id) {
+		super(id);
+		accountType = AccountType.CUSTOMER;
+	}
+
+	public static Customer of(String id) {
+		return new Customer(id);
 	}
 }

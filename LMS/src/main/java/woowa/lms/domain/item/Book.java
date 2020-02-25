@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("book")
 public class Book extends Item {
 
-	public Book() {
+	protected Book() {
 	}
 
 	public Book(Long id) {
