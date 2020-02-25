@@ -1,5 +1,7 @@
 package woowa.lms.domain;
 
+import woowa.lms.domain.item.Item;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,18 +17,25 @@ public class Library {
     private String name;
 
     @OneToMany(mappedBy = "library")
-    private List<OwnerLibrary> ownerLibraries = new ArrayList<>();
+    private List<AccountLibrary> accountLibraries = new ArrayList<>();
+
+    @OneToMany(mappedBy = "library")
+    private List<Item> items = new ArrayList<>();
 
     public String getName() {
         return name;
     }
 
-    public List<OwnerLibrary> getOwnerLibraries() {
-        return ownerLibraries;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public List<AccountLibrary> getAccountLibraries() {
+        return accountLibraries;
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
 
     public void setName(String name) {

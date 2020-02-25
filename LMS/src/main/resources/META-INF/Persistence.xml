@@ -7,8 +7,10 @@
         <class>woowa.lms.domain.account.Owner</class>
         <class>woowa.lms.domain.account.Admin</class>
         <class>woowa.lms.domain.account.Customer</class>
-        <class>woowa.lms.domain.OwnerLibrary</class>
+        <class>woowa.lms.domain.AccountLibrary</class>
         <class>woowa.lms.domain.Library</class>
+        <class>woowa.lms.domain.item.Item</class>
+        <class>woowa.lms.domain.item.Book</class>
 
         <properties>
             <!-- Required Properties -->

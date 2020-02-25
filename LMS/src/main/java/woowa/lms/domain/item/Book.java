@@ -1,8 +1,5 @@
 package woowa.lms.domain.item;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -10,10 +7,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("book")
 public class Book extends Item {
 
-	protected Book() {
-	}
-
-	public Book(Long id) {
-		super(id);
+	public Book() {
+		type = ItemType.BOOK;
 	}
 }
