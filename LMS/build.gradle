@@ -1,20 +1,32 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
-group 'LMS'
+group 'woowa.lms'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.4.Final'
-    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.17'
-    compile 'com.jfoenix:jfoenix:8.0.8'
+javafx {
+    version = "13"
+    modules = [ 'javafx.controls' ]
 }
 
+mainClassName = 'woowa.lms.App'
+
+dependencies {
+    implementation 'org.hibernate:hibernate-core:5.4.11.Final'
+    runtimeOnly('com.h2database:h2:1.4.199')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+}
+
+test {
+    useJUnitPlatform()
+}
