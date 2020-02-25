@@ -13,8 +13,8 @@ public class AccountLibraryTest {
 
     static EntityManager em = DB.getEntityManager();
     static EntityTransaction tx;
-    static final String OWNER = "LeeDM";
-    static final String CO_OWNER = "YoonKH";
+    static final String OWNER = "Lee.DM";
+    static final String CO_OWNER = "Yoon.KH";
     static final String BAEMIN = "Baemin";
     static final String SEONGSIN = "Seongsin";
     static final String PW = "password";
@@ -97,6 +97,15 @@ public class AccountLibraryTest {
 
     @AfterAll
     static void tearDown() {
+        tx = em.getTransaction();
+        tx.begin();
+
+        dm = em.find(Owner.class, OWNER);
+        kh = em.find(Owner.class, CO_OWNER);
+        em.remove(dm);
+        em.remove(kh);
+
+        tx.commit();
         em.close();
     }
 }

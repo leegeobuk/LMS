@@ -1,7 +1,6 @@
 package woowa.lms.domain;
 
 import woowa.lms.domain.account.Account;
-import woowa.lms.domain.account.Owner;
 
 import javax.persistence.*;
 

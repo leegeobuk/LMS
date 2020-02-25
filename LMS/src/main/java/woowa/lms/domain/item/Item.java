@@ -1,8 +1,10 @@
 package woowa.lms.domain.item;
 
+import woowa.lms.domain.AccountItem;
 import woowa.lms.domain.Library;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,6 +34,9 @@ public abstract class Item {
     @JoinColumn(name = "lib_id")
     private Library library;
 
+    @OneToMany(mappedBy = "item")
+    private List<AccountItem> accountItems = new ArrayList<>();
+
     protected Item() {
     }
 
@@ -59,6 +64,10 @@ public abstract class Item {
         return library;
     }
 
+    public List<AccountItem> getAccountItems() {
+        return accountItems;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -70,4 +79,13 @@ public abstract class Item {
     public void setStatus(ItemStatus status) {
         this.status = status;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return getId().equals(item.getId());
+    }
+
 }

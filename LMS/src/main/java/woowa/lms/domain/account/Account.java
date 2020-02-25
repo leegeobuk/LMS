@@ -1,5 +1,6 @@
 package woowa.lms.domain.account;
 
+import woowa.lms.domain.AccountItem;
 import woowa.lms.domain.AccountLibrary;
 
 import javax.persistence.*;
@@ -28,8 +29,11 @@ public abstract class Account {
     @Column(nullable = false, length = 11)
     private String contact;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<AccountLibrary> accountLibraries = new ArrayList<>();
+
+    @OneToMany(mappedBy = "account")
+    private List<AccountItem> accountItems = new ArrayList<>();
 
     protected Account() {
     }
@@ -56,6 +60,10 @@ public abstract class Account {
 
     public List<AccountLibrary> getAccountLibraries() {
         return accountLibraries;
+    }
+
+    public List<AccountItem> getAccountItems() {
+        return accountItems;
     }
 
     public void setPw(String pw) {
