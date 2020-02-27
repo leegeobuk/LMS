@@ -12,6 +12,7 @@ import javax.persistence.EntityTransaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled
 class AccountItemTest {
     static EntityManager em = DB.getEntityManager();
     static EntityTransaction tx;
@@ -30,7 +31,7 @@ class AccountItemTest {
     static Item othello;
 
     @BeforeAll
-    static void setUp() {
+    static void beforeAll() {
         tx = em.getTransaction();
         tx.begin();
 
@@ -75,14 +76,9 @@ class AccountItemTest {
     }
 
     @BeforeEach
-    public void startTransaction() {
+    public void setUp() {
         tx = em.getTransaction();
         tx.begin();
-    }
-
-    @AfterEach
-    public void commitTransaction() {
-        tx.commit();
     }
 
     @Test
@@ -102,8 +98,13 @@ class AccountItemTest {
         assertEquals(item2.getAccountItems().get(1).getAccount(), coOwner, "Wrong othello kh");
     }
 
+    @AfterEach
+    public void tearDown() {
+        tx.commit();
+    }
+
     @AfterAll
-    static void tearDown() {
+    static void afterAll() {
         em.close();
     }
 }

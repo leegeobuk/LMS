@@ -11,6 +11,7 @@ sourceCompatibility = 11
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 javafx {
@@ -23,10 +24,17 @@ mainClassName = 'woowa.lms.App'
 dependencies {
     implementation 'org.hibernate:hibernate-core:5.4.11.Final'
     runtimeOnly('com.h2database:h2:1.4.199')
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testCompile 'org.junit.jupiter:junit-jupiter-params:5.6.0'
+    testCompile 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
+    testCompile 'org.mockito:mockito-core:3.3.0'
+    testCompile 'org.mockito:mockito-junit-jupiter:3.3.0'
 }
 
 test {
     useJUnitPlatform()
+    testLogging.showStandardStreams = true
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }

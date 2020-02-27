@@ -1,6 +1,8 @@
 package woowa.lms.domain;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import woowa.lms.db.DB;
 import woowa.lms.domain.account.Owner;
 
@@ -9,6 +11,8 @@ import javax.persistence.EntityTransaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled
+@ExtendWith(MockitoExtension.class)
 public class AccountLibraryTest {
 
     static EntityManager em = DB.getEntityManager();
@@ -27,7 +31,7 @@ public class AccountLibraryTest {
     static Library seongsin;
 
     @BeforeAll
-    static void setUp() {
+    static void beforeAll() {
         tx = em.getTransaction();
         tx.begin();
 
@@ -68,14 +72,9 @@ public class AccountLibraryTest {
     }
 
     @BeforeEach
-    public void startTransaction() {
+    public void setUp() {
         tx = em.getTransaction();
         tx.begin();
-    }
-
-    @AfterEach
-    public void commitTransaction() {
-        tx.commit();
     }
 
     @Test
@@ -95,8 +94,13 @@ public class AccountLibraryTest {
         assertEquals(library2.getAccountLibraries().get(1).getAccount(), coOwner, "Wrong seongsi kh");
     }
 
+    @AfterEach
+    public void tearDown() {
+        tx.commit();
+    }
+
     @AfterAll
-    static void tearDown() {
+    static void afterAll() {
         tx = em.getTransaction();
         tx.begin();
 

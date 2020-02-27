@@ -32,6 +32,7 @@ public abstract class Item {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lib_id")
+//    @Column(nullable = false)
     private Library library;
 
     @OneToMany(mappedBy = "item")
@@ -78,6 +79,10 @@ public abstract class Item {
 
     public void setStatus(ItemStatus status) {
         this.status = status;
+    }
+
+    public void setLibrary(Library library) {
+        this.library = library;
     }
 
     @Override
