@@ -15,7 +15,9 @@ public class Customer extends Account {
 		accountType = AccountType.CUSTOMER;
 	}
 
-	public static Customer of(String id) {
-		return new Customer(id);
+	public static Customer of(String id, String pw) {
+		Customer customer = new Customer(id);
+		customer.setPw(pw);
+		return customer;
 	}
 }

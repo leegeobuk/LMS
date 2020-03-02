@@ -21,6 +21,13 @@ public class AccountItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
+    public static AccountItem of(Account account, Item item) {
+        AccountItem accountItem = new AccountItem();
+        accountItem.setAccount(account);
+        accountItem.setItem(item);
+        return accountItem;
+    }
+
     public Long getId() {
         return id;
     }
@@ -35,9 +42,11 @@ public class AccountItem {
 
     public void setAccount(Account account) {
         this.account = account;
+        account.getAccountItems().add(this);
     }
 
     public void setItem(Item item) {
         this.item = item;
+        item.getAccountItems().add(this);
     }
 }

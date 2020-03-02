@@ -15,7 +15,9 @@ public class Owner extends Account {
         accountType = AccountType.OWNER;
     }
 
-    public static Owner of(String id) {
-        return new Owner(id);
+    public static Owner of(String id, String pw) {
+        Owner owner = new Owner(id);
+        owner.setPw(pw);
+        return owner;
     }
 }

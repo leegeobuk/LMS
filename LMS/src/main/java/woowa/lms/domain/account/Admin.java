@@ -15,7 +15,9 @@ public class Admin extends Account {
 		accountType = AccountType.ADMIN;
 	}
 
-	public static Admin of(String id) {
-		return new Admin(id);
+	public static Admin of(String id, String pw) {
+		Admin admin = new Admin(id);
+		admin.setPw(pw);
+		return admin;
 	}
 }

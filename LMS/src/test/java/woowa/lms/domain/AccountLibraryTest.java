@@ -1,9 +1,10 @@
 package woowa.lms.domain;
 
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import woowa.lms.db.DB;
+import woowa.lms.domain.account.Account;
 import woowa.lms.domain.account.Owner;
 
 import javax.persistence.EntityManager;
@@ -11,8 +12,6 @@ import javax.persistence.EntityTransaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Disabled
-@ExtendWith(MockitoExtension.class)
 public class AccountLibraryTest {
 
     static EntityManager em = DB.getEntityManager();
@@ -22,6 +21,7 @@ public class AccountLibraryTest {
     static final String BAEMIN = "Baemin";
     static final String SEONGSIN = "Seongsin";
     static final String PW = "password";
+
     static Owner dm;
     static Owner kh;
     static AccountLibrary dmBaemin;
@@ -32,15 +32,10 @@ public class AccountLibraryTest {
 
     @BeforeAll
     static void beforeAll() {
-        tx = em.getTransaction();
-        tx.begin();
-
-        dm = Owner.of(OWNER);
-        dm.setPw(PW);
+        dm = Owner.of(OWNER, PW);
         dm.setName(OWNER.substring(OWNER.length() - 2));
         dm.setContact("01096990080");
-        kh = Owner.of(CO_OWNER);
-        kh.setPw(PW);
+        kh = Owner.of(CO_OWNER, PW);
         kh.setName(CO_OWNER.substring(CO_OWNER.length() - 2));
         kh.setContact("01012345677");
 
@@ -49,15 +44,9 @@ public class AccountLibraryTest {
         seongsin = new Library();
         seongsin.setName(SEONGSIN);
 
-        dmBaemin = new AccountLibrary();
-        dmBaemin.setAccount(dm);
-        dmBaemin.setLibrary(baemin);
-        dmSeongsin = new AccountLibrary();
-        dmSeongsin.setAccount(dm);
-        dmSeongsin.setLibrary(seongsin);
-        khSeongsin = new AccountLibrary();
-        khSeongsin.setAccount(kh);
-        khSeongsin.setLibrary(seongsin);
+        dmBaemin = AccountLibrary.of(dm, baemin);
+        dmSeongsin = AccountLibrary.of(dm, seongsin);
+        khSeongsin = AccountLibrary.of(kh, seongsin);
 
         em.persist(dm);
         em.persist(kh);
@@ -66,21 +55,12 @@ public class AccountLibraryTest {
         em.persist(dmBaemin);
         em.persist(dmSeongsin);
         em.persist(khSeongsin);
-
-        tx.commit();
-        em.clear();
-    }
-
-    @BeforeEach
-    public void setUp() {
-        tx = em.getTransaction();
-        tx.begin();
     }
 
     @Test
-    public void testOwnerLibraryRelation() {
-        Owner owner = em.find(Owner.class, OWNER);
-        Owner coOwner = em.find(Owner.class, CO_OWNER);
+    public void testAccountLibraryRelation() {
+        Account owner = em.find(Owner.class, OWNER);
+        Account coOwner = em.find(Owner.class, CO_OWNER);
 
         Library library1 = em.find(Library.class, baemin.getId());
         Library library2 = em.find(Library.class, seongsin.getId());
@@ -94,22 +74,16 @@ public class AccountLibraryTest {
         assertEquals(library2.getAccountLibraries().get(1).getAccount(), coOwner, "Wrong seongsi kh");
     }
 
-    @AfterEach
-    public void tearDown() {
-        tx.commit();
-    }
-
     @AfterAll
     static void afterAll() {
-        tx = em.getTransaction();
-        tx.begin();
-
-        dm = em.find(Owner.class, OWNER);
-        kh = em.find(Owner.class, CO_OWNER);
         em.remove(dm);
         em.remove(kh);
+        em.remove(baemin);
+        em.remove(seongsin);
+        em.remove(dmBaemin);
+        em.remove(dmSeongsin);
+        em.remove(khSeongsin);
 
-        tx.commit();
         em.close();
     }
 }

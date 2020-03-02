@@ -23,6 +23,13 @@ public class AccountLibrary {
     protected AccountLibrary() {
     }
 
+    public static AccountLibrary of(Account account, Library library) {
+        AccountLibrary accountLibrary = new AccountLibrary();
+        accountLibrary.setAccount(account);
+        accountLibrary.setLibrary(library);
+        return accountLibrary;
+    }
+
     public Long getId() {
         return id;
     }
@@ -37,9 +44,11 @@ public class AccountLibrary {
 
     public void setAccount(Account account) {
         this.account = account;
+        account.getAccountLibraries().add(this);
     }
 
     public void setLibrary(Library library) {
         this.library = library;
+        library.getAccountLibraries().add(this);
     }
 }
