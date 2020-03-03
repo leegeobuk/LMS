@@ -1,10 +1,9 @@
 package woowa.lms.domain;
 
-import woowa.lms.domain.item.Item;
-
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Library {
@@ -16,26 +15,12 @@ public class Library {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "library")
-    private List<AccountLibrary> accountLibraries = new ArrayList<>();
-
-    @OneToMany(mappedBy = "library")
-    private List<Item> items = new ArrayList<>();
-
     public String getName() {
         return name;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public List<AccountLibrary> getAccountLibraries() {
-        return accountLibraries;
-    }
-
-    public List<Item> getItems() {
-        return items;
     }
 
     public void setName(String name) {

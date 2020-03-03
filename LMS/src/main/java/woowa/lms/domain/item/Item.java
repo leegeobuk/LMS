@@ -1,11 +1,9 @@
 package woowa.lms.domain.item;
 
-import woowa.lms.domain.AccountItem;
-import woowa.lms.domain.Library;
+import woowa.lms.exception.NotEnoughStockException;
+import woowa.lms.exception.OutOfStockException;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -30,13 +28,7 @@ public abstract class Item {
     @Column(nullable = false)
     private ItemStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lib_id")
-//    @Column(nullable = false)
-    private Library library;
-
-    @OneToMany(mappedBy = "item")
-    private List<AccountItem> accountItems = new ArrayList<>();
+    private int stock;
 
     protected Item() {
     }
@@ -61,12 +53,8 @@ public abstract class Item {
         return status;
     }
 
-    public Library getLibrary() {
-        return library;
-    }
-
-    public List<AccountItem> getAccountItems() {
-        return accountItems;
+    public int getStock() {
+        return stock;
     }
 
     public void setTitle(String title) {
@@ -81,8 +69,22 @@ public abstract class Item {
         this.status = status;
     }
 
-    public void setLibrary(Library library) {
-        this.library = library;
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public void addItem(int count) {
+        stock += count;
+    }
+
+    public void removeItem(int count)  {
+        if (stock < 0) {
+            throw new OutOfStockException("Out of stock");
+        }
+        else if (stock < count) {
+            throw new NotEnoughStockException("Not enough stock");
+        }
+        stock -= count;
     }
 
     @Override
