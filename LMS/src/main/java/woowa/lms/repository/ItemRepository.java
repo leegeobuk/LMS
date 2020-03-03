@@ -1,6 +1,5 @@
 package woowa.lms.repository;
 
-import woowa.lms.db.DB;
 import woowa.lms.domain.item.Item;
 
 import javax.persistence.EntityManager;

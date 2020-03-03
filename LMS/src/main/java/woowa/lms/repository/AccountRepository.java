@@ -2,7 +2,6 @@ package woowa.lms.repository;
 
 import woowa.lms.db.DB;
 import woowa.lms.domain.account.Account;
-import woowa.lms.domain.account.Owner;
 
 import javax.persistence.EntityManager;
 import java.util.List;
