@@ -26,17 +26,17 @@ public class AccountService {
         }
     }
 
+    public void edit(String id, String name, String contact) {
+        Account account = accountRepository.findById(id);
+        account.setName(name);
+        account.setContact(contact);
+    }
+
     public Account find(String id) {
         return accountRepository.findById(id);
     }
 
     public List<Account> findAll() {
         return accountRepository.findAll();
-    }
-
-    public void edit(String id, String name, String contact) {
-        Account account = accountRepository.findById(id);
-        account.setName(name);
-        account.setContact(contact);
     }
 }

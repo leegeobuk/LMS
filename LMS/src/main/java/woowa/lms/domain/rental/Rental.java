@@ -78,7 +78,7 @@ public class Rental {
         this.returnDate = returnDate;
     }
 
-    public static Rental createRental(Account account, RentalItem... rentalItems) {
+    public static Rental create(Account account, RentalItem... rentalItems) {
         Rental rental = new Rental();
         rental.setAccount(account);
         for (RentalItem rentalItem : rentalItems) {
@@ -90,7 +90,7 @@ public class Rental {
         return rental;
     }
 
-    public void finishRental() {
+    public void endRental() {
         setRentalStatus(RentalStatus.RETURNED);
         for (RentalItem rentalItem : rentalItems) {
             rentalItem.returnRentalItem();

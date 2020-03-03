@@ -1,6 +1,5 @@
 package woowa.lms.domain.item;
 
-import woowa.lms.exception.NotEnoughStockException;
 import woowa.lms.exception.OutOfStockException;
 
 import javax.persistence.*;
@@ -80,9 +79,6 @@ public abstract class Item {
     public void removeItem(int count)  {
         if (stock < 0) {
             throw new OutOfStockException("Out of stock");
-        }
-        else if (stock < count) {
-            throw new NotEnoughStockException("Not enough stock");
         }
         stock -= count;
     }

@@ -46,12 +46,12 @@ class RentalItemTest {
         hamlet = Book.of(HAMLET, SHAKESPEARE, 5);
         othello = Book.of(OTHELLO, SHAKESPEARE, 5);
 
-        dmHamlet = RentalItem.createRentalItem(hamlet, 3);
-        dmOthello = RentalItem.createRentalItem(othello, 2);
-        khOthello = RentalItem.createRentalItem(othello, 1);
+        dmHamlet = RentalItem.create(hamlet);
+        dmOthello = RentalItem.create(othello);
+        khOthello = RentalItem.create(othello);
 
-        dmRental = Rental.createRental(dm, dmHamlet, dmOthello);
-        khRental = Rental.createRental(kh, khOthello);
+        dmRental = Rental.create(dm, dmHamlet, dmOthello);
+        khRental = Rental.create(kh, khOthello);
 
         em.persist(dm);
         em.persist(kh);

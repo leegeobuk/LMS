@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="woowa.lms.AppTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-03T13:38:01" hostname="DESKTOP-G3VUD1B" time="0.001">
+<testsuite name="woowa.lms.AppTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-03T16:03:48" hostname="DESKTOP-G3VUD1B" time="0.02">
   <properties/>
-  <testcase name="contextLoads()" classname="woowa.lms.AppTest" time="0.001"/>
+  <testcase name="contextLoads()" classname="woowa.lms.AppTest" time="0.02"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

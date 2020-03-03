@@ -19,7 +19,7 @@ public class RentalItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    private int count;
+    public static final int COUNT = 1;
 
     public Long getId() {
         return id;
@@ -33,10 +33,6 @@ public class RentalItem {
         return item;
     }
 
-    public int getCount() {
-        return count;
-    }
-
     public void setRental(Rental rental) {
         this.rental = rental;
     }
@@ -45,20 +41,15 @@ public class RentalItem {
         this.item = item;
     }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public static RentalItem createRentalItem(Item item, int count) {
+    public static RentalItem create(Item item) {
         RentalItem rentalItem = new RentalItem();
         rentalItem.setItem(item);
-        rentalItem.setCount(count);
-        item.removeItem(count);
+        item.removeItem(COUNT);
         return rentalItem;
     }
 
     public void returnRentalItem() {
-        item.addItem(count);
+        item.addItem(COUNT);
     }
 
     @Override
@@ -68,7 +59,6 @@ public class RentalItem {
 
         RentalItem rentalItem = (RentalItem) o;
 
-        if (getCount() != rentalItem.getCount()) return false;
         return getItem().equals(rentalItem.getItem());
     }
 
