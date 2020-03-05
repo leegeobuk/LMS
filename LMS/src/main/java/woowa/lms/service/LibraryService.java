@@ -1,26 +1,19 @@
 package woowa.lms.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import woowa.lms.repository.AccountRepository;
 import woowa.lms.repository.ItemRepository;
 import woowa.lms.repository.LibraryRepository;
 
+@Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class LibraryService {
 
-    private final LibraryRepository libraryRepository;
-    private final AccountRepository accountRepository;
-    private final ItemRepository itemRepository;
+//    private final LibraryRepository;
+//    private final AccountRepository;
+//    private final ItemRepository;
 
-    public LibraryService(LibraryRepository libraryRepository, AccountRepository accountRepository, ItemRepository itemRepository) {
-        this.libraryRepository = libraryRepository;
-        this.accountRepository = accountRepository;
-        this.itemRepository = itemRepository;
-    }
-
-//    public Long borrow(String accountId, Long itemId) {
-//        Account account = accountRepository.findById(accountId);
-//        Item item = itemRepository.findById(itemId);
-//
-//        AccountItem accountItem = AccountItem.of(account, item);
-//        return accountItem.getId();
-//    }
 }

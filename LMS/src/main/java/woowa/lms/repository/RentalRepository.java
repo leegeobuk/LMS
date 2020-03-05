@@ -1,17 +1,17 @@
 package woowa.lms.repository;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import woowa.lms.domain.rental.Rental;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@Repository
+@RequiredArgsConstructor
 public class RentalRepository {
 
     private final EntityManager em;
-
-    public RentalRepository(EntityManager em) {
-        this.em = em;
-    }
 
     public void save(Rental rental) {
         em.persist(rental);

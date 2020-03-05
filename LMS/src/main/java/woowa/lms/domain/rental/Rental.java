@@ -1,5 +1,9 @@
 package woowa.lms.domain.rental;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import woowa.lms.domain.account.Account;
 
 import javax.persistence.*;
@@ -8,10 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@Getter @Setter
 public class Rental {
 
     @Id @GeneratedValue
     @Column(name = "rental_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -20,6 +27,7 @@ public class Rental {
 
     @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
     @Column(nullable = false)
+    @Setter(AccessLevel.NONE)
     private List<RentalItem> rentalItems = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)
@@ -32,30 +40,6 @@ public class Rental {
     @Column(nullable = false)
     private LocalDateTime returnDate;
 
-    public Long getId() {
-        return id;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public List<RentalItem> getRentalItems() {
-        return rentalItems;
-    }
-
-    public RentalStatus getRentalStatus() {
-        return rentalStatus;
-    }
-
-    public LocalDateTime getRentalDate() {
-        return rentalDate;
-    }
-
-    public LocalDateTime getReturnDate() {
-        return returnDate;
-    }
-
     public void setAccount(Account account) {
         this.account = account;
         this.account.getRentals().add(this);
@@ -64,18 +48,6 @@ public class Rental {
     public void setRentalItem(RentalItem rentalItem) {
         getRentalItems().add(rentalItem);
         rentalItem.setRental(this);
-    }
-
-    public void setRentalStatus(RentalStatus rentalStatus) {
-        this.rentalStatus = rentalStatus;
-    }
-
-    public void setRentalDate(LocalDateTime rentalDate) {
-        this.rentalDate = rentalDate;
-    }
-
-    public void setReturnDate(LocalDateTime returnDate) {
-        this.returnDate = returnDate;
     }
 
     public static Rental create(Account account, RentalItem... rentalItems) {

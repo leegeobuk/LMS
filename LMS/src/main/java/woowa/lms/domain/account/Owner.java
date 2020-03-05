@@ -1,14 +1,14 @@
 package woowa.lms.domain.account;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("owner")
+@NoArgsConstructor
 public class Owner extends Account {
-
-    protected Owner() {
-    }
 
     private Owner(String id) {
         super(id);

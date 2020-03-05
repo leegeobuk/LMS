@@ -6,11 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import woowa.lms.db.DB;
-import woowa.lms.domain.Library;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 public class MainPage {
 

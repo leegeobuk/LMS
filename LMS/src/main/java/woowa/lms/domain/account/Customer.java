@@ -1,14 +1,14 @@
 package woowa.lms.domain.account;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.DiscriminatorValue;
 
 @Entity
 @DiscriminatorValue("customer")
+@NoArgsConstructor
 public class Customer extends Account {
-
-	protected Customer() {
-	}
 
 	private Customer(String id) {
 		super(id);

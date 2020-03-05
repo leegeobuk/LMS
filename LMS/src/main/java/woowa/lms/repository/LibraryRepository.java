@@ -1,14 +1,17 @@
 package woowa.lms.repository;
 
-import woowa.lms.db.DB;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import woowa.lms.domain.Library;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@Repository
+@RequiredArgsConstructor
 public class LibraryRepository {
 
-    private final EntityManager em = DB.getEntityManager();
+    private final EntityManager em;
 
     public void save(Library library) {
         em.persist(library);

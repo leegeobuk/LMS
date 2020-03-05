@@ -1,24 +1,30 @@
 package woowa.lms.domain;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import woowa.lms.domain.account.Account;
 import woowa.lms.domain.item.Book;
 import woowa.lms.domain.item.Item;
 import woowa.lms.domain.rental.RentalItem;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class RentalItemTest extends Account {
+
+    @Mock
+    Item item;
+
+    @Mock
+    RentalItem rentalItem;
 
     @Test
     void create() {
         //given
-        Item item = mock(Item.class);
-        doNothing().when(item).removeItem();
+
 
         //when
         RentalItem.create(item);
@@ -30,13 +36,17 @@ class RentalItemTest extends Account {
     @Test
     void returnRentalItem() {
         //given
-        RentalItem rentalItem = RentalItem.create(Book.of("S", "H", 1));
-        int stock = rentalItem.getItem().getStock();
+//        RentalItem rentalItem = RentalItem.create(Book.of("S", "H", 1));
+        RentalItem rentalItem = RentalItem.create(item);
+        when(item.getStock()).thenReturn(0, 1);
 
         //when
+        int stock = rentalItem.getItem().getStock();
         rentalItem.returnRentalItem();
 
         //then
+        verify(item).addItem();
+
         assertEquals(++stock, rentalItem.getItem().getStock(),
             "Wrong stock returned from returnRenalItem");
     }

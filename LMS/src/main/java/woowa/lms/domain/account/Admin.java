@@ -1,14 +1,14 @@
 package woowa.lms.domain.account;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.DiscriminatorValue;
 
 @Entity
 @DiscriminatorValue("admin")
+@NoArgsConstructor
 public class Admin extends Account {
-
-	protected Admin() {
-	}
 
 	private Admin(String id) {
 		super(id);

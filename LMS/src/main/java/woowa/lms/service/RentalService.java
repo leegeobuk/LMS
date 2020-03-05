@@ -1,5 +1,8 @@
 package woowa.lms.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import woowa.lms.domain.account.Account;
 import woowa.lms.domain.rental.Rental;
 import woowa.lms.domain.rental.RentalItem;
@@ -7,18 +10,16 @@ import woowa.lms.repository.AccountRepository;
 import woowa.lms.repository.ItemRepository;
 import woowa.lms.repository.RentalRepository;
 
+@Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class RentalService {
 
     private final RentalRepository rentalRepository;
     private final AccountRepository accountRepository;
     private final ItemRepository itemRepository;
 
-    public RentalService(RentalRepository rentalRepository, AccountRepository accountRepository, ItemRepository itemRepository) {
-        this.rentalRepository = rentalRepository;
-        this.accountRepository = accountRepository;
-        this.itemRepository = itemRepository;
-    }
-
+    @Transactional
     public Long lendBooks(String accountId, Long... itemIds) {
         Account account = accountRepository.findById(accountId);
         RentalItem[] rentalItems = new RentalItem[itemIds.length];

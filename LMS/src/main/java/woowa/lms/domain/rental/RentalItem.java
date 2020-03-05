@@ -1,14 +1,21 @@
 package woowa.lms.domain.rental;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import woowa.lms.domain.item.Item;
 
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor
+@Getter @Setter
 public class RentalItem {
 
     @Id @GeneratedValue
     @Column(name = "rental_item_id")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -19,47 +26,18 @@ public class RentalItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    public static final int COUNT = 1;
-
-    public Long getId() {
-        return id;
-    }
-
-    public Rental getRental() {
-        return rental;
-    }
-
-    public Item getItem() {
-        return item;
-    }
-
-    public void setRental(Rental rental) {
-        this.rental = rental;
-    }
-
-    public void setItem(Item item) {
+    private RentalItem(Item item) {
         this.item = item;
     }
 
     public static RentalItem create(Item item) {
-        RentalItem rentalItem = new RentalItem();
-        rentalItem.setItem(item);
+        RentalItem rentalItem = new RentalItem(item);
         item.removeItem();
         return rentalItem;
     }
 
     public void returnRentalItem() {
         item.addItem();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        RentalItem rentalItem = (RentalItem) o;
-
-        return getId().equals(rentalItem.getId());
     }
 
 }

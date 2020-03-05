@@ -1,5 +1,9 @@
 package woowa.lms.domain.account;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import woowa.lms.domain.rental.Rental;
 
 import javax.persistence.*;
@@ -9,6 +13,8 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "dtype")
+@NoArgsConstructor
+@Getter
 public abstract class Account {
 
     @Id
@@ -16,6 +22,8 @@ public abstract class Account {
     private String id;
 
     @Column(nullable = false, length = 13)
+    @Getter(AccessLevel.NONE)
+    @Setter
     private String pw;
 
     @Enumerated(value = EnumType.STRING)
@@ -23,50 +31,17 @@ public abstract class Account {
     protected AccountType accountType;
 
     @Column(nullable = false, length = 30)
+    @Setter
     private String name;
 
     @Column(nullable = false, length = 11)
+    @Setter
     private String contact;
 
     @OneToMany(mappedBy = "account")
     private List<Rental> rentals = new ArrayList<>();
 
-    protected Account() {
-    }
-
     protected Account(String id) {
         this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public AccountType getAccountType() {
-        return accountType;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public List<Rental> getRentals() {
-        return rentals;
-    }
-
-    public void setPw(String pw) {
-        this.pw = pw;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
     }
 }

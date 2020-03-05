@@ -1,18 +1,21 @@
 package woowa.lms.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import woowa.lms.domain.account.Account;
 import woowa.lms.repository.AccountRepository;
 
 import java.util.List;
 
+@Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class AccountService {
 
     private final AccountRepository accountRepository;
 
-    public AccountService(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
-
+    @Transactional
     public String singUp(Account account) {
         validateDuplicate(account);
         accountRepository.save(account);
@@ -26,6 +29,7 @@ public class AccountService {
         }
     }
 
+    @Transactional
     public void edit(String id, String name, String contact) {
         Account account = accountRepository.findById(id);
         account.setName(name);
