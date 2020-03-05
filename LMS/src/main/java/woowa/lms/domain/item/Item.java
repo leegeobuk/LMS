@@ -72,15 +72,15 @@ public abstract class Item {
         this.stock = stock;
     }
 
-    public void addItem(int count) {
-        stock += count;
+    public void addItem() {
+        stock += 1;
     }
 
-    public void removeItem(int count)  {
+    public void removeItem()  {
         if (stock < 0) {
             throw new OutOfStockException("Out of stock");
         }
-        stock -= count;
+        stock -= 1;
     }
 
     @Override

@@ -44,12 +44,12 @@ public class RentalItem {
     public static RentalItem create(Item item) {
         RentalItem rentalItem = new RentalItem();
         rentalItem.setItem(item);
-        item.removeItem(COUNT);
+        item.removeItem();
         return rentalItem;
     }
 
     public void returnRentalItem() {
-        item.addItem(COUNT);
+        item.addItem();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class RentalItem {
 
         RentalItem rentalItem = (RentalItem) o;
 
-        return getItem().equals(rentalItem.getItem());
+        return getId().equals(rentalItem.getId());
     }
 
 }

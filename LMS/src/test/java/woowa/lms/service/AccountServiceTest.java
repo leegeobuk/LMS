@@ -30,11 +30,6 @@ class AccountServiceTest extends Account {
     @InjectMocks
     AccountService accountService;
 
-    @BeforeAll
-    static void beforeAll() {
-//        when(owner.get)
-    }
-
     @Test
     void singUp() {
         //given
@@ -64,6 +59,21 @@ class AccountServiceTest extends Account {
     }
 
     @Test
+    void edit() {
+        //given
+        Owner ownerMock = mock(Owner.class);
+        when(accountRepository.findById(anyString())).thenReturn(ownerMock);
+
+        //when
+        accountService.edit(ID, "lego", "01011112222");
+
+        //then
+        verify(accountRepository).findById(anyString());
+        verify(ownerMock).setName(anyString());
+        verify(ownerMock).setContact(anyString());
+    }
+
+    @Test
     void find() {
         //given
         when(accountRepository.findById(anyString())).thenReturn(OWNER);
@@ -89,20 +99,5 @@ class AccountServiceTest extends Account {
         verify(accountRepository).findAll();
 
         assertEquals(List.of(OWNER), accounts, "Wrong List returned from findAll");
-    }
-
-    @Test
-    void edit() {
-        //given
-        Owner ownerMock = mock(Owner.class);
-        when(accountRepository.findById(anyString())).thenReturn(ownerMock);
-
-        //when
-        accountService.edit(ID, "lego", "01011112222");
-
-        //then
-        verify(accountRepository).findById(anyString());
-        verify(ownerMock).setName(anyString());
-        verify(ownerMock).setContact(anyString());
     }
 }
