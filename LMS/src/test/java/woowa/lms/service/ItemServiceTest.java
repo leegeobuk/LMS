@@ -5,10 +5,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import woowa.lms.domain.account.Account;
-import woowa.lms.domain.item.Book;
-import woowa.lms.domain.item.Item;
-import woowa.lms.repository.ItemRepository;
+import woowa.lms.back.domain.account.Account;
+import woowa.lms.back.domain.item.Book;
+import woowa.lms.back.domain.item.Item;
+import woowa.lms.back.repository.ItemRepository;
+import woowa.lms.back.service.ItemService;
 
 import java.util.List;
 

@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import woowa.lms.domain.account.Account;
-import woowa.lms.domain.item.Item;
-import woowa.lms.exception.OutOfStockException;
+import woowa.lms.back.domain.account.Account;
+import woowa.lms.back.domain.item.Item;
+import woowa.lms.back.exception.OutOfStockException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doThrow;

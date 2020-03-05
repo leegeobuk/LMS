@@ -1,14 +1,14 @@
 package woowa.lms.service;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import woowa.lms.domain.account.Account;
-import woowa.lms.domain.account.Owner;
-import woowa.lms.repository.AccountRepository;
+import woowa.lms.back.domain.account.Account;
+import woowa.lms.back.domain.account.Owner;
+import woowa.lms.back.repository.AccountRepository;
+import woowa.lms.back.service.AccountService;
 
 import java.util.List;
 

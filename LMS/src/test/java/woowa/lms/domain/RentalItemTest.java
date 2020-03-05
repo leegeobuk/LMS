@@ -4,10 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import woowa.lms.domain.account.Account;
-import woowa.lms.domain.item.Book;
-import woowa.lms.domain.item.Item;
-import woowa.lms.domain.rental.RentalItem;
+import woowa.lms.back.domain.account.Account;
+import woowa.lms.back.domain.item.Item;
+import woowa.lms.back.domain.rental.RentalItem;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
