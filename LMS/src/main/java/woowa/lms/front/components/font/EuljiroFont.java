@@ -6,24 +6,16 @@ public class EuljiroFont extends CustomFont {
 
     private static final String URL = "file:src/main/resources/font/BMEULJIROTTF.ttf";
 
-    private EuljiroFont() {
-        this.url = URL;
-    }
-
     private EuljiroFont(double size) {
         super(URL, size);
     }
 
-    public static EuljiroFont of() {
-        return new EuljiroFont();
-    }
-
-    public static EuljiroFont of(double size) {
-        return new EuljiroFont(size);
+    public static Font of(double size) {
+        return new EuljiroFont(size).toFont();
     }
 
     @Override
-    public Font create() {
+    public Font toFont() {
         return Font.loadFont(URL, size);
     }
 }

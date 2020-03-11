@@ -1,24 +1,28 @@
 package woowa.lms.front.components.label;
 
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
-import lombok.Getter;
-import lombok.Setter;
-import woowa.lms.front.components.font.CustomFont;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import lombok.*;
 
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter @Setter
-public abstract class CustomLabel {
+public class CustomLabel {
 
-    protected String text;
-    protected CustomFont font;
-    protected Color color;
+    @Builder.Default
+    String text = "";
 
-    CustomLabel(String text, Color color, CustomFont font, double size) {
-        this.text = text;
-        this.color = color;
-        this.font = font;
-        this.font.setSize(size);
+    @Builder.Default
+    Font font = new Font(10);
+
+    @Builder.Default
+    String textFill = "black";
+
+    public Label toLabel() {
+        Label label = new Label(text);
+        label.setFont(font);
+        label.setTextFill(Paint.valueOf(textFill));
+        return label;
     }
-
-    public abstract Label create();
 }

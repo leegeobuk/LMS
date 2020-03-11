@@ -3,20 +3,20 @@ package woowa.lms.front.components.background;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.CornerRadii;
-import lombok.Getter;
+import javafx.scene.paint.Paint;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Getter
 public abstract class CustomBackground {
 
-    protected List<BackgroundFill> fills = new ArrayList<>();
+    Paint paint;
+    BackgroundFill fill;
+    static final CornerRadii EMPTY_RADII = CornerRadii.EMPTY;
+    static final Insets EMPTY_INSETS = Insets.EMPTY;
 
-    protected static final CornerRadii EMPTY_RADII = CornerRadii.EMPTY;
-    protected static final Insets EMPTY_INSETS = Insets.EMPTY;
+    public CustomBackground(Paint paint) {
+        this.paint = paint;
+        fill = new BackgroundFill(paint, EMPTY_RADII, EMPTY_INSETS);
+    }
 
-    public abstract Background create();
+    public abstract Background toBackground();
 }
