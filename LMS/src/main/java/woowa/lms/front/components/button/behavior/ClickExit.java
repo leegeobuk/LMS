@@ -1,11 +1,9 @@
 package woowa.lms.front.components.button.behavior;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import woowa.lms.app.App;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClickExit implements ClickBehavior {
@@ -17,7 +15,7 @@ public class ClickExit implements ClickBehavior {
     }
 
     @Override
-    public EventHandler<ActionEvent> click() {
-        return event -> Platform.exit();
+    public void handle(MouseEvent event) {
+        Platform.exit();
     }
 }

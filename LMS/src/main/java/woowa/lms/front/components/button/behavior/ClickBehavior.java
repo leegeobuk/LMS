@@ -1,9 +1,10 @@
 package woowa.lms.front.components.button.behavior;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 
-public interface ClickBehavior {
+public interface ClickBehavior extends EventHandler<MouseEvent> {
 
-    EventHandler<ActionEvent> click();
+    @Override
+    void handle(MouseEvent event);
 }

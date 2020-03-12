@@ -1,7 +1,6 @@
 package woowa.lms.front.components.button.behavior;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -15,9 +14,7 @@ public class ClickSignUp implements ClickBehavior {
     }
 
     @Override
-    public EventHandler<ActionEvent> click() {
-        return event -> {
-            System.out.println("Show sign up page");
-        };
+    public void handle(MouseEvent event) {
+        System.out.println("Show sign up page");
     }
 }
