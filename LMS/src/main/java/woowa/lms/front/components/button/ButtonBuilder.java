@@ -18,7 +18,7 @@ public class ButtonBuilder implements CustomButton {
 
     private static final CustomLabel DEFAULT_LABEL = LabelBuilder.DEFAULT_LABEL;
     private static final CustomImage DEFAULT_IMAGE = ImageBuilder.DEFAULT_IMAGE;
-    private static final ClickBehaviorType DEFAULT_BEHAVIOR = ClickBehaviorType.EXIT;
+    private static final ClickBehaviorType DEFAULT_BEHAVIOR = ClickBehaviorType.EXIT_PROGRAM;
     private static final ContentDisplay DEFAULT_DISPLAY = ContentDisplay.BOTTOM;
     private static final double DEFAULT_GRAPHIC_GAP = 4;
 
