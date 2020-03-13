@@ -2,15 +2,12 @@ package woowa.lms.front.components.label;
 
 import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Setter;
 import woowa.lms.front.components.font.CustomFont;
 import woowa.lms.front.components.font.FontBuilder;
 
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Setter
 public class LabelBuilder implements CustomLabel {
 

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Setter;
 
 @Builder
+@Setter
 public class FontBuilder implements CustomFont {
 
     private static final FontType DEFAULT_FONT_TYPE = FontType.EULJIRO;
@@ -16,7 +17,6 @@ public class FontBuilder implements CustomFont {
     private FontType font = DEFAULT_FONT_TYPE;
 
     @Builder.Default
-    @Setter
     private double size = DEFAULT_SIZE;
 
     @Override

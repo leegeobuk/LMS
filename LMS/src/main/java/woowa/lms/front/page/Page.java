@@ -8,5 +8,5 @@ public interface Page {
 
     void setUpPage();
 
-    Scene show();
+    Scene getScene();
 }

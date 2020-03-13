@@ -27,7 +27,7 @@ javafx {
     modules = [ 'javafx.controls' ]
 }
 
-mainClassName = 'woowa.lms.App'
+mainClassName = 'woowa.lms.Boot'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

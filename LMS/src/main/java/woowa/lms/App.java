@@ -2,29 +2,26 @@ package woowa.lms;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import woowa.lms.front.page.MainPage;
+import woowa.lms.Boot;
+import woowa.lms.back.controller.HomeController;
 
-@SpringBootApplication
 public class App extends Application {
 
     private ConfigurableApplicationContext applicationContext;
-//    @Autowired
-//    private MainPage mainPage;
+
     @Override
     public void init() {
-        applicationContext = new SpringApplicationBuilder(App.class).run();
+        applicationContext = new SpringApplicationBuilder(Boot.class).run();
     }
 
     @Override
     public void start(Stage primaryStage) {
-        MainPage mainPage = (MainPage) applicationContext.getBean("mainPage");
-        primaryStage.setScene(mainPage.show());
-        primaryStage.setTitle("Woowa Library Management System");
-        primaryStage.show();
+//        MainPage mainPage = (MainPage) applicationContext.getBean("mainPage");
+        HomeController controller = applicationContext.getBean(HomeController.class);
+        controller.showMainPage();
+
     }
 
     @Override

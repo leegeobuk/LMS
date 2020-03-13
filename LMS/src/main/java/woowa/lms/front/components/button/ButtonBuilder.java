@@ -6,7 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import lombok.Builder;
 import lombok.Setter;
+import woowa.lms.front.components.button.behavior.ClickBehavior;
 import woowa.lms.front.components.button.behavior.ClickBehaviorType;
+import woowa.lms.front.components.button.behavior.ClickExit;
 import woowa.lms.front.components.image.CustomImage;
 import woowa.lms.front.components.image.ImageBuilder;
 import woowa.lms.front.components.label.CustomLabel;
@@ -18,7 +20,7 @@ public class ButtonBuilder implements CustomButton {
 
     private static final CustomLabel DEFAULT_LABEL = LabelBuilder.DEFAULT_LABEL;
     private static final CustomImage DEFAULT_IMAGE = ImageBuilder.DEFAULT_IMAGE;
-    private static final ClickBehaviorType DEFAULT_BEHAVIOR = ClickBehaviorType.EXIT_PROGRAM;
+    private static final ClickBehavior DEFAULT_BEHAVIOR = ClickExit.getInstance();
     private static final ContentDisplay DEFAULT_DISPLAY = ContentDisplay.BOTTOM;
     private static final double DEFAULT_GRAPHIC_GAP = 4;
 
@@ -37,7 +39,7 @@ public class ButtonBuilder implements CustomButton {
     private double graphicGap = DEFAULT_GRAPHIC_GAP;
 
     @Builder.Default
-    private ClickBehaviorType clickBehavior = DEFAULT_BEHAVIOR;
+    private ClickBehavior clickBehavior = DEFAULT_BEHAVIOR;
 
     @Override
     public Button toButton() {
@@ -49,7 +51,7 @@ public class ButtonBuilder implements CustomButton {
         button.setGraphic(imageView);
         button.setContentDisplay(display);
         button.setGraphicTextGap(graphicGap);
-        button.setOnMouseClicked(clickBehavior.getBehavior());
+        button.setOnMouseClicked(clickBehavior);
         return button;
     }
 }

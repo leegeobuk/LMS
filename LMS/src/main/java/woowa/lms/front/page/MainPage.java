@@ -12,20 +12,22 @@ import javafx.scene.layout.VBox;
 import org.springframework.stereotype.Component;
 import woowa.lms.front.components.background.BackgroundBuilder;
 import woowa.lms.front.components.button.ButtonBuilder;
+import woowa.lms.front.components.button.behavior.ClickAbout;
+import woowa.lms.front.components.button.behavior.ClickExit;
+import woowa.lms.front.components.button.behavior.ClickSignIn;
+import woowa.lms.front.components.button.behavior.ClickSignUp;
 import woowa.lms.front.components.font.FontBuilder;
 import woowa.lms.front.components.image.ImageBuilder;
 import woowa.lms.front.components.label.LabelBuilder;
 
-import static woowa.lms.front.components.button.behavior.ClickBehaviorType.*;
 import static woowa.lms.front.components.font.FontType.EULJIRO;
 import static woowa.lms.front.components.image.ImageType.*;
 
 @Component
 public class MainPage implements Page {
 
-//    private Stage primaryStage;
-    private VBox mainPane;
     private Scene scene;
+    private VBox mainPane;
     private Background background;
 
     private Label headerLabel;
@@ -37,17 +39,12 @@ public class MainPage implements Page {
     private Button signInButton;
     private Button exitButton;
 
-    private BackgroundBuilder customBackground;
-    private FontBuilder customFont;
-    private LabelBuilder customLabel;
-    private ImageBuilder customImage;
-    private ButtonBuilder customButton;
-
     double imageWidth;
     double sceneHeight;
 
-    private MainPage() {
-//        this.primaryStage = primaryStage;
+    public static final MainPage INSTANCE = new MainPage();
+
+    public MainPage() {
         mainPane = new VBox();
         scene = new Scene(mainPane, 960, 540);
         mainPane.setSpacing(scene.getHeight() * 0.15);
@@ -60,15 +57,15 @@ public class MainPage implements Page {
     @Override
     public void setUpComponents() {
 
-        customBackground = BackgroundBuilder.MAIN_BACKGROUND;
+        BackgroundBuilder customBackground = BackgroundBuilder.MAIN_BACKGROUND;
         background = customBackground.toBackground();
 
-        customFont = FontBuilder.builder().font(EULJIRO).size(100).build();
-        customLabel = LabelBuilder.builder().text("Woowa Library").font(customFont)
+        FontBuilder customFont = FontBuilder.builder().font(EULJIRO).size(100).build();
+        LabelBuilder customLabel = LabelBuilder.builder().text("Woowa Library").font(customFont)
             .textFill("white").build();
         headerLabel = customLabel.toLabel();
 
-        customImage = ImageBuilder.builder().imageType(LOGO)
+        ImageBuilder customImage = ImageBuilder.builder().imageType(LOGO)
             .width(imageWidth).height(sceneHeight * 0.3).build();
         logoImageView = customImage.toImageView();
 
@@ -77,29 +74,29 @@ public class MainPage implements Page {
         customLabel = LabelBuilder.builder().text("About").textFill("#2ac1bc")
             .font(customFont).build();
         customImage.setImageType(ABOUT);
-        customButton = ButtonBuilder.builder().label(customLabel).image(customImage)
-            .graphicGap(10).clickBehavior(SHOW_ABOUT).build();
+        ButtonBuilder customButton = ButtonBuilder.builder().label(customLabel).image(customImage)
+            .graphicGap(10).clickBehavior(ClickAbout.getInstance()).build();
         aboutButton = customButton.toButton();
 
         customLabel.setText("Sign Up");
         customImage.setImageType(SIGNUP);
         customButton.setLabel(customLabel);
         customButton.setImage(customImage);
-        customButton.setClickBehavior(SHOW_SIGNUP);
+        customButton.setClickBehavior(ClickSignUp.getInstance());
         signUpButton = customButton.toButton();
 
         customLabel.setText("Sign In");
         customImage.setImageType(SIGNIN);
         customButton.setLabel(customLabel);
         customButton.setImage(customImage);
-        customButton.setClickBehavior(SHOW_SIGNIN);
+        customButton.setClickBehavior(ClickSignIn.getInstance());
         signInButton = customButton.toButton();
 
         customLabel.setText("Exit");
         customImage.setImageType(EXIT);
         customButton.setLabel(customLabel);
         customButton.setImage(customImage);
-        customButton.setClickBehavior(EXIT_PROGRAM);
+        customButton.setClickBehavior(ClickExit.getInstance());
         exitButton = customButton.toButton();
     }
 
@@ -118,13 +115,10 @@ public class MainPage implements Page {
     }
 
     @Override
-    public Scene show() {
+    public Scene getScene() {
         setUpComponents();
         setUpPage();
         return scene;
-//        primaryStage.setScene(scene);
-//        primaryStage.setTitle("Woowa Library Management System");
-//        primaryStage.show();
     }
 
 }
