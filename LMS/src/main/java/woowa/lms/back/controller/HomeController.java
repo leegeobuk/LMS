@@ -2,8 +2,8 @@ package woowa.lms.back.controller;
 
 import javafx.stage.Stage;
 import org.springframework.stereotype.Controller;
-import woowa.lms.front.page.AboutPage;
-import woowa.lms.front.page.MainPage;
+import woowa.lms.front.page.home.AboutPage;
+import woowa.lms.front.page.home.MainPage;
 
 import static javafx.stage.Modality.WINDOW_MODAL;
 
@@ -28,6 +28,7 @@ public class HomeController {
         aboutStage.setTitle("About Page");
         aboutStage.initModality(WINDOW_MODAL);
         aboutStage.initOwner(homeStage);
+        aboutStage.setResizable(false);
         aboutStage.show();
     }
 

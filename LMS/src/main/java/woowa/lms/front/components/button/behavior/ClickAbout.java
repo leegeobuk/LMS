@@ -16,7 +16,6 @@ public class ClickAbout implements ClickBehavior {
 
     @Override
     public void handle(MouseEvent event) {
-        System.out.println("About clicked");
         HomeController.showAboutPage();
     }
 }
