@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import woowa.lms.back.controller.HomeController;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClickExit implements ClickBehavior {
@@ -16,6 +17,6 @@ public class ClickExit implements ClickBehavior {
 
     @Override
     public void handle(MouseEvent event) {
-        Platform.exit();
+        HomeController.showExitDialog();
     }
 }

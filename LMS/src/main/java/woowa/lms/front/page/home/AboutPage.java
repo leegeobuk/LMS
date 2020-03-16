@@ -10,18 +10,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 import woowa.lms.front.components.background.BackgroundBuilder;
 import woowa.lms.front.components.font.FontBuilder;
 import woowa.lms.front.components.image.ImageBuilder;
 import woowa.lms.front.components.label.LabelBuilder;
-import woowa.lms.front.page.Page;
+import woowa.lms.front.page.CustomPage;
 
 import static woowa.lms.front.components.font.FontType.EULJIRO;
 import static woowa.lms.front.components.image.ImageType.LOGO;
 
 @Component
-public class AboutPage implements Page {
+public class AboutPage implements CustomPage {
 
     private Scene scene;
     private VBox mainPane;
@@ -39,12 +40,15 @@ public class AboutPage implements Page {
 
     private AboutPage() {
         mainPane = new VBox();
-        scene = new Scene(mainPane, 480, 480);
+        scene = new Scene(mainPane, 480, 360);
         mainPane.setSpacing(scene.getHeight() * 0.1);
 
         imageWidth = scene.getWidth() * 0.16;
 
         textBox = new HBox();
+
+        setUpComponents();
+        setUpPage();
     }
 
     @Override
@@ -81,9 +85,11 @@ public class AboutPage implements Page {
     }
 
     @Override
-    public Scene getScene() {
-        setUpComponents();
-        setUpPage();
-        return scene;
+    public Stage getStage() {
+        Stage aboutStage = new Stage();
+        aboutStage.setScene(scene);
+        aboutStage.setTitle("About Page");
+        aboutStage.setResizable(false);
+        return aboutStage;
     }
 }

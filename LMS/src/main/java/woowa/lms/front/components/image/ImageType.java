@@ -8,7 +8,8 @@ public enum ImageType {
     ABOUT("icon/About.png"),
     SIGNUP("icon/SignUp.png"),
     SIGNIN("icon/SignIn.png"),
-    EXIT("icon/Exit.png");
+    EXIT("icon/Exit.png"),
+    EXIT_DIALOG("icon/ExitDialog.png");
 
     private static final String URL = "file:src/main/resources/image/";
 

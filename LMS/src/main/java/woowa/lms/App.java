@@ -18,8 +18,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        HomeController controller = applicationContext.getBean(HomeController.class);
-        controller.showMainPage();
+        HomeController.showMainPage();
 
     }
 

@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 import woowa.lms.front.components.background.BackgroundBuilder;
 import woowa.lms.front.components.button.ButtonBuilder;
@@ -19,13 +20,13 @@ import woowa.lms.front.components.button.behavior.ClickSignUp;
 import woowa.lms.front.components.font.FontBuilder;
 import woowa.lms.front.components.image.ImageBuilder;
 import woowa.lms.front.components.label.LabelBuilder;
-import woowa.lms.front.page.Page;
+import woowa.lms.front.page.CustomPage;
 
 import static woowa.lms.front.components.font.FontType.EULJIRO;
 import static woowa.lms.front.components.image.ImageType.*;
 
 @Component
-public class MainPage implements Page {
+public class MainPage implements CustomPage {
 
     private Scene scene;
     private VBox mainPane;
@@ -53,6 +54,9 @@ public class MainPage implements Page {
 
         imageWidth = scene.getWidth() * 0.16;
         sceneHeight = scene.getHeight();
+
+        setUpComponents();
+        setUpPage();
     }
 
     @Override
@@ -116,10 +120,11 @@ public class MainPage implements Page {
     }
 
     @Override
-    public Scene getScene() {
-        setUpComponents();
-        setUpPage();
-        return scene;
+    public Stage getStage() {
+        Stage homeStage = new Stage();
+        homeStage.setScene(scene);
+        homeStage.setTitle("Woowa Library Management System");
+        return homeStage;
     }
 
 }
