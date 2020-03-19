@@ -16,7 +16,7 @@ public class AccountService {
     private final AccountRepository accountRepository;
 
     @Transactional
-    public String singUp(Account account) {
+    public String signUp(Account account) {
         validateDuplicate(account);
         accountRepository.save(account);
         return account.getId();

@@ -36,7 +36,7 @@ class AccountServiceTest extends Account {
         when(accountRepository.findById(anyString())).thenReturn(null);
 
         //when
-        String ownerId = accountService.singUp(OWNER);
+        String ownerId = accountService.signUp(OWNER);
 
         //then
         verify(accountRepository).save(any(Account.class));
@@ -50,7 +50,7 @@ class AccountServiceTest extends Account {
         when(accountRepository.findById(anyString())).thenReturn(OWNER);
 
         //when
-        assertThrows(IllegalStateException.class, () -> accountService.singUp(OWNER),
+        assertThrows(IllegalStateException.class, () -> accountService.signUp(OWNER),
             "Exception not thrown when signUp duplicated");
 
         //then
