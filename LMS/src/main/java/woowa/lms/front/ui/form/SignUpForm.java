@@ -12,94 +12,97 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import woowa.lms.front.behavior.BehaviorType;
 import woowa.lms.front.component.background.BackgroundBuilder;
 import woowa.lms.front.component.button.GeneralButton;
-import woowa.lms.front.component.button.behavior.BehaviorType;
 import woowa.lms.front.component.font.FontBuilder;
 import woowa.lms.front.component.image.ImageBuilder;
-import woowa.lms.front.component.textfield.InputField;
-import woowa.lms.front.component.textfield.foolproof.signup.SignUpFoolProof;
 import woowa.lms.front.component.label.LabelBuilder;
+import woowa.lms.front.component.textfield.InputField;
+import woowa.lms.front.foolproof.FormFoolProof;
 
 import java.util.List;
 
 import static javafx.scene.control.ContentDisplay.GRAPHIC_ONLY;
-import static woowa.lms.front.component.font.FontType.EULJIRO;
-import static woowa.lms.front.component.font.FontType.HANNA_11;
 import static woowa.lms.front.component.image.ImageType.*;
 import static woowa.lms.front.component.textfield.InputType.PASSWORD;
 import static woowa.lms.front.component.textfield.InputType.TEXT;
-import static woowa.lms.front.component.textfield.foolproof.FoolProofType.*;
+import static woowa.lms.front.foolproof.FoolProofType.*;
 
-public class SignUpForm implements CustomForm {
+public class SignUpForm extends AbstractForm {
 
-    private Scene scene;
-    private VBox mainPane;
-    private Background background;
+//    private Scene scene;
+//    private VBox mainPane;
+//    private Background background;
+//
+//    private Label headerLabel;
+//    private ImageView logoImageView;
 
-    private Label headerLabel;
-    private ImageView logoImageView;
-
-    private GridPane form;
+//    private GridPane form;
     private Label idLabel;
     private Label pwLabel;
     private Label confirmPwLabel;
     private Label nameLabel;
     private Label contactLabel;
-    private InputField idInputField = InputField.of(TEXT, ID_FIELD);
-    private InputField pwInputField = InputField.of(PASSWORD, PW_FIELD);
-    private InputField confirmPwInputField = InputField.of(PASSWORD, CONFIRM_PW_FIELD);
-    private InputField nameInputField = InputField.of(TEXT, NAME_FIELD);
-    private InputField contactInputField = InputField.of(TEXT, CONTACT_FIELD);
+    private InputField idInputField;
+    private InputField pwInputField;
+    private InputField confirmPwInputField;
+    private InputField nameInputField;
+    private InputField contactInputField;
     private TextField idField;
     private TextField pwField;
     private TextField confirmPwField;
     private TextField nameField;
     private TextField contactField;
+    private Label errorLabel;
 
-    private HBox buttonBox;
-    private Button okButton;
-    private Button cancelButton;
+//    private HBox buttonBox;
+//    private Button okButton;
+//    private Button cancelButton;
 
     private double imageWidth;
 
-    public static final SignUpForm INSTANCE = new SignUpForm();
+    public static final SignUpForm INSTANCE = new SignUpForm(400, 450);
 
-    private SignUpForm() {
-        mainPane = new VBox(0);
-        scene = new Scene(mainPane, 400, 450);
-        mainPane.setSpacing(scene.getHeight() * 0.15);
+//    private SignUpForm() {
+//        mainPane = new VBox();
+//        scene = new Scene(mainPane, 400, 450);
+//        mainPane.setSpacing(scene.getHeight() * 0.1);
+//
+//        form = new GridPane();
+//
+//        buttonBox = new HBox(10);
+//
+//        imageWidth = scene.getWidth() * 0.16;
+//
+//        setUpComponents();
+//        setUpPage();
+//        setFoolProof();
+//    }
 
-        form = new GridPane();
 
-        buttonBox = new HBox(10);
-
-        imageWidth = scene.getWidth() * 0.16;
-
-        setUpComponents();
-        setUpPage();
-        setFoolProof();
+    private SignUpForm(double width, double height) {
+        super(width, height);
+        idInputField = InputField.of(TEXT, ID_FIELD);
+        pwInputField = InputField.of(PASSWORD, PW_FIELD);
+        confirmPwInputField = InputField.of(PASSWORD, CONFIRM_PW_FIELD);
+        nameInputField = InputField.of(TEXT, NAME_FIELD);
+        contactInputField = InputField.of(TEXT, CONTACT_FIELD);
     }
 
     @Override
     public void setUpComponents() {
-        BackgroundBuilder customBackground = BackgroundBuilder.MAIN_BACKGROUND;
-        background = customBackground.toBackground();
+        background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
 
-        FontBuilder customFont = FontBuilder.builder().font(HANNA_11).size(50).build();
-        LabelBuilder customLabel = LabelBuilder.builder().text("Sign Up").font(customFont)
-            .textFill("white").build();
-        headerLabel = customLabel.toLabel();
+        headerLabel = LabelBuilder.getPageLabel("Sign Up").toLabel();
 
         ImageBuilder customImage = ImageBuilder.builder().imageType(LOGO)
             .width(imageWidth).height(imageWidth).build();
         logoImageView = customImage.toImageView();
 
-        customFont.setFont(EULJIRO);
-        customFont.setSize(18);
-        customLabel.setFont(customFont);
+        FontBuilder customFont = FontBuilder.builder().size(18).build();
+        LabelBuilder customLabel = LabelBuilder.builder().font(customFont).build();
         customLabel.setText("Id");
-        customLabel.setTextFill("black");
         idLabel = customLabel.toLabel();
 
         customLabel.setText("Password");
@@ -120,22 +123,23 @@ public class SignUpForm implements CustomForm {
         nameField = nameInputField.toTextField();
         contactField = contactInputField.toTextField();
 
-        customFont.setSize(10);
-        customLabel.setFont(customFont);
-        customLabel.setText("");
+        errorLabel = LabelBuilder.builder().textFill("red").build().toLabel();
+        errorLabel.setWrapText(true);
+
         customImage.setImageType(OK);
         customImage.setWidth(48);
         customImage.setHeight(48);
         List<TextField> fields =
-            List.of(idField, pwField, confirmPwField, nameField, confirmPwField);
-        GeneralButton button = GeneralButton.builder().label(customLabel)
-            .image(customImage).display(GRAPHIC_ONLY).graphicGap(0)
-            .behavior(BehaviorType.SIGN_IN).fields(fields).build();
+            List.of(idField, pwField, confirmPwField, nameField, contactField);
+        GeneralButton button = GeneralButton.builder().image(customImage)
+            .display(GRAPHIC_ONLY).graphicGap(0).behavior(BehaviorType.SIGN_IN)
+            .fields(fields).build();
         okButton = button.toButton();
         okButton.setDisable(true);
 
         customImage.setImageType(CANCEL);
         button.setBehavior(BehaviorType.CLOSE);
+        button.setErrorLabel(errorLabel);
         cancelButton = button.toButton();
     }
 
@@ -149,7 +153,8 @@ public class SignUpForm implements CustomForm {
         form.addRow(2, confirmPwLabel, confirmPwField);
         form.addRow(3, nameLabel, nameField);
         form.addRow(4, contactLabel, contactField);
-        form.setHgap(scene.getWidth() * 0.03);
+        form.add(errorLabel, 0, 5, 2, 4);
+        form.setHgap(scene.getWidth() * 0.115);
         form.setVgap(scene.getHeight() * 0.02);
         form.setAlignment(Pos.CENTER);
 
@@ -164,15 +169,16 @@ public class SignUpForm implements CustomForm {
 
     @Override
     public void setFoolProof() {
+        confirmPwInputField.setPasswordField(pwField);
         List<InputField> inputFields = List.of(idInputField, pwInputField,
             confirmPwInputField, nameInputField, contactInputField);
-        SignUpFoolProof signUpFoolProof = SignUpFoolProof.builder()
-            .button(okButton).inputFields(inputFields).build();
-        idField.setOnKeyReleased(signUpFoolProof);
-        pwField.setOnKeyReleased(signUpFoolProof);
-        confirmPwField.setOnKeyReleased(signUpFoolProof);
-        nameField.setOnKeyReleased(signUpFoolProof);
-        contactField.setOnKeyReleased(signUpFoolProof);
+        FormFoolProof formFoolProof = FormFoolProof.builder().button(okButton)
+            .errorLabel(errorLabel).inputFields(inputFields).build();
+        idField.setOnKeyReleased(formFoolProof);
+        pwField.setOnKeyReleased(formFoolProof);
+        confirmPwField.setOnKeyReleased(formFoolProof);
+        nameField.setOnKeyReleased(formFoolProof);
+        contactField.setOnKeyReleased(formFoolProof);
     }
 
     @Override
@@ -180,6 +186,7 @@ public class SignUpForm implements CustomForm {
         Stage signUpStage = new Stage();
         signUpStage.setScene(scene);
         signUpStage.setTitle("Sign Up");
+        signUpStage.setResizable(false);
         return signUpStage;
     }
 }

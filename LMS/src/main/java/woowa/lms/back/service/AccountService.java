@@ -16,13 +16,13 @@ public class AccountService {
     private final AccountRepository accountRepository;
 
     @Transactional
-    public String signUp(Account account) {
+    public String signUp(Account account) throws IllegalStateException {
         validateDuplicate(account);
         accountRepository.save(account);
         return account.getId();
     }
 
-    private void validateDuplicate(Account account) {
+    private void validateDuplicate(Account account) throws IllegalStateException {
         Account found = accountRepository.findById(account.getId());
         if (found != null) {
             throw new IllegalStateException("Id already exists!");

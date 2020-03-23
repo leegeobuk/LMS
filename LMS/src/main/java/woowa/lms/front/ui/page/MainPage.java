@@ -17,7 +17,7 @@ import woowa.lms.front.component.font.FontBuilder;
 import woowa.lms.front.component.image.ImageBuilder;
 import woowa.lms.front.component.label.LabelBuilder;
 
-import static woowa.lms.front.component.button.behavior.BehaviorType.*;
+import static woowa.lms.front.behavior.BehaviorType.*;
 import static woowa.lms.front.component.font.FontType.HANNA_11;
 import static woowa.lms.front.component.image.ImageType.*;
 
@@ -55,8 +55,7 @@ public class MainPage implements CustomPage {
 
     @Override
     public void setUpComponents() {
-        BackgroundBuilder customBackground = BackgroundBuilder.MAIN_BACKGROUND;
-        background = customBackground.toBackground();
+        background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
 
         FontBuilder customFont = FontBuilder.builder().font(HANNA_11).size(100).build();
         LabelBuilder customLabel = LabelBuilder.builder().text("Woowa Library").font(customFont)

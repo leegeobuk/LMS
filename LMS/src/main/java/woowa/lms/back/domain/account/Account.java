@@ -21,7 +21,7 @@ public abstract class Account {
     @Column(name = "account_id", length = 15)
     private String id;
 
-    @Column(nullable = false, length = 13)
+    @Column(nullable = false, length = 15)
     @Getter(AccessLevel.NONE)
     @Setter
     private String pw;

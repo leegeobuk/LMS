@@ -13,11 +13,9 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 import woowa.lms.front.component.background.BackgroundBuilder;
-import woowa.lms.front.component.font.FontBuilder;
 import woowa.lms.front.component.image.ImageBuilder;
 import woowa.lms.front.component.label.LabelBuilder;
 
-import static woowa.lms.front.component.font.FontType.HANNA_11;
 import static woowa.lms.front.component.image.ImageType.LOGO;
 
 @Component
@@ -52,19 +50,15 @@ public class AboutPage implements CustomPage {
 
     @Override
     public void setUpComponents() {
-        BackgroundBuilder customBackground = BackgroundBuilder.MAIN_BACKGROUND;
-        background = customBackground.toBackground();
+        background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
 
-        FontBuilder customFont = FontBuilder.builder().font(HANNA_11).size(50).build();
-        LabelBuilder customLabel = LabelBuilder.builder().text("About Page").font(customFont)
-            .textFill("white").build();
-        headerLabel = customLabel.toLabel();
+        headerLabel = LabelBuilder.getPageLabel("About Page").toLabel();
 
         ImageBuilder customImage = ImageBuilder.builder().imageType(LOGO)
             .width(imageWidth).height(imageWidth).build();
         logoImageView = customImage.toImageView();
 
-        AboutPageText pageText = AboutPageText.builder().size(15).build();
+        AboutPageText pageText = AboutPageText.getInstance();
         aboutText = pageText.toText();
         aboutText.setWrappingWidth(scene.getWidth() - 20);
         aboutText.setTextAlignment(TextAlignment.JUSTIFY);

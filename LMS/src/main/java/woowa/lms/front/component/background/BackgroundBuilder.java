@@ -10,23 +10,21 @@ import lombok.Builder;
 @Builder
 public class BackgroundBuilder implements CustomBackground {
 
+    private static final Paint DEFAULT_PAINT = Paint.valueOf("#2ac1bc");
+
     public static final BackgroundBuilder DEFAULT_BACKGROUND = BackgroundBuilder.builder().build();
-    public static final BackgroundBuilder MAIN_BACKGROUND = BackgroundBuilder.builder().paint(Paint.valueOf("#2ac1bc")).build();
-
-    private static final CornerRadii EMPTY_RADII = CornerRadii.EMPTY;
-    private static final Insets EMPTY_INSETS = Insets.EMPTY;
 
     @Builder.Default
-    private Paint paint = Paint.valueOf("white");
+    private Paint paint = DEFAULT_PAINT;
 
     @Builder.Default
-    private CornerRadii cornerRadii = EMPTY_RADII;
+    private CornerRadii cornerRadii = CornerRadii.EMPTY;
 
     @Builder.Default
-    private Insets insets = EMPTY_INSETS;
+    private Insets insets = Insets.EMPTY;
 
     @Override
     public Background toBackground() {
-        return new Background(new BackgroundFill(paint, EMPTY_RADII, EMPTY_INSETS));
+        return new Background(new BackgroundFill(paint, cornerRadii, insets));
     }
 }

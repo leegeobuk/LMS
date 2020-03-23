@@ -7,9 +7,11 @@ public enum ImageType {
     LOGO("Logo.png"),
     ABOUT("icon/About.png"),
     SIGNUP("icon/SignUp.png"),
+    SUCCESS("icon/Success.png"),
     SIGNIN("icon/SignIn.png"),
     EXIT("icon/Exit.png"),
     EXIT_DIALOG("icon/ExitDialog.png"),
+    ERROR("icon/Error.png"),
     OK("icon/Check.png"),
     CANCEL("icon/Cancel.png");
 

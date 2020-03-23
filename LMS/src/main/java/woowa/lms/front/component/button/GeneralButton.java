@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Singular;
-import woowa.lms.front.component.button.behavior.BehaviorType;
+import woowa.lms.front.behavior.BehaviorType;
 import woowa.lms.front.component.image.CustomImage;
 import woowa.lms.front.component.image.ImageBuilder;
 import woowa.lms.front.component.label.CustomLabel;
@@ -21,35 +21,34 @@ import java.util.List;
 @Getter @Setter
 public class GeneralButton extends Button implements CustomButton {
 
-    private static final CustomLabel DEFAULT_LABEL = LabelBuilder.DEFAULT_LABEL;
     private static final CustomImage DEFAULT_IMAGE = ImageBuilder.DEFAULT_IMAGE;
-    private static final BehaviorType DEFAULT_BEHAVIOR = null;
-    private static final ContentDisplay DEFAULT_DISPLAY = ContentDisplay.BOTTOM;
-    private static final double DEFAULT_GRAPHIC_GAP = 10;
 
     public static final GeneralButton DEFAULT_BUTTON = GeneralButton.builder().build();
 
     @Builder.Default
-    protected CustomLabel label = DEFAULT_LABEL;
+    protected CustomLabel label = LabelBuilder.DEFAULT_LABEL;
 
     @Builder.Default
-    protected CustomImage image = DEFAULT_IMAGE;
+    protected CustomImage image = null;
 
     @Builder.Default
-    protected ContentDisplay display = DEFAULT_DISPLAY;
+    protected ContentDisplay display = ContentDisplay.BOTTOM;
 
     @Builder.Default
-    protected double graphicGap = DEFAULT_GRAPHIC_GAP;
+    protected double graphicGap = 10;
 
     @Builder.Default
-    protected BehaviorType behavior = DEFAULT_BEHAVIOR;
+    protected BehaviorType behavior = null;
 
     @Singular
     private List<TextField> fields;
 
+    @Builder.Default
+    private Label errorLabel = null;
+
     @Override
     public Button toButton() {
-        GeneralButton button = new GeneralButton(label, image, display, graphicGap, behavior, fields);
+        GeneralButton button = new GeneralButton(label, image, display, graphicGap, behavior, fields, errorLabel);
         Label label = this.label.toLabel();
         ImageView imageView = image.toImageView();
         button.setText(label.getText());

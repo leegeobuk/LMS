@@ -4,24 +4,30 @@ import javafx.scene.text.Font;
 import lombok.Builder;
 import lombok.Setter;
 
+import static woowa.lms.front.component.font.FontType.EULJIRO;
+import static woowa.lms.front.component.font.FontType.HANNA_11;
+
 @Builder
 @Setter
 public class FontBuilder implements CustomFont {
 
-    private static final FontType DEFAULT_FONT_TYPE = FontType.EULJIRO;
-    private static final int DEFAULT_SIZE = FontType.DEFAULT_SIZE;
-
     public static final FontBuilder DEFAULT_FONT = FontBuilder.builder().build();
+    public static final FontBuilder PAGE_FONT = FontBuilder.builder().font(HANNA_11).size(50).build();
+    private static FontBuilder dialogFont = FontBuilder.builder().font(HANNA_11).build();
 
     @Builder.Default
-    private FontType font = DEFAULT_FONT_TYPE;
+    private FontType font = EULJIRO;
 
     @Builder.Default
-    private double size = DEFAULT_SIZE;
+    private double size = 10;
+
+    public static FontBuilder getDialogFont(int size) {
+        dialogFont.setSize(size);
+        return dialogFont;
+    }
 
     @Override
     public Font toFont() {
-        font.setSize(size);
-        return font.getFont();
+        return Font.loadFont(font.getFontUrl(), size);
     }
 }
