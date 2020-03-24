@@ -17,6 +17,6 @@ public class ShowAbout implements Behavior {
 
     @Override
     public void handle(MouseEvent event) {
-        HomeController.showAboutPage();
+        HomeController.getController().showAboutPage();
     }
 }

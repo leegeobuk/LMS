@@ -1,6 +1,8 @@
 package woowa.lms.front.component.textfield;
 
+import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import lombok.Getter;
 import lombok.Setter;
 import woowa.lms.front.foolproof.FieldFoolProof;
@@ -14,7 +16,7 @@ public class InputField implements CustomInputField {
     private TextField textField;
 
     @Setter
-    private TextField passwordField;
+    private InputField passwordField;
 
     private FoolProofType foolProofType;
     private FieldFoolProof foolProof;
@@ -29,13 +31,21 @@ public class InputField implements CustomInputField {
         return new InputField(type, foolProofType);
     }
 
+    public void clear() {
+        textField.clear();
+    }
+
     public boolean isFoolProved() {
         return foolProofType != CONFIRM_PW_FIELD ? foolProof.validate(textField)
-            : foolProof.confirm(passwordField, textField);
+            : foolProof.confirm(passwordField.toTextField(), textField);
     }
 
     public String getValidationMessage() {
         return foolProof.sendValidationMessage();
+    }
+
+    public void setOnKeyReleased(EventHandler<KeyEvent> eventHandler) {
+        textField.setOnKeyReleased(eventHandler);
     }
 
     @Override

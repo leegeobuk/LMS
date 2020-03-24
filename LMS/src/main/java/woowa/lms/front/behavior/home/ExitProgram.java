@@ -17,6 +17,6 @@ public class ExitProgram implements Behavior {
 
     @Override
     public void handle(MouseEvent event) {
-        HomeController.showExitDialog();
+        HomeController.getController().showExitDialog();
     }
 }

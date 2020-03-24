@@ -15,8 +15,9 @@ public class LabelBuilder implements CustomLabel {
 
     public static final LabelBuilder DEFAULT_LABEL = LabelBuilder.builder().build();
     private static LabelBuilder pageHeader =
-        LabelBuilder.builder().textFill("white").font(PAGE_FONT).build();
+        LabelBuilder.builder().textFill("white").font(PAGE_HEADER_FONT).build();
     private static LabelBuilder dialogLabel = LabelBuilder.builder().build();
+    public static LabelBuilder formLabel = LabelBuilder.builder().font(FORM_LABEL_FONT).build();
 
     @Builder.Default
     private String text = "";
@@ -27,23 +28,28 @@ public class LabelBuilder implements CustomLabel {
     @Builder.Default
     private CustomFont font = DEFAULT_FONT;
 
-    public static LabelBuilder getPageLabel(String text) {
+    public static Label getPageLabel(String text) {
         pageHeader.setText(text);
-        return pageHeader;
+        return pageHeader.toLabel();
     }
 
-    public static LabelBuilder getDialogHeader(String text) {
+    public static Label getDialogHeader(String text) {
         FontBuilder dialogFont = getDialogFont(20);
         dialogLabel.setFont(dialogFont);
         dialogLabel.setText(text);
-        return dialogLabel;
+        return dialogLabel.toLabel();
     }
 
-    public static LabelBuilder getDialogContent(String text) {
+    public static Label getDialogContent(String text) {
         FontBuilder dialogFont = getDialogFont(15);
         dialogLabel.setFont(dialogFont);
         dialogLabel.setText(text);
-        return dialogLabel;
+        return dialogLabel.toLabel();
+    }
+
+    public static Label getFormLabel(String text) {
+        formLabel.setText(text);
+        return formLabel.toLabel();
     }
 
     @Override

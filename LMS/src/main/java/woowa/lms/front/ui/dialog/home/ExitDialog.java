@@ -1,39 +1,29 @@
 package woowa.lms.front.ui.dialog.home;
 
 import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import woowa.lms.front.component.background.BackgroundBuilder;
 import woowa.lms.front.component.image.ImageBuilder;
 import woowa.lms.front.component.label.LabelBuilder;
-import woowa.lms.front.ui.dialog.Showable;
+import woowa.lms.front.ui.dialog.AbstractDialog;
 
 import java.util.Optional;
 
 import static woowa.lms.front.component.image.ImageType.EXIT_DIALOG;
 
-public class ExitDialog implements Showable {
+public class ExitDialog extends AbstractDialog {
 
-    private Alert alert;
-    private DialogPane dialogPane;
-    private Background background;
-    private Label headerLabel;
-    private ImageView headerImage;
-    private Label contentLabel;
-    private String title;
-    private String headerText;
-    private String contentText;
+    private static final Alert.AlertType ALERT_TYPE = Alert.AlertType.NONE;
+    private static final String TITLE = "Exit Dialog";
+    private static final String HEADER_TEXT = "Application terminates when pressed OK!";
+    private static final String CONTENT_TEXT = "Think twice!!";
+    private static final ExitDialog DIALOG =
+        new ExitDialog(ALERT_TYPE, TITLE, HEADER_TEXT, CONTENT_TEXT);
 
-    private static final ExitDialog DIALOG = new ExitDialog();
-
-    private ExitDialog() {
-        alert = new Alert(Alert.AlertType.CONFIRMATION);
-        dialogPane = new DialogPane();
-        title = "Exit Dialog";
-        headerText = "Application terminates when pressed OK!";
-        contentText = "Think twice!!";
+    public ExitDialog(Alert.AlertType alertType, String title,
+                      String headerText, String contentText) {
+        super(alertType, title, headerText, contentText);
         setUpComponents();
         setUpPage();
     }
@@ -44,26 +34,17 @@ public class ExitDialog implements Showable {
 
     @Override
     public void setUpComponents() {
-        background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
+        super.setUpComponents();
 
-        headerLabel = LabelBuilder.getDialogHeader(headerText).toLabel();
-
-        ImageBuilder imageBuilder = ImageBuilder.builder().imageType(EXIT_DIALOG).build();
+        ImageBuilder imageBuilder = ImageBuilder.builder().image(EXIT_DIALOG).build();
         headerImage = imageBuilder.toImageView();
-
-        contentLabel = LabelBuilder.getDialogContent(contentText).toLabel();
     }
 
     @Override
     public void setUpPage() {
-        setUpHeader(headerLabel);
-        headerLabel.setGraphic(headerImage);
+        super.setUpPage();
 
-        setUpDialogPane(dialogPane, background, headerLabel, contentLabel);
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        alert.setDialogPane(dialogPane);
-        alert.setTitle(title);
     }
 
     @Override

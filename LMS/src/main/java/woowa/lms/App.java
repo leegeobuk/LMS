@@ -20,7 +20,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         Locale.setDefault(Locale.US);
-        HomeController.showMainPage();
+        HomeController.getController().showMainPage();
     }
 
     @Override

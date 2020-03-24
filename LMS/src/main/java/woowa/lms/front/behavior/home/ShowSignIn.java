@@ -4,6 +4,7 @@ import javafx.scene.input.MouseEvent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import woowa.lms.front.behavior.Behavior;
+import woowa.lms.front.controller.HomeController;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ShowSignIn implements Behavior {
@@ -16,6 +17,6 @@ public class ShowSignIn implements Behavior {
 
     @Override
     public void handle(MouseEvent event) {
-        System.out.println("Show sign in page");
+        HomeController.getController().showSignInForm();
     }
 }

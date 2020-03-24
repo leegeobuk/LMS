@@ -17,6 +17,6 @@ public class ShowSignUp implements Behavior {
 
     @Override
     public void handle(MouseEvent event) {
-        HomeController.showSignUpForm();
+        HomeController.getController().showSignUpForm();
     }
 }

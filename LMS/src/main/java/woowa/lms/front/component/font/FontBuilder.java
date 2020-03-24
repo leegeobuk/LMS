@@ -12,7 +12,9 @@ import static woowa.lms.front.component.font.FontType.HANNA_11;
 public class FontBuilder implements CustomFont {
 
     public static final FontBuilder DEFAULT_FONT = FontBuilder.builder().build();
-    public static final FontBuilder PAGE_FONT = FontBuilder.builder().font(HANNA_11).size(50).build();
+    public static final FontBuilder PAGE_HEADER_FONT =
+        FontBuilder.builder().font(HANNA_11).size(50).build();
+    public static final FontBuilder FORM_LABEL_FONT = FontBuilder.builder().size(18).build();
     private static FontBuilder dialogFont = FontBuilder.builder().font(HANNA_11).build();
 
     @Builder.Default

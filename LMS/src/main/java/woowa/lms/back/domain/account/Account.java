@@ -22,7 +22,6 @@ public abstract class Account {
     private String id;
 
     @Column(nullable = false, length = 15)
-    @Getter(AccessLevel.NONE)
     @Setter
     private String pw;
 

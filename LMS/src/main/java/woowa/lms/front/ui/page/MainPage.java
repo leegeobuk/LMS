@@ -62,7 +62,7 @@ public class MainPage implements CustomPage {
             .textFill("white").build();
         headerLabel = customLabel.toLabel();
 
-        ImageBuilder customImage = ImageBuilder.builder().imageType(LOGO)
+        ImageBuilder customImage = ImageBuilder.builder().image(LOGO)
             .width(imageWidth).height(imageWidth).build();
         logoImageView = customImage.toImageView();
 
@@ -70,27 +70,27 @@ public class MainPage implements CustomPage {
         customFont.setSize(30);
         customLabel = LabelBuilder.builder().text("About").textFill("#2ac1bc")
             .font(customFont).build();
-        customImage.setImageType(ABOUT);
+        customImage.setImage(ABOUT);
         GeneralButton customButton = GeneralButton.builder().label(customLabel).image(customImage)
             .graphicGap(10).behavior(SHOW_ABOUT).build();
         aboutButton = customButton.toButton();
 
         customLabel.setText("Sign Up");
-        customImage.setImageType(SIGNUP);
+        customImage.setImage(SIGNUP);
         customButton.setLabel(customLabel);
         customButton.setImage(customImage);
-        customButton.setBehavior(SHOW_SIGNUP);
+        customButton.setBehavior(SHOW_SIGN_UP);
         signUpButton = customButton.toButton();
 
         customLabel.setText("Sign In");
-        customImage.setImageType(SIGNIN);
+        customImage.setImage(SIGNIN);
         customButton.setLabel(customLabel);
         customButton.setImage(customImage);
-        customButton.setBehavior(SHOW_SIGNIN);
+        customButton.setBehavior(SHOW_SIGN_IN);
         signInButton = customButton.toButton();
 
         customLabel.setText("Exit");
-        customImage.setImageType(EXIT);
+        customImage.setImage(EXIT);
         customButton.setLabel(customLabel);
         customButton.setImage(customImage);
         customButton.setBehavior(EXIT_PROGRAM);

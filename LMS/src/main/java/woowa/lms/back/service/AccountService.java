@@ -25,7 +25,22 @@ public class AccountService {
     private void validateDuplicate(Account account) throws IllegalStateException {
         Account found = accountRepository.findById(account.getId());
         if (found != null) {
-            throw new IllegalStateException("Id already exists!");
+            throw new IllegalStateException("ID already exists!");
+        }
+    }
+
+    public String signIn(Account account) throws IllegalStateException {
+        validateSignIn(account);
+        return account.getId();
+    }
+
+    private void validateSignIn(Account account) throws IllegalStateException {
+        Account found = accountRepository.findById(account.getId());
+        if (found == null) {
+            throw new IllegalStateException("ID doesn't exist!");
+        }
+        else if (!found.getPw().equals(account.getPw())) {
+            throw new IllegalStateException("Incorrect password!");
         }
     }
 

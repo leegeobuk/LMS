@@ -2,18 +2,15 @@ package woowa.lms.front.behavior.home;
 
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import woowa.lms.back.util.SpringContext;
-import woowa.lms.front.controller.HomeController;
 import woowa.lms.back.domain.account.Admin;
 import woowa.lms.back.service.AccountService;
-import woowa.lms.front.component.button.GeneralButton;
+import woowa.lms.back.util.SpringContext;
 import woowa.lms.front.behavior.Behavior;
+import woowa.lms.front.controller.HomeController;
+import woowa.lms.front.ui.form.SignInForm;
 
 import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SignIn implements Behavior {
 
     private AccountService service = SpringContext.getBean(AccountService.class);
@@ -26,22 +23,18 @@ public class SignIn implements Behavior {
 
     @Override
     public void handle(MouseEvent event) {
-        GeneralButton source = (GeneralButton) event.getSource();
-        List<TextField> fields = source.getFields();
+        SignInForm form = SignInForm.INSTANCE;
+        List<TextField> fields = form.getFields();
         String id = fields.get(0).getText();
         String pw = fields.get(1).getText();
-        String name = fields.get(3).getText();
-        String contact = fields.get(4).getText();
         Admin admin = Admin.of(id, pw);
-        admin.setName(name);
-        admin.setContact(contact);
+        HomeController controller = HomeController.getController();
         try {
-            service.signUp(admin);
-            HomeController.showSignUpSuccessfulDialog();
-            HomeController.closeSignUpForm();
-            fields.forEach(TextField::clear);
+            service.signIn(admin);
+            //Change MainPage signIn button to signOut
+            controller.closeSignUpForm();
         } catch (IllegalStateException e) {
-            HomeController.showSignUpErrorDialog();
+            controller.showSignInErrorDialog();
         }
     }
 }

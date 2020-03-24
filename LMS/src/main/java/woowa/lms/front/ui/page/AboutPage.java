@@ -52,9 +52,9 @@ public class AboutPage implements CustomPage {
     public void setUpComponents() {
         background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
 
-        headerLabel = LabelBuilder.getPageLabel("About Page").toLabel();
+        headerLabel = LabelBuilder.getPageLabel("About Page");
 
-        ImageBuilder customImage = ImageBuilder.builder().imageType(LOGO)
+        ImageBuilder customImage = ImageBuilder.builder().image(LOGO)
             .width(imageWidth).height(imageWidth).build();
         logoImageView = customImage.toImageView();
 

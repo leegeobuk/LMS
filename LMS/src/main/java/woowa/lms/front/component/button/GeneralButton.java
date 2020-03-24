@@ -3,27 +3,25 @@ package woowa.lms.front.component.button;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.Setter;
-import lombok.Singular;
 import woowa.lms.front.behavior.BehaviorType;
 import woowa.lms.front.component.image.CustomImage;
 import woowa.lms.front.component.image.ImageBuilder;
 import woowa.lms.front.component.label.CustomLabel;
 import woowa.lms.front.component.label.LabelBuilder;
 
-import java.util.List;
+import static javafx.scene.control.ContentDisplay.GRAPHIC_ONLY;
 
 @Builder
-@Getter @Setter
+@Setter
 public class GeneralButton extends Button implements CustomButton {
 
-    private static final CustomImage DEFAULT_IMAGE = ImageBuilder.DEFAULT_IMAGE;
-
     public static final GeneralButton DEFAULT_BUTTON = GeneralButton.builder().build();
+
+    private static GeneralButton formButton = GeneralButton.builder()
+        .display(GRAPHIC_ONLY).graphicGap(0).build();
 
     @Builder.Default
     protected CustomLabel label = LabelBuilder.DEFAULT_LABEL;
@@ -40,15 +38,15 @@ public class GeneralButton extends Button implements CustomButton {
     @Builder.Default
     protected BehaviorType behavior = null;
 
-    @Singular
-    private List<TextField> fields;
-
-    @Builder.Default
-    private Label errorLabel = null;
+    public static Button getFormButton(ImageBuilder image, BehaviorType behavior) {
+        formButton.setImage(image);
+        formButton.setBehavior(behavior);
+        return formButton.toButton();
+    }
 
     @Override
     public Button toButton() {
-        GeneralButton button = new GeneralButton(label, image, display, graphicGap, behavior, fields, errorLabel);
+        GeneralButton button = new GeneralButton(label, image, display, graphicGap, behavior);
         Label label = this.label.toLabel();
         ImageView imageView = image.toImageView();
         button.setText(label.getText());

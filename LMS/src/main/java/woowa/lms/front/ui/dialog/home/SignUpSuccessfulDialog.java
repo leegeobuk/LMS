@@ -2,38 +2,25 @@ package woowa.lms.front.ui.dialog.home;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import woowa.lms.front.component.background.BackgroundBuilder;
 import woowa.lms.front.component.image.ImageBuilder;
 import woowa.lms.front.component.label.LabelBuilder;
-import woowa.lms.front.ui.dialog.Showable;
+import woowa.lms.front.ui.dialog.AbstractDialog;
 
-import static woowa.lms.front.component.image.ImageType.EXIT_DIALOG;
 import static woowa.lms.front.component.image.ImageType.SUCCESS;
 
-public class SignUpSuccessfulDialog implements Showable {
+public class SignUpSuccessfulDialog extends AbstractDialog {
 
-    private Alert alert;
-    private DialogPane dialogPane;
-    private Background background;
-    private Label headerLabel;
-    private ImageView headerImage;
-    private Label contentLabel;
-    private String title;
-    private String headerText;
-    private String contentText;
+    private static final Alert.AlertType ALERT_TYPE = Alert.AlertType.NONE;
+    private static final String TITLE = "Sign Up Successful Dialog";
+    private static final String HEADER_TEXT = "You are successfully signed up!";
+    private static final String CONTENT_TEXT = "Welcome to Woowa library!";
+    private static final SignUpSuccessfulDialog DIALOG =
+        new SignUpSuccessfulDialog(ALERT_TYPE, TITLE, HEADER_TEXT, CONTENT_TEXT);
 
-    private static final SignUpSuccessfulDialog DIALOG = new SignUpSuccessfulDialog();
-
-    public SignUpSuccessfulDialog() {
-        alert = new Alert(Alert.AlertType.NONE);
-        dialogPane = new DialogPane();
-        title = "Sign Up Successful Dialog";
-        headerText = "You are successfully signed up!";
-        contentText = "Welcome to Woowa library!";
+    private SignUpSuccessfulDialog(Alert.AlertType alertType, String title,
+                                   String headerText, String contentText) {
+        super(alertType, title, headerText, contentText);
         setUpComponents();
         setUpPage();
     }
@@ -44,30 +31,16 @@ public class SignUpSuccessfulDialog implements Showable {
 
     @Override
     public void setUpComponents() {
-        background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
+        super.setUpComponents();
 
-        headerLabel = LabelBuilder.getDialogHeader(headerText).toLabel();
-
-        ImageBuilder imageBuilder = ImageBuilder.builder().imageType(SUCCESS).build();
+        ImageBuilder imageBuilder = ImageBuilder.builder().image(SUCCESS).build();
         headerImage = imageBuilder.toImageView();
-
-        contentLabel = LabelBuilder.getDialogContent(contentText).toLabel();
     }
 
     @Override
     public void setUpPage() {
-        setUpHeader(headerLabel);
-        headerLabel.setGraphic(headerImage);
+        super.setUpPage();
 
-        setUpDialogPane(dialogPane, background, headerLabel, contentLabel);
         dialogPane.getButtonTypes().addAll(ButtonType.OK);
-
-        alert.setDialogPane(dialogPane);
-        alert.setTitle(title);
-    }
-
-    @Override
-    public void show() {
-        alert.showAndWait();
     }
 }
