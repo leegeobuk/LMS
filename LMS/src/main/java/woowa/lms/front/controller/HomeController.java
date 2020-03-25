@@ -2,6 +2,7 @@ package woowa.lms.front.controller;
 
 import javafx.stage.Stage;
 import woowa.lms.front.ui.dialog.home.ExitDialog;
+import woowa.lms.front.ui.dialog.home.SignInErrorDialog;
 import woowa.lms.front.ui.dialog.home.SignUpErrorDialog;
 import woowa.lms.front.ui.dialog.home.SignUpSuccessfulDialog;
 import woowa.lms.front.ui.form.SignInForm;
@@ -77,8 +78,9 @@ public class HomeController {
         signInStage.show();
     }
 
-    public void showSignInErrorDialog() {
-//        SignInError.getDialog.show();
+    public void showSignInErrorDialog(String errorMessage) {
+        SignInErrorDialog.getDialog().setErrorMessage(errorMessage);
+        SignInErrorDialog.getDialog().show();
     }
 
     public void closeSignInForm() {

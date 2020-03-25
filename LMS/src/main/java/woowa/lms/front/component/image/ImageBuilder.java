@@ -5,20 +5,22 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import static woowa.lms.front.component.image.ImageType.CANCEL;
-import static woowa.lms.front.component.image.ImageType.OK;
+import static woowa.lms.front.component.image.ImageType.*;
 
 @Builder
 @Getter @Setter
 public class ImageBuilder implements CustomImage {
 
-    public static final ImageBuilder DEFAULT_IMAGE = ImageBuilder.builder().build();
-    public static final ImageBuilder FORM_BUTTON_OK =
-        ImageBuilder.builder().image(OK).width(48).height(48).build();
-    public static final ImageBuilder FORM_BUTTON_CANCEL =
-        ImageBuilder.builder().image(CANCEL).width(48).height(48).build();
+    public static final ImageView DEFAULT_IMAGE = ImageBuilder.builder().build().toImageView();
+    public static final ImageView ERROR_DIALOG = ImageBuilder.builder().image(ERROR).build().toImageView();
 
-    public static ImageBuilder logo = ImageBuilder.builder().build();
+    public static final ImageView FORM_BUTTON_OK =
+        ImageBuilder.builder().image(OK).width(48).height(48).build().toImageView();
+
+    public static final ImageView FORM_BUTTON_CANCEL =
+        ImageBuilder.builder().image(CANCEL).width(48).height(48).build().toImageView();
+
+    private static ImageBuilder generalImage = ImageBuilder.builder().build();
 
     @Builder.Default
     private ImageType image = ImageType.LOGO;
@@ -29,10 +31,18 @@ public class ImageBuilder implements CustomImage {
     @Builder.Default
     private double height = 64;
 
+    public static ImageView getImageView(ImageType image, double size) {
+        generalImage.setImage(image);
+        generalImage.setWidth(size);
+        generalImage.setHeight(size);
+        return generalImage.toImageView();
+    }
+
     public static ImageView getLogo(double size) {
-        logo.setHeight(size);
-        logo.setWidth(size);
-        return logo.toImageView();
+        generalImage.setImage(LOGO);
+        generalImage.setWidth(size);
+        generalImage.setHeight(size);
+        return generalImage.toImageView();
     }
 
     @Override

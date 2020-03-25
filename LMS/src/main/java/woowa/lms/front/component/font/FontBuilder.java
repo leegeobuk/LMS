@@ -11,21 +11,32 @@ import static woowa.lms.front.component.font.FontType.HANNA_11;
 @Setter
 public class FontBuilder implements CustomFont {
 
-    public static final FontBuilder DEFAULT_FONT = FontBuilder.builder().build();
-    public static final FontBuilder PAGE_HEADER_FONT =
-        FontBuilder.builder().font(HANNA_11).size(50).build();
-    public static final FontBuilder FORM_LABEL_FONT = FontBuilder.builder().size(18).build();
-    private static FontBuilder dialogFont = FontBuilder.builder().font(HANNA_11).build();
+    public static final Font DEFAULT_FONT = FontBuilder.builder().build().toFont();
+    public static final Font MAIN_HEADER_FONT = FontBuilder.builder().size(100).build().toFont();
+    public static final Font BUTTON_FONT = FontBuilder.builder().size(30).build().toFont();
+    public static final Font PAGE_HEADER_FONT = FontBuilder.builder().size(50).build().toFont();
+
+    public static final Font FORM_LABEL_FONT =
+        FontBuilder.builder().font(EULJIRO).size(18).build().toFont();
+
+    private static FontBuilder generalFont = FontBuilder.builder().build();
 
     @Builder.Default
-    private FontType font = EULJIRO;
+    private FontType font = HANNA_11;
 
     @Builder.Default
     private double size = 10;
 
-    public static FontBuilder getDialogFont(int size) {
-        dialogFont.setSize(size);
-        return dialogFont;
+    public static Font getFont(FontType font, int size) {
+        generalFont.setFont(font);
+        generalFont.setSize(size);
+        return generalFont.toFont();
+    }
+
+    public static Font getDialogFont(int size) {
+        generalFont.setFont(HANNA_11);
+        generalFont.setSize(size);
+        return generalFont.toFont();
     }
 
     @Override

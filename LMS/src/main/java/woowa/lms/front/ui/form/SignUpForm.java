@@ -26,11 +26,11 @@ public class SignUpForm extends AbstractForm {
     private Label confirmPwLabel;
     private Label nameLabel;
     private Label contactLabel;
-    private InputField idInputField = InputField.of(TEXT, ID_FIELD);
-    private InputField pwInputField = InputField.of(PASSWORD, PW_FIELD);
-    private InputField confirmPwInputField = InputField.of(PASSWORD, CONFIRM_PW_FIELD);
-    private InputField nameInputField = InputField.of(TEXT, NAME_FIELD);
-    private InputField contactInputField = InputField.of(TEXT, CONTACT_FIELD);
+    private InputField idInputField = InputField.of(TEXT, SIGN_UP_ID);
+    private InputField pwInputField = InputField.of(PASSWORD, SIGN_UP_PW);
+    private InputField confirmPwInputField = InputField.of(PASSWORD, SIGN_UP_CONFIRM_PW);
+    private InputField nameInputField = InputField.of(TEXT, NAME);
+    private InputField contactInputField = InputField.of(TEXT, CONTACT);
 
     public static final SignUpForm INSTANCE = new SignUpForm(400, 450);
 
@@ -47,7 +47,7 @@ public class SignUpForm extends AbstractForm {
     public void setUpComponents() {
         background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
 
-        headerLabel = LabelBuilder.getPageLabel("Sign Up");
+        headerLabel = LabelBuilder.getPageHeader("Sign Up");
 
         logoImageView = getLogo(imageWidth);
 

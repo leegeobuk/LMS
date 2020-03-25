@@ -2,9 +2,7 @@ package woowa.lms.front.ui.dialog.home;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import woowa.lms.front.component.background.BackgroundBuilder;
 import woowa.lms.front.component.image.ImageBuilder;
-import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.ui.dialog.AbstractDialog;
 
 import static woowa.lms.front.component.image.ImageType.ERROR;
@@ -18,7 +16,7 @@ public class SignUpErrorDialog extends AbstractDialog {
     private static final SignUpErrorDialog DIALOG =
         new SignUpErrorDialog(ALERT_TYPE, TITLE, HEADER_TEXT, CONTENT_TEXT);
 
-    public SignUpErrorDialog(Alert.AlertType alertType, String title,
+    private SignUpErrorDialog(Alert.AlertType alertType, String title,
                              String headerText, String contentText) {
         super(alertType, title, headerText, contentText);
         setUpComponents();
@@ -33,9 +31,7 @@ public class SignUpErrorDialog extends AbstractDialog {
     public void setUpComponents() {
         super.setUpComponents();
 
-        ImageBuilder imageBuilder = ImageBuilder.builder().image(ERROR).build();
-        headerImage = imageBuilder.toImageView();
-
+        headerImage = ImageBuilder.ERROR_DIALOG;
     }
 
     @Override

@@ -2,9 +2,11 @@ package woowa.lms.front.behavior.home;
 
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import woowa.lms.back.domain.account.Account;
 import woowa.lms.back.domain.account.Admin;
 import woowa.lms.back.service.AccountService;
 import woowa.lms.back.util.SpringContext;
+import woowa.lms.back.util.Token;
 import woowa.lms.front.behavior.Behavior;
 import woowa.lms.front.controller.HomeController;
 import woowa.lms.front.ui.form.SignInForm;
@@ -30,11 +32,12 @@ public class SignIn implements Behavior {
         Admin admin = Admin.of(id, pw);
         HomeController controller = HomeController.getController();
         try {
-            service.signIn(admin);
+            Account account = service.signIn(admin);
+            Token.getToken().signIn(account);
             //Change MainPage signIn button to signOut
-            controller.closeSignUpForm();
+            controller.closeSignInForm();
         } catch (IllegalStateException e) {
-            controller.showSignInErrorDialog();
+            controller.showSignInErrorDialog(e.getMessage());
         }
     }
 }

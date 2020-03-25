@@ -2,9 +2,7 @@ package woowa.lms.front.ui.dialog.home;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import woowa.lms.front.component.background.BackgroundBuilder;
 import woowa.lms.front.component.image.ImageBuilder;
-import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.ui.dialog.AbstractDialog;
 
 import static woowa.lms.front.component.image.ImageType.SUCCESS;

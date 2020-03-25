@@ -13,12 +13,10 @@ import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 import woowa.lms.front.component.background.BackgroundBuilder;
 import woowa.lms.front.component.button.GeneralButton;
-import woowa.lms.front.component.font.FontBuilder;
 import woowa.lms.front.component.image.ImageBuilder;
 import woowa.lms.front.component.label.LabelBuilder;
 
 import static woowa.lms.front.behavior.BehaviorType.*;
-import static woowa.lms.front.component.font.FontType.HANNA_11;
 import static woowa.lms.front.component.image.ImageType.*;
 
 @Component
@@ -57,40 +55,33 @@ public class MainPage implements CustomPage {
     public void setUpComponents() {
         background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
 
-        FontBuilder customFont = FontBuilder.builder().font(HANNA_11).size(100).build();
-        LabelBuilder customLabel = LabelBuilder.builder().text("Woowa Library").font(customFont)
-            .textFill("white").build();
-        headerLabel = customLabel.toLabel();
+        headerLabel = LabelBuilder.getMainHeader("Woowa Library");
 
-        ImageBuilder customImage = ImageBuilder.builder().image(LOGO)
-            .width(imageWidth).height(imageWidth).build();
-        logoImageView = customImage.toImageView();
+        logoImageView = ImageBuilder.getLogo(imageWidth);
 
 
-        customFont.setSize(30);
-        customLabel = LabelBuilder.builder().text("About").textFill("#2ac1bc")
-            .font(customFont).build();
-        customImage.setImage(ABOUT);
-        GeneralButton customButton = GeneralButton.builder().label(customLabel).image(customImage)
-            .graphicGap(10).behavior(SHOW_ABOUT).build();
+        Label customLabel = LabelBuilder.getButtonLabel("About");
+        ImageView customImage = ImageBuilder.getImageView(ABOUT, imageWidth);
+        GeneralButton customButton = GeneralButton.builder().label(customLabel)
+            .image(customImage).behavior(SHOW_ABOUT).build();
         aboutButton = customButton.toButton();
 
-        customLabel.setText("Sign Up");
-        customImage.setImage(SIGNUP);
+        customLabel = LabelBuilder.getButtonLabel("Sign Up");
+        customImage = ImageBuilder.getImageView(SIGNUP, imageWidth);
         customButton.setLabel(customLabel);
         customButton.setImage(customImage);
         customButton.setBehavior(SHOW_SIGN_UP);
         signUpButton = customButton.toButton();
 
-        customLabel.setText("Sign In");
-        customImage.setImage(SIGNIN);
+        customLabel = LabelBuilder.getButtonLabel("Sign In");
+        customImage = ImageBuilder.getImageView(SIGNIN, imageWidth);
         customButton.setLabel(customLabel);
         customButton.setImage(customImage);
         customButton.setBehavior(SHOW_SIGN_IN);
         signInButton = customButton.toButton();
 
-        customLabel.setText("Exit");
-        customImage.setImage(EXIT);
+        customLabel = LabelBuilder.getButtonLabel("Exit");
+        customImage = ImageBuilder.getImageView(EXIT, imageWidth);
         customButton.setLabel(customLabel);
         customButton.setImage(customImage);
         customButton.setBehavior(EXIT_PROGRAM);
