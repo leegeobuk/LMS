@@ -52,6 +52,7 @@ public abstract class AbstractForm implements CustomForm {
     public void clear() {
         inputFields.forEach(InputField::clear);
         errorLabel.setText("");
+        okButton.setDisable(true);
     }
 
     public List<TextField> getFields() {

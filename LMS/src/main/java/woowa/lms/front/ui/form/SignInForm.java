@@ -30,6 +30,7 @@ public class SignInForm extends AbstractForm {
     private SignInForm(double width, double height) {
         super(width, height);
         inputFields = List.of(idInputField, pwInputField);
+        inputFields.get(0).getTextField().requestFocus();
         setUpComponents();
         setUpPage();
         setFoolProof();
@@ -49,6 +50,7 @@ public class SignInForm extends AbstractForm {
         errorLabel.setWrapText(true);
 
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, SIGN_IN);
+        okButton.setDefaultButton(true);
         okButton.setDisable(true);
 
         cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_SIGN_IN);

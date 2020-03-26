@@ -1,36 +1,30 @@
 package woowa.lms.front.component.image;
 
-import javafx.scene.image.ImageView;
-import lombok.Setter;
+import lombok.Getter;
 
 public enum ImageType {
     LOGO("Logo.png"),
     ABOUT("icon/About.png"),
-    SIGNUP("icon/SignUp.png"),
-    SUCCESS("icon/Success.png"),
-    SIGNIN("icon/SignIn.png"),
+    BOOK("icon/Book.png"),
+    CUSTOMER("icon/Customer.png"),
+    SIGN_UP("icon/SignUp.png"),
+    SIGN_IN("icon/SignIn.png"),
+    SIGN_OUT("icon/SignOut.png"),
     EXIT("icon/Exit.png"),
-    EXIT_DIALOG("icon/ExitDialog.png"),
+    SUCCESS("icon/Success.png"),
     ERROR("icon/Error.png"),
+    CONFIRM("icon/Confirm.png"),
+    WARNING("icon/ExitDialog.png"),
     OK("icon/Check.png"),
     CANCEL("icon/Cancel.png");
 
 
     private static final String URL = "file:src/main/resources/image/";
 
+    @Getter
     private final String imageUrl;
-
-    @Setter
-    private double width;
-
-    @Setter
-    private double height;
 
     ImageType(String imageUrl) {
         this.imageUrl = URL + imageUrl;
-    }
-
-    public ImageView getImageView() {
-        return new ImageView(this.imageUrl);
     }
 }

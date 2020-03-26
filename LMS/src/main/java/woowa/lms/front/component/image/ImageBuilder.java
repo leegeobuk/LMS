@@ -11,14 +11,14 @@ import static woowa.lms.front.component.image.ImageType.*;
 @Getter @Setter
 public class ImageBuilder implements CustomImage {
 
-    public static final ImageView DEFAULT_IMAGE = ImageBuilder.builder().build().toImageView();
-    public static final ImageView ERROR_DIALOG = ImageBuilder.builder().image(ERROR).build().toImageView();
+    public static final ImageBuilder DEFAULT_IMAGE = ImageBuilder.builder().build();
+    public static final ImageBuilder ERROR_DIALOG = ImageBuilder.builder().image(ERROR).build();
 
-    public static final ImageView FORM_BUTTON_OK =
-        ImageBuilder.builder().image(OK).width(48).height(48).build().toImageView();
+    public static final ImageBuilder FORM_BUTTON_OK =
+        ImageBuilder.builder().image(OK).width(48).height(48).build();
 
-    public static final ImageView FORM_BUTTON_CANCEL =
-        ImageBuilder.builder().image(CANCEL).width(48).height(48).build().toImageView();
+    public static final ImageBuilder FORM_BUTTON_CANCEL =
+        ImageBuilder.builder().image(CANCEL).width(48).height(48).build();
 
     private static ImageBuilder generalImage = ImageBuilder.builder().build();
 
@@ -45,9 +45,16 @@ public class ImageBuilder implements CustomImage {
         return generalImage.toImageView();
     }
 
+    public static ImageView getDialogImage(ImageType image) {
+        generalImage.setImage(image);
+        generalImage.setWidth(64);
+        generalImage.setHeight(64);
+        return generalImage.toImageView();
+    }
+
     @Override
     public ImageView toImageView() {
-        ImageView imageView = image.getImageView();
+        ImageView imageView = new ImageView(image.getImageUrl());
         imageView.setFitWidth(width);
         imageView.setFitHeight(height);
         return imageView;

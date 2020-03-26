@@ -11,7 +11,8 @@ public enum BehaviorType {
     CLOSE_SIGN_IN(CloseSignIn.getInstance()),
     EXIT_PROGRAM(ExitProgram.getInstance()),
     SIGN_UP(SignUp.getInstance()),
-    SIGN_IN(SignIn.getInstance());
+    SIGN_IN(SignIn.getInstance()),
+    SIGN_OUT(SignOut.getInstance());
 
     @Getter
     private final Behavior behavior;

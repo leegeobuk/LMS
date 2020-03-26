@@ -1,5 +1,6 @@
 package woowa.lms.front.behavior.home;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import woowa.lms.back.domain.account.Account;
@@ -24,7 +25,7 @@ public class SignIn implements Behavior {
     }
 
     @Override
-    public void handle(MouseEvent event) {
+    public void handle(ActionEvent event) {
         SignInForm form = SignInForm.INSTANCE;
         List<TextField> fields = form.getFields();
         String id = fields.get(0).getText();
@@ -34,7 +35,7 @@ public class SignIn implements Behavior {
         try {
             Account account = service.signIn(admin);
             Token.getToken().signIn(account);
-            //Change MainPage signIn button to signOut
+            controller.redrawMainPage();
             controller.closeSignInForm();
         } catch (IllegalStateException e) {
             controller.showSignInErrorDialog(e.getMessage());

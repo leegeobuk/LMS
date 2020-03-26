@@ -1,6 +1,6 @@
 package woowa.lms.front.behavior.home;
 
-import javafx.scene.input.MouseEvent;
+import javafx.event.ActionEvent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import woowa.lms.front.behavior.Behavior;
@@ -16,7 +16,7 @@ public class ShowSignIn implements Behavior {
     }
 
     @Override
-    public void handle(MouseEvent event) {
+    public void handle(ActionEvent event) {
         HomeController.getController().showSignInForm();
     }
 }

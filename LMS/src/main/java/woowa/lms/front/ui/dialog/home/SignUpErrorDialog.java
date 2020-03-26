@@ -31,7 +31,7 @@ public class SignUpErrorDialog extends AbstractDialog {
     public void setUpComponents() {
         super.setUpComponents();
 
-        headerImage = ImageBuilder.ERROR_DIALOG;
+        headerImage = ImageBuilder.getDialogImage(ERROR);
     }
 
     @Override

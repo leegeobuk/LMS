@@ -12,7 +12,7 @@ import static woowa.lms.front.component.font.FontBuilder.*;
 @Setter
 public class LabelBuilder implements CustomLabel {
 
-    public static final Label DEFAULT_LABEL = LabelBuilder.builder().build().toLabel();
+    public static final LabelBuilder DEFAULT_LABEL = LabelBuilder.builder().build();
 
     private static LabelBuilder generalLabel = LabelBuilder.builder().build();
 
@@ -23,46 +23,49 @@ public class LabelBuilder implements CustomLabel {
     private String textFill = "black";
 
     @Builder.Default
-    private Font font = DEFAULT_FONT;
+    private Font font = DEFAULT_FONT.toFont();
 
     public static Label getMainHeader(String text) {
         generalLabel.setText(text);
         generalLabel.setTextFill("white");
-        generalLabel.setFont(MAIN_HEADER_FONT);
+        generalLabel.setFont(MAIN_HEADER_FONT.toFont());
         return generalLabel.toLabel();
     }
 
     public static Label getButtonLabel(String text) {
         generalLabel.setText(text);
         generalLabel.setTextFill("#2ac1bc");
-        generalLabel.setFont(BUTTON_FONT);
+        generalLabel.setFont(BUTTON_FONT.toFont());
         return generalLabel.toLabel();
     }
 
     public static Label getPageHeader(String text) {
         generalLabel.setText(text);
         generalLabel.setTextFill("white");
-        generalLabel.setFont(PAGE_HEADER_FONT);
+        generalLabel.setFont(PAGE_HEADER_FONT.toFont());
         return generalLabel.toLabel();
     }
 
     public static Label getDialogHeader(String text) {
+        generalLabel.setText(text);
+        generalLabel.setTextFill("black");
         Font dialogFont = getDialogFont(20);
         generalLabel.setFont(dialogFont);
-        generalLabel.setText(text);
         return generalLabel.toLabel();
     }
 
     public static Label getDialogContent(String text) {
+        generalLabel.setText(text);
+        generalLabel.setTextFill("black");
         Font dialogFont = getDialogFont(15);
         generalLabel.setFont(dialogFont);
-        generalLabel.setText(text);
         return generalLabel.toLabel();
     }
 
     public static Label getFormLabel(String text) {
         generalLabel.setText(text);
-        generalLabel.setFont(FORM_LABEL_FONT);
+        generalLabel.setTextFill("black");
+        generalLabel.setFont(FORM_LABEL_FONT.toFont());
         return generalLabel.toLabel();
     }
 

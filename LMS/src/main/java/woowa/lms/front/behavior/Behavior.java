@@ -1,10 +1,10 @@
 package woowa.lms.front.behavior;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 
-public interface Behavior extends EventHandler<MouseEvent> {
+public interface Behavior extends EventHandler<ActionEvent> {
 
     @Override
-    void handle(MouseEvent event);
+    void handle(ActionEvent event);
 }

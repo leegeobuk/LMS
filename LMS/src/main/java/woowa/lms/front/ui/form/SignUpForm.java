@@ -38,6 +38,7 @@ public class SignUpForm extends AbstractForm {
         super(width, height);
         inputFields = List.of(idInputField, pwInputField,
             confirmPwInputField, nameInputField, contactInputField);
+        inputFields.get(0).getTextField().requestFocus();
         setUpComponents();
         setUpPage();
         setFoolProof();
@@ -63,6 +64,7 @@ public class SignUpForm extends AbstractForm {
 
 
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, SIGN_UP);
+        okButton.setDefaultButton(true);
         okButton.setDisable(true);
 
         cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_SIGN_UP);
@@ -90,6 +92,7 @@ public class SignUpForm extends AbstractForm {
         mainPane.getChildren().addAll(headerLabel, form, buttonBox);
         mainPane.setPadding(new Insets(20));
         mainPane.setAlignment(Pos.TOP_CENTER);
+        mainPane.setSpacing(scene.getHeight() * 0.08);
     }
 
     @Override

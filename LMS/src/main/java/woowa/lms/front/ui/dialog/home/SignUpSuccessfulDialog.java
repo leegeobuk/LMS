@@ -31,8 +31,7 @@ public class SignUpSuccessfulDialog extends AbstractDialog {
     public void setUpComponents() {
         super.setUpComponents();
 
-        ImageBuilder imageBuilder = ImageBuilder.builder().image(SUCCESS).build();
-        headerImage = imageBuilder.toImageView();
+        headerImage = ImageBuilder.getDialogImage(SUCCESS);
     }
 
     @Override

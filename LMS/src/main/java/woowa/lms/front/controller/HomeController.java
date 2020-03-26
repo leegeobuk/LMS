@@ -1,10 +1,7 @@
 package woowa.lms.front.controller;
 
 import javafx.stage.Stage;
-import woowa.lms.front.ui.dialog.home.ExitDialog;
-import woowa.lms.front.ui.dialog.home.SignInErrorDialog;
-import woowa.lms.front.ui.dialog.home.SignUpErrorDialog;
-import woowa.lms.front.ui.dialog.home.SignUpSuccessfulDialog;
+import woowa.lms.front.ui.dialog.home.*;
 import woowa.lms.front.ui.form.SignInForm;
 import woowa.lms.front.ui.form.SignUpForm;
 import woowa.lms.front.ui.page.AboutPage;
@@ -53,6 +50,11 @@ public class HomeController {
         homeStage.show();
     }
 
+    public void redrawMainPage() {
+        MAIN_PAGE.redraw();
+        homeStage.show();
+    }
+
     public void showAboutPage() {
         aboutStage.show();
     }
@@ -86,6 +88,10 @@ public class HomeController {
     public void closeSignInForm() {
         SIGN_IN_FORM.clear();
         SIGN_IN_FORM.getStage().close();
+    }
+
+    public void showSignOutDialog() {
+        SignOutDialog.getDialog().show();
     }
 
     public void showExitDialog() {

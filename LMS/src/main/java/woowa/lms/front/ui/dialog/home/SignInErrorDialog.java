@@ -3,8 +3,11 @@ package woowa.lms.front.ui.dialog.home;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import woowa.lms.front.component.image.ImageBuilder;
+import woowa.lms.front.component.image.ImageType;
 import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.ui.dialog.AbstractDialog;
+
+import static woowa.lms.front.component.image.ImageType.ERROR;
 
 public class SignInErrorDialog extends AbstractDialog {
 
@@ -39,7 +42,7 @@ public class SignInErrorDialog extends AbstractDialog {
     public void setUpComponents() {
         super.setUpComponents();
 
-        headerImage = ImageBuilder.ERROR_DIALOG;
+        headerImage = ImageBuilder.getDialogImage(ERROR);
     }
 
     @Override

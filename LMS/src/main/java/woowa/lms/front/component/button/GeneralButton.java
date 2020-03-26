@@ -7,10 +7,10 @@ import javafx.scene.image.ImageView;
 import lombok.Builder;
 import lombok.Setter;
 import woowa.lms.front.behavior.BehaviorType;
-import woowa.lms.front.component.image.CustomImage;
 import woowa.lms.front.component.image.ImageBuilder;
 import woowa.lms.front.component.label.LabelBuilder;
 
+import static javafx.scene.control.ContentDisplay.BOTTOM;
 import static javafx.scene.control.ContentDisplay.GRAPHIC_ONLY;
 
 @Builder
@@ -22,7 +22,7 @@ public class GeneralButton extends Button implements CustomButton {
     private static GeneralButton generalButton = GeneralButton.builder().build();
 
     @Builder.Default
-    private Label label = LabelBuilder.DEFAULT_LABEL;
+    private Label label = LabelBuilder.DEFAULT_LABEL.toLabel();
 
     @Builder.Default
     private ImageView image = null;
@@ -36,10 +36,19 @@ public class GeneralButton extends Button implements CustomButton {
     @Builder.Default
     private BehaviorType behavior = null;
 
-    public static Button getFormButton(ImageView image, BehaviorType behavior) {
+    public static Button getMainButton(Label label, ImageView image, BehaviorType behavior) {
+        generalButton.setLabel(label);
+        generalButton.setImage(image);
+        generalButton.setDisplay(BOTTOM);
+        generalButton.setGraphicGap(10);
+        generalButton.setBehavior(behavior);
+        return generalButton.toButton();
+    }
+
+    public static Button getFormButton(ImageBuilder image, BehaviorType behavior) {
+        generalButton.setImage(image.toImageView());
         generalButton.setDisplay(GRAPHIC_ONLY);
         generalButton.setGraphicGap(0);
-        generalButton.setImage(image);
         generalButton.setBehavior(behavior);
         return generalButton.toButton();
     }
@@ -55,7 +64,7 @@ public class GeneralButton extends Button implements CustomButton {
         button.setGraphic(imageView);
         button.setContentDisplay(display);
         button.setGraphicTextGap(graphicGap);
-        button.setOnMouseClicked(behavior.getBehavior());
+        button.setOnAction(behavior.getBehavior());
         return button;
     }
 }

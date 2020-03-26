@@ -1,22 +1,24 @@
 package woowa.lms.front.behavior.home;
 
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import woowa.lms.back.util.Token;
 import woowa.lms.front.behavior.Behavior;
 import woowa.lms.front.controller.HomeController;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ShowSignUp implements Behavior {
+public class SignOut implements Behavior {
 
-    private static final ShowSignUp CLICK_SIGN_UP = new ShowSignUp();
+    private static final SignOut INSTANCE = new SignOut();
 
-    public static ShowSignUp getInstance() {
-        return CLICK_SIGN_UP;
+    public static SignOut getInstance() {
+        return INSTANCE;
     }
 
     @Override
     public void handle(ActionEvent event) {
-        HomeController.getController().showSignUpForm();
+        HomeController.getController().showSignOutDialog();
     }
 }

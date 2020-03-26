@@ -1,7 +1,7 @@
 package woowa.lms.front.behavior.home;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import woowa.lms.back.domain.account.Admin;
@@ -25,7 +25,7 @@ public class SignUp implements Behavior {
     }
 
     @Override
-    public void handle(MouseEvent event) {
+    public void handle(ActionEvent event) {
         SignUpForm form = SignUpForm.INSTANCE;
         List<TextField> fields = form.getFields();
         String id = fields.get(0).getText();
