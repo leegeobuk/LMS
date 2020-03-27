@@ -21,14 +21,15 @@ public class InputField implements CustomInputField {
     private FoolProofType foolProofType;
     private FieldFoolProof foolProof;
 
-    private InputField(InputType type, FoolProofType foolProofType) {
+    private InputField(InputType type, FoolProofType foolProofType, String text) {
         this.textField = type.getField();
+        this.textField.setPromptText(text);
         this.foolProofType = foolProofType;
         this.foolProof = foolProofType.getFoolProof();
     }
 
-    public static InputField of(InputType type, FoolProofType foolProofType) {
-        return new InputField(type, foolProofType);
+    public static InputField of(InputType type, FoolProofType foolProofType, String text) {
+        return new InputField(type, foolProofType, text);
     }
 
     public void clear() {

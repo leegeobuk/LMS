@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import woowa.lms.front.component.background.BackgroundBuilder;
 import woowa.lms.front.component.label.LabelBuilder;
+import woowa.lms.front.ui.Showable;
 
 public abstract class AbstractDialog implements Showable {
 

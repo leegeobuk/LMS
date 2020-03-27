@@ -1,35 +1,30 @@
 package woowa.lms.front.controller;
 
-import javafx.stage.Stage;
-import woowa.lms.front.ui.dialog.home.*;
+import woowa.lms.front.ui.dialog.error.SignInErrorDialog;
+import woowa.lms.front.ui.dialog.error.SignUpErrorDialog;
+import woowa.lms.front.ui.dialog.prompt.ExitDialog;
+import woowa.lms.front.ui.dialog.prompt.SignOutDialog;
+import woowa.lms.front.ui.dialog.success.SignUpSuccessfulDialog;
 import woowa.lms.front.ui.form.SignInForm;
 import woowa.lms.front.ui.form.SignUpForm;
 import woowa.lms.front.ui.page.AboutPage;
 import woowa.lms.front.ui.page.MainPage;
+import woowa.lms.front.ui.table.BookTable;
 
 import static javafx.stage.Modality.WINDOW_MODAL;
 
 //@Controller
 public class HomeController {
 
-    private Stage homeStage;
-    private Stage aboutStage;
-    private Stage signUpStage;
-    private Stage signInStage;
-
-    private static final MainPage MAIN_PAGE = MainPage.INSTANCE;
-    private static final AboutPage ABOUT_PAGE = AboutPage.INSTANCE;
-    private static final SignUpForm SIGN_UP_FORM = SignUpForm.INSTANCE;
-    private static final SignInForm SIGN_IN_FORM = SignInForm.INSTANCE;
+    private static final MainPage MAIN_PAGE = MainPage.PAGE;
+    private static final AboutPage ABOUT_PAGE = AboutPage.PAGE;
+    private static final SignUpForm SIGN_UP_FORM = SignUpForm.FORM;
+    private static final SignInForm SIGN_IN_FORM = SignInForm.FORM;
+    private static final BookTable BOOK_TABLE = BookTable.getTable();
 
     private static final HomeController CONTROLLER = new HomeController();
 
     private HomeController() {
-        homeStage = MAIN_PAGE.getStage();
-        aboutStage = ABOUT_PAGE.getStage();
-        signUpStage = SIGN_UP_FORM.getStage();
-        signInStage = SIGN_IN_FORM.getStage();
-
         setModality();
     }
 
@@ -38,29 +33,29 @@ public class HomeController {
     }
 
     private void setModality() {
-        aboutStage.initModality(WINDOW_MODAL);
-        aboutStage.initOwner(homeStage);
-        signUpStage.initModality(WINDOW_MODAL);
-        signUpStage.initOwner(homeStage);
-        signInStage.initModality(WINDOW_MODAL);
-        signInStage.initOwner(homeStage);
+        ABOUT_PAGE.initModality(WINDOW_MODAL);
+        ABOUT_PAGE.initOwner(MAIN_PAGE);
+        SIGN_UP_FORM.initModality(WINDOW_MODAL);
+        SIGN_UP_FORM.initOwner(MAIN_PAGE);
+        SIGN_IN_FORM.initModality(WINDOW_MODAL);
+        SIGN_IN_FORM.initOwner(MAIN_PAGE);
     }
 
     public void showMainPage() {
-        homeStage.show();
+        MAIN_PAGE.show();
     }
 
     public void redrawMainPage() {
         MAIN_PAGE.redraw();
-        homeStage.show();
+        MAIN_PAGE.show();
     }
 
     public void showAboutPage() {
-        aboutStage.show();
+        ABOUT_PAGE.show();
     }
 
     public void showSignUpForm() {
-        signUpStage.show();
+        SIGN_UP_FORM.show();
     }
 
     public void showSignUpSuccessfulDialog() {
@@ -71,13 +66,8 @@ public class HomeController {
         SignUpErrorDialog.getDialog().show();
     }
 
-    public void closeSignUpForm() {
-        SIGN_UP_FORM.clear();
-        SIGN_UP_FORM.getStage().close();
-    }
-
     public void showSignInForm() {
-        signInStage.show();
+        SIGN_IN_FORM.show();
     }
 
     public void showSignInErrorDialog(String errorMessage) {
@@ -85,13 +75,22 @@ public class HomeController {
         SignInErrorDialog.getDialog().show();
     }
 
-    public void closeSignInForm() {
-        SIGN_IN_FORM.clear();
-        SIGN_IN_FORM.getStage().close();
-    }
-
     public void showSignOutDialog() {
         SignOutDialog.getDialog().show();
+    }
+
+    public void showBookTable() {
+        BOOK_TABLE.show();
+    }
+
+    public void closeSignUpForm() {
+        SIGN_UP_FORM.clear();
+        SIGN_UP_FORM.close();
+    }
+
+    public void closeSignInForm() {
+        SIGN_IN_FORM.clear();
+        SIGN_IN_FORM.close();
     }
 
     public void showExitDialog() {

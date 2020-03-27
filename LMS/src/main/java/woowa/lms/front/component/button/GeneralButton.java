@@ -36,7 +36,8 @@ public class GeneralButton extends Button implements CustomButton {
     @Builder.Default
     private BehaviorType behavior = null;
 
-    public static Button getMainButton(Label label, ImageView image, BehaviorType behavior) {
+    public static Button getMainButton(String text, ImageView image, BehaviorType behavior) {
+        Label label = LabelBuilder.getButtonLabel(text);
         generalButton.setLabel(label);
         generalButton.setImage(image);
         generalButton.setDisplay(BOTTOM);
@@ -50,7 +51,9 @@ public class GeneralButton extends Button implements CustomButton {
         generalButton.setDisplay(GRAPHIC_ONLY);
         generalButton.setGraphicGap(0);
         generalButton.setBehavior(behavior);
-        return generalButton.toButton();
+        Button button = generalButton.toButton();
+        button.setFocusTraversable(false);
+        return button;
     }
 
     @Override

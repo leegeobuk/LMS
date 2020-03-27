@@ -11,14 +11,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import woowa.lms.front.component.textfield.InputField;
+import woowa.lms.front.ui.FoolProofable;
+import woowa.lms.front.ui.page.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class AbstractForm implements CustomForm {
+public abstract class AbstractForm extends Stage implements Page, FoolProofable {
 
-    protected Stage stage;
-    protected Scene scene;
     protected VBox mainPane;
     protected Background background;
 
@@ -36,17 +36,17 @@ public abstract class AbstractForm implements CustomForm {
     protected double imageWidth;
 
     protected AbstractForm(double width, double height) {
-        stage = new Stage();
+        this.setWidth(width);
+        this.setHeight(height);
         mainPane = new VBox();
-        scene = new Scene(mainPane, width, height);
-        mainPane.setSpacing(scene.getHeight() * 0.1);
+        mainPane.setSpacing(height * 0.05);
 
         form = new GridPane();
         errorLabel = new Label();
 
         buttonBox = new HBox(10);
 
-        imageWidth = scene.getWidth() * 0.16;
+        imageWidth = width * 0.16;
     }
 
     public void clear() {
@@ -70,5 +70,9 @@ public abstract class AbstractForm implements CustomForm {
     public abstract void setFoolProof();
 
     @Override
-    public abstract Stage getStage();
+    public void setUpStage() {
+        Scene scene = new Scene(mainPane);
+        this.setScene(scene);
+        this.setResizable(false);
+    }
 }

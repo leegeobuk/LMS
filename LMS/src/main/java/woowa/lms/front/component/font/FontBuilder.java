@@ -13,7 +13,7 @@ public class FontBuilder implements CustomFont {
 
     public static final FontBuilder DEFAULT_FONT = FontBuilder.builder().build();
     public static final FontBuilder MAIN_HEADER_FONT = FontBuilder.builder().size(100).build();
-    public static final FontBuilder BUTTON_FONT = FontBuilder.builder().size(30).build();
+    public static final FontBuilder BUTTON_FONT = FontBuilder.builder().size(28).build();
     public static final FontBuilder PAGE_HEADER_FONT = FontBuilder.builder().size(50).build();
 
     public static final FontBuilder FORM_LABEL_FONT =
