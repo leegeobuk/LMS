@@ -8,8 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import woowa.lms.back.domain.account.Account;
 import woowa.lms.back.domain.item.Book;
 import woowa.lms.back.domain.item.Item;
-import woowa.lms.back.repository.ItemRepository;
-import woowa.lms.back.service.ItemService;
+import woowa.lms.back.service.item.ItemService;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ class ItemServiceTest extends Account {
     static final Item BOOK = Book.of(TITLE, AUTHOR, 5);
 
     @Mock
-    ItemRepository itemRepository;
+    AbstractItemRepository itemRepository;
 
     @InjectMocks
     ItemService itemService;

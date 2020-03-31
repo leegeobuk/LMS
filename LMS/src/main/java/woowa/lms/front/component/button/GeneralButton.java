@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Setter;
 import woowa.lms.front.behavior.BehaviorType;
 import woowa.lms.front.component.image.ImageBuilder;
+import woowa.lms.front.component.image.ImageType;
 import woowa.lms.front.component.label.LabelBuilder;
 
 import static javafx.scene.control.ContentDisplay.BOTTOM;
@@ -54,6 +55,15 @@ public class GeneralButton extends Button implements CustomButton {
         Button button = generalButton.toButton();
         button.setFocusTraversable(false);
         return button;
+    }
+
+    public static Button getTableButton(ImageType image, BehaviorType behavior) {
+        ImageView imageView = ImageBuilder.getTableButtonImage(image);
+        generalButton.setImage(imageView);
+        generalButton.setDisplay(GRAPHIC_ONLY);
+        generalButton.setGraphicGap(0);
+        generalButton.setBehavior(behavior);
+        return generalButton.toButton();
     }
 
     @Override

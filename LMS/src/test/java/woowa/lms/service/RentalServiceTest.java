@@ -9,7 +9,6 @@ import woowa.lms.back.domain.account.Account;
 import woowa.lms.back.domain.item.Item;
 import woowa.lms.back.domain.rental.Rental;
 import woowa.lms.back.repository.AccountRepository;
-import woowa.lms.back.repository.ItemRepository;
 import woowa.lms.back.repository.RentalRepository;
 import woowa.lms.back.service.RentalService;
 
@@ -31,7 +30,7 @@ class RentalServiceTest extends Account {
     AccountRepository accountRepository;
 
     @Mock
-    ItemRepository itemRepository;
+    AbstractItemRepository itemRepository;
 
     @Mock
     RentalRepository rentalRepository;

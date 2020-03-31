@@ -7,8 +7,8 @@ import woowa.lms.back.domain.account.Account;
 import woowa.lms.back.domain.rental.Rental;
 import woowa.lms.back.domain.rental.RentalItem;
 import woowa.lms.back.repository.AccountRepository;
-import woowa.lms.back.repository.ItemRepository;
 import woowa.lms.back.repository.RentalRepository;
+import woowa.lms.back.repository.item.ItemRepository;
 
 @Service
 @Transactional(readOnly = true)
