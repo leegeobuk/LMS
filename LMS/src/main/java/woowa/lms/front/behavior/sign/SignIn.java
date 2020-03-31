@@ -4,7 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import woowa.lms.back.domain.account.Account;
 import woowa.lms.back.domain.account.Admin;
-import woowa.lms.back.service.AccountService;
+import woowa.lms.back.service.account.AdminService;
+import woowa.lms.back.service.account.Signable;
 import woowa.lms.back.util.SpringContext;
 import woowa.lms.back.util.Token;
 import woowa.lms.front.behavior.Behavior;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class SignIn implements Behavior {
 
-    private AccountService service = SpringContext.getBean(AccountService.class);
+    private Signable<Admin> service = SpringContext.getBean(AdminService.class);
 
     private static final SignIn INSTANCE = new SignIn();
 

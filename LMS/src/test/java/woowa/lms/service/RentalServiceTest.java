@@ -6,10 +6,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import woowa.lms.back.domain.account.Account;
+import woowa.lms.back.domain.account.Admin;
+import woowa.lms.back.domain.item.Book;
 import woowa.lms.back.domain.item.Item;
 import woowa.lms.back.domain.rental.Rental;
-import woowa.lms.back.repository.AccountRepository;
 import woowa.lms.back.repository.RentalRepository;
+import woowa.lms.back.repository.account.AccountRepository;
+import woowa.lms.back.repository.item.ItemRepository;
 import woowa.lms.back.service.RentalService;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -27,10 +30,10 @@ class RentalServiceTest extends Account {
     Rental rental;
 
     @Mock
-    AccountRepository accountRepository;
+    AccountRepository<Admin> accountRepository;
 
     @Mock
-    AbstractItemRepository itemRepository;
+    ItemRepository<Book> itemRepository;
 
     @Mock
     RentalRepository rentalRepository;

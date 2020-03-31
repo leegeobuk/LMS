@@ -1,11 +1,9 @@
 package woowa.lms.front.behavior;
 
 import lombok.Getter;
-import woowa.lms.front.behavior.close.CloseAbout;
-import woowa.lms.front.behavior.close.CloseSignIn;
-import woowa.lms.front.behavior.close.CloseSignUp;
-import woowa.lms.front.behavior.close.ExitProgram;
+import woowa.lms.front.behavior.close.*;
 import woowa.lms.front.behavior.crud.book.*;
+import woowa.lms.front.behavior.crud.customer.*;
 import woowa.lms.front.behavior.show.*;
 import woowa.lms.front.behavior.sign.SignIn;
 import woowa.lms.front.behavior.sign.SignOut;
@@ -20,6 +18,7 @@ public enum BehaviorType {
     CLOSE_ABOUT(CloseAbout.getInstance()),
     CLOSE_SIGN_UP(CloseSignUp.getInstance()),
     CLOSE_SIGN_IN(CloseSignIn.getInstance()),
+    CLOSE(Close.getInstance()),
     EXIT_PROGRAM(ExitProgram.getInstance()),
     SIGN_UP(SignUp.getInstance()),
     SIGN_IN(SignIn.getInstance()),
@@ -29,7 +28,13 @@ public enum BehaviorType {
     EDIT_BOOK(EditBookBehavior.getInstance()),
     DELETE_BOOK(DeleteBookBehavior.getInstance()),
     LEND_BOOK(LendBookBehavior.getInstance()),
-    RETURN_BOOK(ReturnBookBehavior.getInstance());
+    RETURN_BOOK(ReturnBookBehavior.getInstance()),
+    SEARCH_BOOK(SearchBookBehavior.getInstance()),
+    VIEW_CUSTOMER(ViewCustomerBehavior.getInstance()),
+    ADD_CUSTOMER(AddCustomerBehavior.getInstance()),
+    EDIT_CUSTOMER(EditCustomerBehavior.getInstance()),
+    DELETE_CUSTOMER(DeleteCustomerBehavior.getInstance()),
+    SEARCH_CUSTOMER(SearchCustomerBehavior.getInstance());
 
 
     @Getter

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import woowa.lms.back.domain.item.Book;
-import woowa.lms.back.repository.item.BookRepository;
+import woowa.lms.back.repository.item.ItemRepository;
 
 import java.util.List;
 
@@ -15,11 +15,11 @@ import static java.util.stream.Collectors.toUnmodifiableList;
 @RequiredArgsConstructor
 public class BookService implements ItemService<Book> {
 
-    private final BookRepository bookRepository;
+    private final ItemRepository<Book> itemRepository;
 
     @Transactional
     public void save(Book book) {
-        bookRepository.save(book);
+        itemRepository.save(book);
     }
 
 //    @Transactional
@@ -28,17 +28,17 @@ public class BookService implements ItemService<Book> {
 //    }
 
     public Book find(Long id) {
-        return (Book) bookRepository.findById(id);
+        return (Book) itemRepository.findById(id);
     }
 
     @Override
     public List<Book> find(String title) {
-        return bookRepository.findByTitle(title).stream()
+        return itemRepository.findByTitle(title).stream()
             .map(Book.class::cast).collect(toUnmodifiableList());
     }
 
     public List<Book> findAll() {
-        return bookRepository.findAll().stream()
+        return itemRepository.findAll().stream()
             .map(Book.class::cast).collect(toUnmodifiableList());
     }
 }

@@ -1,5 +1,7 @@
 package woowa.lms.front.ui.form;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,12 +12,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import woowa.lms.front.component.background.BackgroundBuilder;
+import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.component.textfield.InputField;
+import woowa.lms.front.foolproof.FormFoolProof;
 import woowa.lms.front.ui.FoolProofable;
 import woowa.lms.front.ui.page.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static woowa.lms.front.component.image.ImageBuilder.getLogo;
 
 public abstract class AbstractForm extends Stage implements Page, FoolProofable {
 
@@ -28,6 +35,8 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
     protected GridPane form;
     protected List<InputField> inputFields;
     protected Label errorLabel;
+
+    protected FormFoolProof formFoolProof;
 
     protected HBox buttonBox;
     protected Button okButton;
@@ -61,18 +70,46 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
     }
 
     @Override
-    public abstract void setUpComponents();
+    public void setUpComponents(String pageTitle) {
+        background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
+        headerLabel = LabelBuilder.getPageHeader(pageTitle);
+        logoImageView = getLogo(imageWidth);
+
+
+        errorLabel.setWrapText(true);
+
+        okButton.setDefaultButton(true);
+        okButton.setDisable(true);
+
+        cancelButton.setCancelButton(true);
+    }
 
     @Override
-    public abstract void setUpPage();
+    public void setUpPage() {
+        headerLabel.setGraphic(logoImageView);
+        headerLabel.setGraphicTextGap(this.getWidth() * 0.05);
+
+        buttonBox.getChildren().addAll(okButton, cancelButton);
+        buttonBox.setAlignment(Pos.CENTER);
+
+        mainPane.setBackground(background);
+        mainPane.getChildren().addAll(headerLabel, form, buttonBox);
+        mainPane.setPadding(new Insets(20));
+        mainPane.setAlignment(Pos.TOP_CENTER);
+    }
 
     @Override
-    public abstract void setFoolProof();
+    public void setFoolProof() {
+        formFoolProof = FormFoolProof.builder().button(okButton)
+            .errorLabel(errorLabel).inputFields(inputFields).build();
+        inputFields.forEach(inputField -> inputField.setOnKeyReleased(formFoolProof));
+    }
 
     @Override
-    public void setUpStage() {
+    public void setUpStage(String title) {
         Scene scene = new Scene(mainPane);
         this.setScene(scene);
+        this.setTitle(title);
         this.setResizable(false);
     }
 }

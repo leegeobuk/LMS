@@ -15,12 +15,12 @@ public class SignInErrorDialog extends AbstractDialog {
     private static final String INVALID_PW_TEXT = "Sorry, password is incorrect!";
     private static final String CONTENT_TEXT = "Please try again :(";
     private static final SignInErrorDialog DIALOG =
-        new SignInErrorDialog(ALERT_TYPE, TITLE, INVALID_ID_TEXT, CONTENT_TEXT);
+        new SignInErrorDialog(ALERT_TYPE, TITLE, CONTENT_TEXT);
 
     private SignInErrorDialog(Alert.AlertType alertType, String title,
-                              String headerText, String contentText) {
-        super(alertType, title, headerText, contentText);
-        setUpComponents();
+                              String contentText) {
+        super(alertType, title, contentText);
+        setUpComponents(INVALID_ID_TEXT);
         setUpPage();
     }
 
@@ -37,8 +37,8 @@ public class SignInErrorDialog extends AbstractDialog {
     }
 
     @Override
-    public void setUpComponents() {
-        super.setUpComponents();
+    public void setUpComponents(String pageTitle) {
+        super.setUpComponents(pageTitle);
 
         headerImage = ImageBuilder.getDialogImage(ERROR);
     }
@@ -47,6 +47,7 @@ public class SignInErrorDialog extends AbstractDialog {
     public void setUpPage() {
         super.setUpPage();
 
+        dialogPane.getButtonTypes().clear();
         dialogPane.getButtonTypes().addAll(ButtonType.OK);
     }
 }

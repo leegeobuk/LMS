@@ -20,7 +20,6 @@ public class HomeController {
     private static final AboutPage ABOUT_PAGE = AboutPage.PAGE;
     private static final SignUpForm SIGN_UP_FORM = SignUpForm.FORM;
     private static final SignInForm SIGN_IN_FORM = SignInForm.FORM;
-    private static final BookTable BOOK_TABLE = BookTable.getInstance();
 
     private static final HomeController CONTROLLER = new HomeController();
 
@@ -77,10 +76,6 @@ public class HomeController {
 
     public void showSignOutDialog() {
         SignOutDialog.getDialog().show();
-    }
-
-    public void showBookTable() {
-        BOOK_TABLE.show();
     }
 
     public void closeAboutPage() {

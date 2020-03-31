@@ -14,12 +14,12 @@ public class SignUpSuccessfulDialog extends AbstractDialog {
     private static final String HEADER_TEXT = "You are successfully signed up!";
     private static final String CONTENT_TEXT = "Welcome to Woowa library!";
     private static final SignUpSuccessfulDialog DIALOG =
-        new SignUpSuccessfulDialog(ALERT_TYPE, TITLE, HEADER_TEXT, CONTENT_TEXT);
+        new SignUpSuccessfulDialog(ALERT_TYPE, TITLE, CONTENT_TEXT);
 
     private SignUpSuccessfulDialog(Alert.AlertType alertType, String title,
-                                   String headerText, String contentText) {
-        super(alertType, title, headerText, contentText);
-        setUpComponents();
+                                   String contentText) {
+        super(alertType, title, contentText);
+        setUpComponents(HEADER_TEXT);
         setUpPage();
     }
 
@@ -28,8 +28,8 @@ public class SignUpSuccessfulDialog extends AbstractDialog {
     }
 
     @Override
-    public void setUpComponents() {
-        super.setUpComponents();
+    public void setUpComponents(String pageTitle) {
+        super.setUpComponents(pageTitle);
 
         headerImage = ImageBuilder.getDialogImage(SUCCESS);
     }
@@ -38,6 +38,7 @@ public class SignUpSuccessfulDialog extends AbstractDialog {
     public void setUpPage() {
         super.setUpPage();
 
+        dialogPane.getButtonTypes().clear();
         dialogPane.getButtonTypes().addAll(ButtonType.OK);
     }
 }

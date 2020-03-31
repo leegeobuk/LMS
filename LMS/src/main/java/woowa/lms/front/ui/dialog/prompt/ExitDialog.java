@@ -17,12 +17,12 @@ public class ExitDialog extends AbstractDialog {
     private static final String HEADER_TEXT = "Application terminates when pressed OK!";
     private static final String CONTENT_TEXT = "Think twice!!";
     private static final ExitDialog DIALOG =
-        new ExitDialog(ALERT_TYPE, TITLE, HEADER_TEXT, CONTENT_TEXT);
+        new ExitDialog(ALERT_TYPE, TITLE, CONTENT_TEXT);
 
     private ExitDialog(Alert.AlertType alertType, String title,
-                      String headerText, String contentText) {
-        super(alertType, title, headerText, contentText);
-        setUpComponents();
+                      String contentText) {
+        super(alertType, title, contentText);
+        setUpComponents(HEADER_TEXT);
         setUpPage();
     }
 
@@ -31,17 +31,10 @@ public class ExitDialog extends AbstractDialog {
     }
 
     @Override
-    public void setUpComponents() {
-        super.setUpComponents();
+    public void setUpComponents(String pageTitle) {
+        super.setUpComponents(pageTitle);
 
         headerImage = ImageBuilder.getDialogImage(WARNING);
-    }
-
-    @Override
-    public void setUpPage() {
-        super.setUpPage();
-
-        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
     }
 
     @Override

@@ -31,37 +31,27 @@ public class SignInForm extends AbstractForm {
     private SignInForm(double width, double height) {
         super(width, height);
         inputFields = List.of(idInputField, pwInputField);
-        setUpComponents();
+        String headerText = "Sign In";
+        setUpComponents(headerText);
         setUpPage();
         setFoolProof();
-        setUpStage();
+        setUpStage(headerText);
     }
 
     @Override
-    public void setUpComponents() {
-        background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
-
-        headerLabel = LabelBuilder.getPageHeader("Sign In");
-
-        logoImageView = getLogo(imageWidth);
-
+    public void setUpComponents(String pageTitle) {
         idLabel = LabelBuilder.getFormLabel("Id");
         pwLabel = LabelBuilder.getFormLabel("Password");
         errorLabel = LabelBuilder.builder().textFill("red").build().toLabel();
-        errorLabel.setWrapText(true);
 
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, SIGN_IN);
-        okButton.setDefaultButton(true);
-        okButton.setDisable(true);
-
         cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_SIGN_IN);
-        cancelButton.setCancelButton(true);
+        super.setUpComponents(pageTitle);
     }
 
     @Override
     public void setUpPage() {
-        headerLabel.setGraphic(logoImageView);
-        headerLabel.setGraphicTextGap(this.getWidth() * 0.05);
+        super.setUpPage();
 
         form.addRow(0, idLabel, idInputField.toTextField());
         form.addRow(1, pwLabel, pwInputField.toTextField());
@@ -69,26 +59,5 @@ public class SignInForm extends AbstractForm {
         form.setHgap(this.getWidth() * 0.15);
         form.setVgap(this.getHeight() * 0.02);
         form.setAlignment(Pos.CENTER);
-
-        buttonBox.getChildren().addAll(okButton, cancelButton);
-        buttonBox.setAlignment(Pos.CENTER);
-
-        mainPane.setBackground(background);
-        mainPane.getChildren().addAll(headerLabel, form, buttonBox);
-        mainPane.setPadding(new Insets(20));
-        mainPane.setAlignment(Pos.CENTER);
-    }
-
-    @Override
-    public void setFoolProof() {
-        FormFoolProof formFoolProof = FormFoolProof.builder().button(okButton)
-            .errorLabel(errorLabel).inputFields(inputFields).build();
-        inputFields.forEach(inputField -> inputField.setOnKeyReleased(formFoolProof));
-    }
-
-    @Override
-    public void setUpStage() {
-        super.setUpStage();
-        this.setTitle("Sign In");
     }
 }

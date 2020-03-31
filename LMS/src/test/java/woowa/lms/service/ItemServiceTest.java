@@ -8,7 +8,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import woowa.lms.back.domain.account.Account;
 import woowa.lms.back.domain.item.Book;
 import woowa.lms.back.domain.item.Item;
-import woowa.lms.back.service.item.ItemService;
+import woowa.lms.back.repository.item.BookRepository;
+import woowa.lms.back.service.item.BookService;
 
 import java.util.List;
 
@@ -22,13 +23,13 @@ class ItemServiceTest extends Account {
 
     static final String TITLE = "Hamlet";
     static final String AUTHOR = "Shakespeare";
-    static final Item BOOK = Book.of(TITLE, AUTHOR, 5);
+    static final Book BOOK = Book.of(TITLE, AUTHOR, 5);
 
     @Mock
-    AbstractItemRepository itemRepository;
+    BookRepository bookRepository;
 
     @InjectMocks
-    ItemService itemService;
+    BookService bookService;
 
     @Test
     void save() {
@@ -36,10 +37,10 @@ class ItemServiceTest extends Account {
 
 
         //when
-        itemService.save(BOOK);
+        bookService.save(BOOK);
 
         //then
-        verify(itemRepository).save(any(Item.class));
+        verify(bookRepository).save(any(Book.class));
     }
 
     @Test
@@ -57,13 +58,13 @@ class ItemServiceTest extends Account {
     @Test
     void find() {
         //given
-        when(itemRepository.findById(BOOK.getId())).thenReturn(BOOK);
+        when(bookRepository.findById(BOOK.getId())).thenReturn(BOOK);
 
         //when
-        Item item = itemService.find(BOOK.getId());
+        Item item = bookService.find(BOOK.getId());
 
         //then
-        verify(itemRepository).findById(BOOK.getId());
+        verify(bookRepository).findById(BOOK.getId());
 
         assertEquals(BOOK, item, "Wrong item returned from find");
     }
@@ -71,13 +72,13 @@ class ItemServiceTest extends Account {
     @Test
     void findAll() {
         //given
-        when(itemRepository.findAll()).thenReturn(List.of(BOOK));
+        when(bookRepository.findAll()).thenReturn(List.of(BOOK));
 
         //when
-        List<Item> items = itemService.findAll();
+        List<Book> items = bookService.findAll();
 
         //then
-        verify(itemRepository).findAll();
+        verify(bookRepository).findAll();
 
         assertEquals(List.of(BOOK), items, "Wrong items returned from findAll");
     }

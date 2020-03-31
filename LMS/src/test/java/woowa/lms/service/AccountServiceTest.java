@@ -6,9 +6,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import woowa.lms.back.domain.account.Account;
+import woowa.lms.back.domain.account.Admin;
 import woowa.lms.back.domain.account.Owner;
-import woowa.lms.back.repository.AccountRepository;
-import woowa.lms.back.service.AccountService;
+import woowa.lms.back.repository.account.AdminRepository;
+import woowa.lms.back.service.account.AdminService;
 
 import java.util.List;
 
@@ -22,24 +23,24 @@ class AccountServiceTest extends Account {
 
     static final String ID = "leegeobuk";
     static final String PW = "password";
-    static final Owner OWNER = Owner.of(ID, PW);
+    static final Admin ADMIN = Admin.of(ID, PW);
 
     @Mock
-    AccountRepository accountRepository;
+    AdminRepository adminRepository;
 
     @InjectMocks
-    AccountService accountService;
+    AdminService adminService;
 
     @Test
     void singUp() {
         //given
-        when(accountRepository.findById(anyString())).thenReturn(null);
+        when(adminRepository.findById(anyString())).thenReturn(null);
 
         //when
-        String ownerId = accountService.signUp(OWNER);
+        String ownerId = adminService.signUp(ADMIN);
 
         //then
-        verify(accountRepository).save(any(Account.class));
+        verify(adminRepository).save(any(Admin.class));
         
         assertEquals(ID, ownerId, "Wrong account_id returned from signUp");
     }
@@ -47,28 +48,28 @@ class AccountServiceTest extends Account {
     @Test
     void testValidateDuplicateException() {
         //given
-        when(accountRepository.findById(anyString())).thenReturn(OWNER);
+        when(adminRepository.findById(anyString())).thenReturn(ADMIN);
 
         //when
-        assertThrows(IllegalStateException.class, () -> accountService.signUp(OWNER),
+        assertThrows(IllegalStateException.class, () -> adminService.signUp(ADMIN),
             "Exception not thrown when signUp duplicated");
 
         //then
-        verify(accountRepository).findById(anyString());
-        verify(accountRepository, never()).save(any(Account.class));
+        verify(adminRepository).findById(anyString());
+        verify(adminRepository, never()).save(any(Admin.class));
     }
 
     @Test
     void edit() {
         //given
         Owner ownerMock = mock(Owner.class);
-        when(accountRepository.findById(anyString())).thenReturn(ownerMock);
+        when(adminRepository.findById(anyString())).thenReturn(ownerMock);
 
         //when
-        accountService.edit(ID, "lego", "01011112222");
+        adminService.edit(ID, "lego", "01011112222");
 
         //then
-        verify(accountRepository).findById(anyString());
+        verify(adminRepository).findById(anyString());
         verify(ownerMock).setName(anyString());
         verify(ownerMock).setContact(anyString());
     }
@@ -76,28 +77,28 @@ class AccountServiceTest extends Account {
     @Test
     void find() {
         //given
-        when(accountRepository.findById(anyString())).thenReturn(OWNER);
+        when(adminRepository.findById(anyString())).thenReturn(ADMIN);
 
         //when
-        Account account = accountService.find(ID);
+        Account account = adminService.find(ID);
 
         //then
-        verify(accountRepository).findById(anyString());
+        verify(adminRepository).findById(anyString());
 
-        assertEquals(OWNER, account, "Wrong account returned from find");
+        assertEquals(ADMIN, account, "Wrong account returned from find");
     }
 
     @Test
     void findAll() {
         //given
-        when(accountRepository.findAll()).thenReturn(List.of(OWNER));
+        when(adminRepository.findAll()).thenReturn(List.of(ADMIN));
 
         //when
-        List<Account> accounts = accountService.findAll();
+        List<Admin> accounts = adminService.findAll();
 
         //then
-        verify(accountRepository).findAll();
+        verify(adminRepository).findAll();
 
-        assertEquals(List.of(OWNER), accounts, "Wrong List returned from findAll");
+        assertEquals(List.of(ADMIN), accounts, "Wrong List returned from findAll");
     }
 }

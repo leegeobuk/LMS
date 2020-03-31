@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import woowa.lms.front.behavior.Behavior;
 import woowa.lms.front.controller.HomeController;
+import woowa.lms.front.controller.TableController;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ShowBooks implements Behavior {
@@ -17,6 +18,6 @@ public class ShowBooks implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        HomeController.getController().showBookTable();
+        TableController.getController().showBookTable();
     }
 }

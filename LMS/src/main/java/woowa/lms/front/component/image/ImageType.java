@@ -23,7 +23,13 @@ public enum ImageType {
     DELETE_BOOK("icon/book/delete.png"),
     LEND_BOOK("icon/book/lend.png"),
     RETURN_BOOK("icon/book/return.png"),
-    SEARCH_BOOK("icon/book/search.png");
+    SEARCH_BOOK("icon/book/search.png"),
+    VIEW_CUSTOMER("icon/customer/customers.png"),
+    ADD_CUSTOMER("icon/customer/add.png"),
+    EDIT_CUSTOMER("icon/customer/edit.png"),
+    DELETE_CUSTOMER("icon/customer/delete.png"),
+    SEARCH_CUSTOMER("icon/customer/search.png"),
+    CLOSE("icon/Close.png");
 
 
     private static final String URL = "file:src/main/resources/image/";

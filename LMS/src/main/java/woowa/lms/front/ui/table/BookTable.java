@@ -3,9 +3,7 @@ package woowa.lms.front.ui.table;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import woowa.lms.front.component.background.BackgroundBuilder;
 import woowa.lms.front.component.button.GeneralButton;
-import woowa.lms.front.component.image.ImageBuilder;
 import woowa.lms.front.component.image.ImageType;
 import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.model.BookModel;
@@ -20,6 +18,7 @@ public class BookTable extends AbstractTable<BookModel> {
     private Button deleteBookButton;
     private Button lendBookButton;
     private Button returnBookButton;
+    private Button searchButton;
     private Button closeButton;
 
     private static final double WIDTH = 500;
@@ -29,25 +28,20 @@ public class BookTable extends AbstractTable<BookModel> {
     private BookTable(double width, double height) {
         super(width, height);
 
-        setUpComponents();
+        String headerText = "Books List";
+        setUpComponents(headerText);
         setUpPage();
-        setUpStage();
+        setFoolProof();
+        setUpStage(headerText);
     }
 
     public static BookTable getInstance() {
         return TABLE;
     }
 
-    public void clear() {
-        table.getItems().clear();
-    }
-
-
-
     @Override
-    public void setUpComponents() {
-        super.setUpComponents();
-        headerLabel = LabelBuilder.getPageHeader("Books List");
+    public void setUpComponents(String pageTitle) {
+        super.setUpComponents(pageTitle);
 
         viewBookButton = GeneralButton.getTableButton(ImageType.VIEW_BOOK, VIEW_BOOK);
         addBookButton = GeneralButton.getTableButton(ImageType.ADD_BOOK, ADD_BOOK);
@@ -55,14 +49,15 @@ public class BookTable extends AbstractTable<BookModel> {
         deleteBookButton = GeneralButton.getTableButton(ImageType.DELETE_BOOK, DELETE_BOOK);
         lendBookButton = GeneralButton.getTableButton(ImageType.LEND_BOOK, LEND_BOOK);
         returnBookButton = GeneralButton.getTableButton(ImageType.RETURN_BOOK, RETURN_BOOK);
+        searchButton = GeneralButton.getTableButton(ImageType.SEARCH_BOOK, SEARCH_BOOK);
     }
 
     @Override
     public void setUpPage() {
         super.setUpPage();
 
-        iconBar.getChildren().addAll(viewBookButton, addBookButton,
-            editBookButton, deleteBookButton, lendBookButton, returnBookButton);
+        iconBar.getChildren().addAll(viewBookButton, addBookButton, editBookButton,
+            deleteBookButton, lendBookButton, returnBookButton, searchButton);
 
         TableColumn<BookModel, Long> idColumn = new TableColumn<>("Book Id");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -85,11 +80,5 @@ public class BookTable extends AbstractTable<BookModel> {
     @Override
     public void setFoolProof() {
 
-    }
-
-    @Override
-    public void setUpStage() {
-        super.setUpStage();
-        this.setTitle("Books List");
     }
 }

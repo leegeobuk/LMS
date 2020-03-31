@@ -1,6 +1,7 @@
 package woowa.lms.front.behavior.close;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import woowa.lms.front.behavior.Behavior;

@@ -37,43 +37,30 @@ public class SignUpForm extends AbstractForm {
         super(width, height);
         inputFields = List.of(idInputField, pwInputField,
             confirmPwInputField, nameInputField, contactInputField);
-        setUpComponents();
+        String headerText = "Sign Up";
+        setUpComponents(headerText);
         setUpPage();
         setFoolProof();
-        setUpStage();
+        setUpStage(headerText);
     }
 
     @Override
-    public void setUpComponents() {
-        background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
-
-        headerLabel = LabelBuilder.getPageHeader("Sign Up");
-
-        logoImageView = getLogo(imageWidth);
-
-
+    public void setUpComponents(String pageTitle) {
         idLabel = LabelBuilder.getFormLabel("Id");
         pwLabel = LabelBuilder.getFormLabel("Password");
         confirmPwLabel = LabelBuilder.getFormLabel("Confirm Password");
         nameLabel = LabelBuilder.getFormLabel("Name");
         contactLabel = LabelBuilder.getFormLabel("Contact");
-
         errorLabel = LabelBuilder.builder().textFill("red").build().toLabel();
-        errorLabel.setWrapText(true);
-
 
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, SIGN_UP);
-        okButton.setDefaultButton(true);
-        okButton.setDisable(true);
-
         cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_SIGN_UP);
-        cancelButton.setCancelButton(true);
+        super.setUpComponents(pageTitle);
     }
 
     @Override
     public void setUpPage() {
-        headerLabel.setGraphic(logoImageView);
-        headerLabel.setGraphicTextGap(this.getWidth() * 0.05);
+        super.setUpPage();
 
         form.addRow(0, idLabel, idInputField.toTextField());
         form.addRow(1, pwLabel, pwInputField.toTextField());
@@ -84,29 +71,11 @@ public class SignUpForm extends AbstractForm {
         form.setHgap(this.getWidth() * 0.08);
         form.setVgap(this.getHeight() * 0.02);
         form.setAlignment(Pos.CENTER);
-
-        buttonBox.getChildren().addAll(okButton, cancelButton);
-        buttonBox.setAlignment(Pos.CENTER);
-
-        mainPane.setBackground(background);
-        mainPane.getChildren().addAll(headerLabel, form, buttonBox);
-        mainPane.setPadding(new Insets(20));
-        mainPane.setAlignment(Pos.TOP_CENTER);
-        mainPane.setSpacing(this.getHeight() * 0.06);
     }
 
     @Override
     public void setFoolProof() {
         confirmPwInputField.setPasswordField(pwInputField);
-
-        FormFoolProof formFoolProof = FormFoolProof.builder().button(okButton)
-            .errorLabel(errorLabel).inputFields(inputFields).build();
-        inputFields.forEach(inputField -> inputField.setOnKeyReleased(formFoolProof));
-    }
-
-    @Override
-    public void setUpStage() {
-        super.setUpStage();
-        this.setTitle("Sign Up");
+        super.setFoolProof();
     }
 }

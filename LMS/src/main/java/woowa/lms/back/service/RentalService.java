@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import woowa.lms.back.domain.account.Account;
+import woowa.lms.back.domain.account.Customer;
+import woowa.lms.back.domain.item.Book;
 import woowa.lms.back.domain.rental.Rental;
 import woowa.lms.back.domain.rental.RentalItem;
-import woowa.lms.back.repository.AccountRepository;
+import woowa.lms.back.repository.account.AccountRepository;
 import woowa.lms.back.repository.RentalRepository;
 import woowa.lms.back.repository.item.ItemRepository;
 
@@ -16,8 +18,8 @@ import woowa.lms.back.repository.item.ItemRepository;
 public class RentalService {
 
     private final RentalRepository rentalRepository;
-    private final AccountRepository accountRepository;
-    private final ItemRepository itemRepository;
+    private final AccountRepository<Customer> accountRepository;
+    private final ItemRepository<Book> itemRepository;
 
     @Transactional
     public Long lendBooks(String accountId, Long... itemIds) {

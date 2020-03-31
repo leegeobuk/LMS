@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import woowa.lms.back.util.Token;
 import woowa.lms.front.behavior.BehaviorType;
 import woowa.lms.front.component.background.BackgroundBuilder;
@@ -34,19 +35,14 @@ public class MainPage extends AbstractPage {
 
     private MainPage(double width, double height) {
         super(width, height);
-        setUpComponents();
+        setUpComponents("Woowa Library");
         setUpPage();
-        setUpStage();
+        setUpStage("Woowa Library Management System");
     }
 
     @Override
-    public void setUpComponents() {
-        background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
-
-        headerLabel = LabelBuilder.getMainHeader("Woowa Library");
-
-        logoImageView = ImageBuilder.getLogo(imageWidth);
-
+    public void setUpComponents(String pageTitle) {
+        super.setUpComponents(pageTitle);
 
         ImageView customImage = ImageBuilder.getImageView(ABOUT, imageWidth);
         aboutButton = GeneralButton.getMainButton("About", customImage, SHOW_ABOUT);
@@ -93,21 +89,11 @@ public class MainPage extends AbstractPage {
 
     @Override
     public void setUpPage() {
-        headerLabel.setGraphic(logoImageView);
+        super.setUpPage();
+
         headerLabel.setGraphicTextGap(this.getWidth() * 0.01);
 
         mainBox.getChildren().addAll(aboutButton, signUpButton, signInButton, exitButton);
-        mainBox.setAlignment(Pos.CENTER);
-
-        mainPane.setBackground(background);
-        mainPane.getChildren().addAll(headerLabel, mainBox);
-        mainPane.setPadding(new Insets(20));
-        mainPane.setAlignment(Pos.TOP_CENTER);
-    }
-
-    @Override
-    public void setUpStage() {
-        super.setUpStage();
-        this.setTitle("Woowa Library Management System");
+        ((HBox) mainBox).setAlignment(Pos.CENTER);
     }
 }

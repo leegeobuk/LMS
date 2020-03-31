@@ -1,6 +1,7 @@
 package woowa.lms.front.ui.dialog;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -18,23 +19,19 @@ public abstract class AbstractDialog implements Showable {
     protected ImageView headerImage;
     protected Label contentLabel;
     protected String title;
-    protected String headerText;
     protected String contentText;
 
-    protected AbstractDialog(Alert.AlertType alertType, String title, String headerText, String contentText) {
+    protected AbstractDialog(Alert.AlertType alertType, String title, String contentText) {
         alert = new Alert(alertType);
         dialogPane = new DialogPane();
         this.title = title;
-        this.headerText = headerText;
         this.contentText = contentText;
     }
 
     @Override
-    public void setUpComponents() {
+    public void setUpComponents(String pageTitle) {
         background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
-
-        headerLabel = LabelBuilder.getDialogHeader(headerText);
-
+        headerLabel = LabelBuilder.getDialogHeader(pageTitle);
         contentLabel = LabelBuilder.getDialogContent(contentText);
     }
 
@@ -44,6 +41,7 @@ public abstract class AbstractDialog implements Showable {
         headerLabel.setGraphic(headerImage);
 
         setUpDialogPane(dialogPane, background, headerLabel, contentLabel);
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         alert.setDialogPane(dialogPane);
         alert.setTitle(title);

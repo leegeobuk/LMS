@@ -1,12 +1,18 @@
 package woowa.lms.front.ui.page;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import woowa.lms.front.component.background.BackgroundBuilder;
+import woowa.lms.front.component.image.ImageBuilder;
+import woowa.lms.front.component.label.LabelBuilder;
 
 public abstract class AbstractPage extends Stage implements Page {
 
@@ -16,7 +22,7 @@ public abstract class AbstractPage extends Stage implements Page {
     protected Label headerLabel;
     protected ImageView logoImageView;
 
-    protected HBox mainBox;
+    protected Pane mainBox;
 
     protected double imageWidth;
     protected boolean signedIn;
@@ -32,14 +38,27 @@ public abstract class AbstractPage extends Stage implements Page {
     }
 
     @Override
-    public abstract void setUpComponents();
+    public void setUpComponents(String pageTitle) {
+        background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
+        headerLabel = LabelBuilder.getPageHeader(pageTitle);
+        logoImageView = ImageBuilder.getLogo(imageWidth);
+    }
 
     @Override
-    public abstract void setUpPage();
+    public void setUpPage() {
+        headerLabel.setGraphic(logoImageView);
+        headerLabel.setGraphicTextGap(this.getWidth() * 0.05);
+
+        mainPane.setBackground(background);
+        mainPane.getChildren().addAll(headerLabel, mainBox);
+        mainPane.setPadding(new Insets(20));
+        mainPane.setAlignment(Pos.TOP_CENTER);
+    }
 
     @Override
-    public void setUpStage() {
+    public void setUpStage(String title) {
         Scene scene = new Scene(mainPane);
         this.setScene(scene);
+        this.setTitle(title);
     }
 }

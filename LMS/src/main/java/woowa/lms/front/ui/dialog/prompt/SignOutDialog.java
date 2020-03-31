@@ -18,13 +18,13 @@ public class SignOutDialog extends AbstractDialog {
     private static final String HEADER_TEXT = "Are you sure you want to sign out?";
     private static final String CONTENT_TEXT = "Think twice!!";
     private static final SignOutDialog DIALOG =
-        new SignOutDialog(ALERT_TYPE, TITLE, HEADER_TEXT, CONTENT_TEXT);
+        new SignOutDialog(ALERT_TYPE, TITLE, CONTENT_TEXT);
 
     private SignOutDialog(Alert.AlertType alertType, String title,
-                          String headerText, String contentText) {
-        super(alertType, title, headerText, contentText);
+                          String contentText) {
+        super(alertType, title, contentText);
 
-        setUpComponents();
+        setUpComponents(HEADER_TEXT);
         setUpPage();
     }
 
@@ -33,17 +33,10 @@ public class SignOutDialog extends AbstractDialog {
     }
 
     @Override
-    public void setUpComponents() {
-        super.setUpComponents();
+    public void setUpComponents(String pageTitle) {
+        super.setUpComponents(pageTitle);
 
         headerImage = ImageBuilder.getDialogImage(CONFIRM);
-    }
-
-    @Override
-    public void setUpPage() {
-        super.setUpPage();
-
-        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
     }
 
     @Override

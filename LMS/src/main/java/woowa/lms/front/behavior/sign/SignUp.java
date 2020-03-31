@@ -5,7 +5,8 @@ import javafx.scene.control.TextField;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import woowa.lms.back.domain.account.Admin;
-import woowa.lms.back.service.AccountService;
+import woowa.lms.back.service.account.AccountService;
+import woowa.lms.back.service.account.AdminService;
 import woowa.lms.back.util.SpringContext;
 import woowa.lms.front.behavior.Behavior;
 import woowa.lms.front.controller.HomeController;
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SignUp implements Behavior {
 
-    private AccountService service = SpringContext.getBean(AccountService.class);
+    private AdminService service = SpringContext.getBean(AdminService.class);
 
     private static final SignUp INSTANCE = new SignUp();
 

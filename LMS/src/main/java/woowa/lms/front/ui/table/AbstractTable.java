@@ -46,10 +46,14 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
         imageWidth = width * 0.1;
     }
 
-    @Override
-    public void setUpComponents() {
-        background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
+    public void clear() {
+        table.getItems().clear();
+    }
 
+    @Override
+    public void setUpComponents(String pageTitle) {
+        background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
+        headerLabel = LabelBuilder.getPageHeader(pageTitle);
         logoImageView = ImageBuilder.getLogo(imageWidth);
     }
 
@@ -73,8 +77,9 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
     public abstract void setFoolProof();
 
     @Override
-    public void setUpStage() {
+    public void setUpStage(String title) {
         Scene scene = new Scene(mainPane);
         this.setScene(scene);
+        this.setTitle(title);
     }
 }
