@@ -39,7 +39,8 @@ public abstract class Account {
     @OneToMany(mappedBy = "account")
     private List<Rental> rentals = new ArrayList<>();
 
-    protected Account(String id) {
+    protected Account(String id, String pw) {
         this.id = id;
+        this.pw = pw;
     }
 }

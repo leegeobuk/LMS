@@ -3,6 +3,7 @@ package woowa.lms.front.ui.table;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
@@ -28,6 +29,7 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
 
     protected VBox tableBox;
     protected HBox iconBar;
+    protected Button closeButton;
     @Getter
     protected TableView<E> table;
 
@@ -55,6 +57,8 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
         background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
         headerLabel = LabelBuilder.getPageHeader(pageTitle);
         logoImageView = ImageBuilder.getLogo(imageWidth);
+
+        closeButton.setCancelButton(true);
     }
 
     @Override
@@ -63,7 +67,6 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
         headerLabel.setGraphicTextGap(this.getWidth() * 0.05);
 
         iconBar.setAlignment(Pos.CENTER_LEFT);
-        table.setEditable(true);
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tableBox.getChildren().addAll(iconBar, table);
 
@@ -72,6 +75,8 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
         mainPane.setPadding(new Insets(20));
         mainPane.setAlignment(Pos.TOP_CENTER);
     }
+
+    public abstract void update();
 
     @Override
     public abstract void setFoolProof();

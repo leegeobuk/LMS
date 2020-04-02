@@ -13,7 +13,8 @@ public class NameFoolProof implements FieldFoolProof {
     private static final String MESSAGE =
         "Name starts with a capital letter with no consecutive hyphens or whitespaces " +
         "and ends with alphabet with the length of 2 to 30";
-    private static final String PATTERN = "^[A-Z][a-z]+(-[a-zA-Z]+)?(\\s[A-Za-z]+)*$";
+    private static final String PATTERN =
+        "^[A-Z][a-z]*[A-Z]?[a-z]+(-[A-Za-z]+)?(\\s[A-Za-z]+)*$";
     private static final NameFoolProof INSTANCE = new NameFoolProof();
 
     public NameFoolProof() {

@@ -6,7 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import woowa.lms.back.domain.account.Account;
-import woowa.lms.back.domain.account.Admin;
 import woowa.lms.back.domain.item.Book;
 import woowa.lms.back.domain.item.Item;
 import woowa.lms.back.domain.rental.Rental;
@@ -30,7 +29,7 @@ class RentalServiceTest extends Account {
     Rental rental;
 
     @Mock
-    AccountRepository<Admin> accountRepository;
+    AccountRepository accountRepository;
 
     @Mock
     ItemRepository<Book> itemRepository;

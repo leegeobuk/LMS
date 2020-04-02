@@ -4,7 +4,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import woowa.lms.back.util.Token;
 import woowa.lms.front.component.image.ImageBuilder;
-import woowa.lms.front.controller.HomeController;
+import woowa.lms.front.controller.MainController;
 import woowa.lms.front.ui.dialog.AbstractDialog;
 
 import java.util.Optional;
@@ -44,7 +44,7 @@ public class SignOutDialog extends AbstractDialog {
         Optional<ButtonType> response = alert.showAndWait();
         if (response.isPresent() && response.get() == ButtonType.OK) {
             Token.getToken().signOut();
-            HomeController.getController().redrawMainPage();
+            MainController.getController().redrawMainPage();
         }
     }
 }

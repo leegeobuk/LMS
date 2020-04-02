@@ -75,7 +75,7 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
         headerLabel = LabelBuilder.getPageHeader(pageTitle);
         logoImageView = getLogo(imageWidth);
 
-
+        errorLabel = LabelBuilder.builder().textFill("red").build().toLabel();
         errorLabel.setWrapText(true);
 
         okButton.setDefaultButton(true);

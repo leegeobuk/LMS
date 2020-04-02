@@ -8,8 +8,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import woowa.lms.back.domain.account.Account;
 import woowa.lms.back.domain.account.Admin;
 import woowa.lms.back.domain.account.Owner;
-import woowa.lms.back.repository.account.AdminRepository;
-import woowa.lms.back.service.account.AdminService;
+import woowa.lms.back.repository.account.AccountRepository;
+import woowa.lms.back.service.account.AccountService;
 
 import java.util.List;
 
@@ -26,21 +26,21 @@ class AccountServiceTest extends Account {
     static final Admin ADMIN = Admin.of(ID, PW);
 
     @Mock
-    AdminRepository adminRepository;
+    AccountRepository accountRepository;
 
     @InjectMocks
-    AdminService adminService;
+    AccountService accountService;
 
     @Test
     void singUp() {
         //given
-        when(adminRepository.findById(anyString())).thenReturn(null);
+        when(accountRepository.findById(anyString())).thenReturn(null);
 
         //when
-        String ownerId = adminService.signUp(ADMIN);
+        String ownerId = accountService.signUp(ADMIN);
 
         //then
-        verify(adminRepository).save(any(Admin.class));
+        verify(accountRepository).save(any(Admin.class));
         
         assertEquals(ID, ownerId, "Wrong account_id returned from signUp");
     }
@@ -48,28 +48,28 @@ class AccountServiceTest extends Account {
     @Test
     void testValidateDuplicateException() {
         //given
-        when(adminRepository.findById(anyString())).thenReturn(ADMIN);
+        when(accountRepository.findById(anyString())).thenReturn(ADMIN);
 
         //when
-        assertThrows(IllegalStateException.class, () -> adminService.signUp(ADMIN),
+        assertThrows(IllegalStateException.class, () -> accountService.signUp(ADMIN),
             "Exception not thrown when signUp duplicated");
 
         //then
-        verify(adminRepository).findById(anyString());
-        verify(adminRepository, never()).save(any(Admin.class));
+        verify(accountRepository).findById(anyString());
+        verify(accountRepository, never()).save(any(Admin.class));
     }
 
     @Test
     void edit() {
         //given
         Owner ownerMock = mock(Owner.class);
-        when(adminRepository.findById(anyString())).thenReturn(ownerMock);
+        when(accountRepository.findById(anyString())).thenReturn(ownerMock);
 
         //when
-        adminService.edit(ID, "lego", "01011112222");
+        accountService.edit(ID, "lego", "01011112222");
 
         //then
-        verify(adminRepository).findById(anyString());
+        verify(accountRepository).findById(anyString());
         verify(ownerMock).setName(anyString());
         verify(ownerMock).setContact(anyString());
     }
@@ -77,13 +77,13 @@ class AccountServiceTest extends Account {
     @Test
     void find() {
         //given
-        when(adminRepository.findById(anyString())).thenReturn(ADMIN);
+        when(accountRepository.findById(anyString())).thenReturn(ADMIN);
 
         //when
-        Account account = adminService.find(ID);
+        Account account = accountService.find(ID);
 
         //then
-        verify(adminRepository).findById(anyString());
+        verify(accountRepository).findById(anyString());
 
         assertEquals(ADMIN, account, "Wrong account returned from find");
     }
@@ -91,13 +91,13 @@ class AccountServiceTest extends Account {
     @Test
     void findAll() {
         //given
-        when(adminRepository.findAll()).thenReturn(List.of(ADMIN));
+        when(accountRepository.findAll()).thenReturn(List.of(ADMIN));
 
         //when
-        List<Admin> accounts = adminService.findAll();
+        List<Account> accounts = accountService.findAll();
 
         //then
-        verify(adminRepository).findAll();
+        verify(accountRepository).findAll();
 
         assertEquals(List.of(ADMIN), accounts, "Wrong List returned from findAll");
     }

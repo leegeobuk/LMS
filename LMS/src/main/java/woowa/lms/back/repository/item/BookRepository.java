@@ -6,6 +6,7 @@ import woowa.lms.back.domain.item.Book;
 import woowa.lms.back.domain.item.Item;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository
@@ -21,9 +22,13 @@ public class BookRepository implements ItemRepository<Book> {
 
     @Override
     public Item findById(Long id) {
-        return em.createQuery("SELECT i FROM Item i WHERE TREAT(i as Book).item_id = :id", Item.class)
-            .setParameter("id", id)
-            .getSingleResult();
+        try {
+            return em.createQuery("SELECT i FROM Item i WHERE TREAT(i as Book).item_id = :id", Item.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override

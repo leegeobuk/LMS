@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import woowa.lms.front.controller.HomeController;
+import woowa.lms.front.controller.MainController;
 
 import java.util.Locale;
 
@@ -20,7 +20,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         Locale.setDefault(Locale.US);
-        HomeController.getController().showMainPage();
+        MainController.getController().showMainPage();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package woowa.lms.front.ui.page;
 
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -9,11 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import woowa.lms.back.util.Token;
 import woowa.lms.front.behavior.BehaviorType;
-import woowa.lms.front.component.background.BackgroundBuilder;
 import woowa.lms.front.component.button.GeneralButton;
 import woowa.lms.front.component.image.ImageBuilder;
 import woowa.lms.front.component.image.ImageType;
-import woowa.lms.front.component.label.LabelBuilder;
 
 import static woowa.lms.front.behavior.BehaviorType.SIGN_OUT;
 import static woowa.lms.front.behavior.BehaviorType.*;
@@ -75,11 +72,12 @@ public class MainPage extends AbstractPage {
         imageWidth = imageWidth * (signedIn ? (7 / 8.0) : (8.0 / 7));
         aboutButton = drawButton("About", ABOUT, SHOW_ABOUT);
         bookButton = drawButton("Books", BOOK, SHOW_BOOKS);
-        customerButton = drawButton("Customers", CUSTOMER, SHOW_CUSTOMERS);
+        customerButton = drawButton("Customers", CUSTOMER, SHOW_USERS);
         signInButton = signedIn
             ? drawButton("Sign Out", ImageType.SIGN_OUT, SIGN_OUT)
             : drawButton("Sign In", ImageType.SIGN_IN, SHOW_SIGN_IN);
         exitButton = drawButton("Exit", EXIT, EXIT_PROGRAM);
+        exitButton.setCancelButton(true);
     }
 
     private Button drawButton(String text, ImageType image, BehaviorType behavior) {

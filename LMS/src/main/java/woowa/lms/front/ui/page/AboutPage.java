@@ -3,16 +3,11 @@ package woowa.lms.front.ui.page;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import woowa.lms.front.component.background.BackgroundBuilder;
 import woowa.lms.front.component.button.GeneralButton;
-import woowa.lms.front.component.image.ImageBuilder;
-import woowa.lms.front.component.label.LabelBuilder;
 
-import static woowa.lms.front.behavior.BehaviorType.CLOSE;
 import static woowa.lms.front.behavior.BehaviorType.CLOSE_ABOUT;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_CANCEL;
 
