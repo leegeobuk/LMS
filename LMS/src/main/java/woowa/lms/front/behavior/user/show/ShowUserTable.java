@@ -17,6 +17,6 @@ public class ShowUserTable implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        TableController.getController().showCustomerTable();
+        TableController.getController().showUserTable();
     }
 }

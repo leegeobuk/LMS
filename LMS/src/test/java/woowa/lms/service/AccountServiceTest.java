@@ -37,7 +37,7 @@ class AccountServiceTest extends Account {
         when(accountRepository.findById(anyString())).thenReturn(null);
 
         //when
-        String ownerId = accountService.signUp(ADMIN);
+        String ownerId = accountService.signUpAccount(ADMIN);
 
         //then
         verify(accountRepository).save(any(Admin.class));
@@ -51,7 +51,7 @@ class AccountServiceTest extends Account {
         when(accountRepository.findById(anyString())).thenReturn(ADMIN);
 
         //when
-        assertThrows(IllegalStateException.class, () -> accountService.signUp(ADMIN),
+        assertThrows(IllegalStateException.class, () -> accountService.signUpAccount(ADMIN),
             "Exception not thrown when signUp duplicated");
 
         //then
@@ -66,7 +66,7 @@ class AccountServiceTest extends Account {
         when(accountRepository.findById(anyString())).thenReturn(ownerMock);
 
         //when
-        accountService.edit(ID, "lego", "01011112222");
+        accountService.editAccount(ID, "lego", "01011112222");
 
         //then
         verify(accountRepository).findById(anyString());
@@ -80,7 +80,7 @@ class AccountServiceTest extends Account {
         when(accountRepository.findById(anyString())).thenReturn(ADMIN);
 
         //when
-        Account account = accountService.find(ID);
+        Account account = accountService.findAccount(ID);
 
         //then
         verify(accountRepository).findById(anyString());

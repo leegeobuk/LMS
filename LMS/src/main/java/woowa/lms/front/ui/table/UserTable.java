@@ -7,13 +7,18 @@ import woowa.lms.back.domain.account.User;
 import woowa.lms.back.service.account.AccountService;
 import woowa.lms.back.util.SpringContext;
 import woowa.lms.front.component.button.GeneralButton;
+import woowa.lms.front.component.image.ImageType;
 import woowa.lms.front.model.AccountModel;
 
 import java.util.List;
 
 import static java.util.stream.Collectors.toUnmodifiableList;
+import static woowa.lms.front.behavior.BehaviorType.DELETE_USER;
+import static woowa.lms.front.behavior.BehaviorType.VIEW_USER;
 import static woowa.lms.front.behavior.BehaviorType.*;
-import static woowa.lms.front.component.image.ImageType.CLOSE;
+import static woowa.lms.front.component.image.ImageType.ADD_USER;
+import static woowa.lms.front.component.image.ImageType.EDIT_USER;
+import static woowa.lms.front.component.image.ImageType.SEARCH_USER;
 import static woowa.lms.front.component.image.ImageType.*;
 
 public class UserTable extends AbstractTable<AccountModel> {
@@ -27,16 +32,17 @@ public class UserTable extends AbstractTable<AccountModel> {
 
     private static final double WIDTH = 500;
     private static final double HEIGHT = 600;
-    private static final UserTable TABLE = new UserTable(WIDTH, HEIGHT);
+    private static final String TITLE = "Users Table";
+    private static final String HEADER = "Users List";
+    private static final UserTable TABLE = new UserTable();
 
-    public UserTable(double width, double height) {
-        super(width, height);
-        String headerText = "Users List";
-        setUpComponents(headerText);
+    public UserTable() {
+        super(WIDTH, HEIGHT, TITLE, HEADER);
+        setUpComponents();
         setUpPage();
         update();
         setFoolProof();
-        setUpStage(headerText);
+        setUpStage();
     }
 
     public static UserTable getInstance() {
@@ -44,15 +50,15 @@ public class UserTable extends AbstractTable<AccountModel> {
     }
 
     @Override
-    public void setUpComponents(String pageTitle) {
-        viewUserButton = GeneralButton.getTableButton(VIEW_CUSTOMER, VIEW_USER);
-        addUserButton = GeneralButton.getTableButton(ADD_CUSTOMER, SHOW_ADD_USER);
-        editUserButton = GeneralButton.getTableButton(EDIT_CUSTOMER, SHOW_EDIT_USER);
-        deleteUserButton = GeneralButton.getTableButton(DELETE_CUSTOMER, DELETE_USER);
-        searchButton = GeneralButton.getTableButton(SEARCH_CUSTOMER, SHOW_SEARCH_USER);
+    public void setUpComponents() {
+        viewUserButton = GeneralButton.getTableButton(ImageType.VIEW_USER, VIEW_USER);
+        addUserButton = GeneralButton.getTableButton(ADD_USER, SHOW_ADD_USER);
+        editUserButton = GeneralButton.getTableButton(EDIT_USER, SHOW_EDIT_USER);
+        deleteUserButton = GeneralButton.getTableButton(ImageType.DELETE_USER, DELETE_USER);
+        searchButton = GeneralButton.getTableButton(SEARCH_USER, SHOW_SEARCH_USER);
         closeButton = GeneralButton.getTableButton(CLOSE, CLOSE_USER);
 
-        super.setUpComponents(pageTitle);
+        super.setUpComponents();
     }
 
     @Override
@@ -60,7 +66,7 @@ public class UserTable extends AbstractTable<AccountModel> {
         iconBar.getChildren().addAll(viewUserButton, addUserButton,
             editUserButton, deleteUserButton, searchButton, closeButton);
 
-        TableColumn<AccountModel, String > idColumn = new TableColumn<>("Customer Id");
+        TableColumn<AccountModel, String > idColumn = new TableColumn<>("User Id");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         idColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.3));
         TableColumn<AccountModel, String > nameColumn = new TableColumn<>("Name");

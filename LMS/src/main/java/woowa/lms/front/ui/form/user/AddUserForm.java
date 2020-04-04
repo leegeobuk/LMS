@@ -12,21 +12,22 @@ public class AddUserForm extends SignUpForm {
 
     private static final double WIDTH = 400;
     private static final double HEIGHT = 450;
-    private static final String TITLE = "Add User";
-    public static final AddUserForm FORM = new AddUserForm(TITLE);
+    private static final String TITLE = "Add User Form";
+    private static final String HEADER = "Add User";
+    public static final AddUserForm FORM = new AddUserForm();
 
-    private AddUserForm(String title) {
-        super(WIDTH, HEIGHT);
-        setUpComponents(title);
+    private AddUserForm() {
+        super(WIDTH, HEIGHT, TITLE, HEADER);
+        setUpComponents();
         setUpPage();
         setFoolProof();
-        setUpStage(title);
+        setUpStage();
     }
 
     @Override
-    public void setUpComponents(String pageTitle) {
+    public void setUpComponents() {
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, ADD_USER);
         cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_ADD_USER);
-        super.setUpComponents(pageTitle);
+        super.setUpComponents();
     }
 }

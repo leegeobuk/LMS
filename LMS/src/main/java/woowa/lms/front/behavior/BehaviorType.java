@@ -16,6 +16,8 @@ import woowa.lms.front.behavior.main.sign.SignIn;
 import woowa.lms.front.behavior.main.sign.SignOut;
 import woowa.lms.front.behavior.main.sign.SignUp;
 import woowa.lms.front.behavior.user.close.CloseAddUser;
+import woowa.lms.front.behavior.user.close.CloseEditUser;
+import woowa.lms.front.behavior.user.close.CloseSearchUser;
 import woowa.lms.front.behavior.user.close.CloseUserTable;
 import woowa.lms.front.behavior.user.show.ShowAddUser;
 import woowa.lms.front.behavior.user.show.ShowEditUser;
@@ -56,6 +58,8 @@ public enum BehaviorType {
     DELETE_USER(DeleteUser.getInstance()),
     SEARCH_USER(SearchUser.getInstance()),
     CLOSE_ADD_USER(CloseAddUser.getInstance()),
+    CLOSE_EDIT_USER(CloseEditUser.getInstance()),
+    CLOSE_SEARCH_USER(CloseSearchUser.getInstance()),
     CLOSE_USER(CloseUserTable.getInstance());
 
 

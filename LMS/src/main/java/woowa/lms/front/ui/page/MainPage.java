@@ -27,20 +27,20 @@ public class MainPage extends AbstractPage {
 
     private static final double WIDTH = 960;
     private static final double HEIGHT = 540;
+    private static final String TITLE = "Woowa Library Management System";
+    private static final String HEADER = "Woowa Library";
 
-    public static final MainPage PAGE = new MainPage(WIDTH, HEIGHT);
+    public static final MainPage PAGE = new MainPage();
 
-    private MainPage(double width, double height) {
-        super(width, height);
-        setUpComponents("Woowa Library");
+    private MainPage() {
+        super(WIDTH, HEIGHT, TITLE, HEADER);
+        setUpComponents();
         setUpPage();
-        setUpStage("Woowa Library Management System");
+        setUpStage();
     }
 
     @Override
-    public void setUpComponents(String pageTitle) {
-        super.setUpComponents(pageTitle);
-
+    public void setUpComponents() {
         ImageView customImage = ImageBuilder.getImageView(ABOUT, imageWidth);
         aboutButton = GeneralButton.getMainButton("About", customImage, SHOW_ABOUT);
 
@@ -53,6 +53,7 @@ public class MainPage extends AbstractPage {
         customImage = ImageBuilder.getImageView(EXIT, imageWidth);
         exitButton = GeneralButton.getMainButton("Exit", customImage, EXIT_PROGRAM);
         exitButton.setCancelButton(true);
+        super.setUpComponents();
     }
 
     public void redraw() {
@@ -87,11 +88,11 @@ public class MainPage extends AbstractPage {
 
     @Override
     public void setUpPage() {
-        super.setUpPage();
-
         headerLabel.setGraphicTextGap(this.getWidth() * 0.01);
 
         mainBox.getChildren().addAll(aboutButton, signUpButton, signInButton, exitButton);
         ((HBox) mainBox).setAlignment(Pos.CENTER);
+
+        super.setUpPage();
     }
 }

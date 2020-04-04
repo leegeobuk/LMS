@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import woowa.lms.back.domain.account.Account;
+import woowa.lms.back.domain.account.AccountSearchCriteria;
 import woowa.lms.back.domain.account.Admin;
 import woowa.lms.back.domain.account.User;
 import woowa.lms.back.repository.account.AccountRepository;
@@ -20,7 +21,7 @@ public class AccountService {
     private final AccountRepository accountRepository;
 
     @Transactional
-    public String signUp(Account account) throws IllegalStateException {
+    public String signUpAccount(Account account) throws IllegalStateException {
         validateDuplicate(account);
         accountRepository.save(account);
         return account.getId();
@@ -33,7 +34,7 @@ public class AccountService {
         }
     }
 
-    public Account signIn(Account account) throws IllegalStateException {
+    public Account signInAccount(Account account) throws IllegalStateException {
         validateSignIn(account);
         return account;
     }
@@ -49,13 +50,19 @@ public class AccountService {
     }
 
     @Transactional
-    public void edit(String id, String name, String contact) {
+    public void editAccount(String id, String name, String contact) {
         Account account = accountRepository.findById(id);
         account.setName(name);
         account.setContact(contact);
     }
 
-    public Account find(String id) {
+    @Transactional
+    public void deleteAccount(String  accountId) {
+        Account account = findAccount(accountId);
+        accountRepository.delete(account);
+    }
+
+    public Account findAccount(String id) {
         return accountRepository.findById(id);
     }
 
@@ -67,6 +74,10 @@ public class AccountService {
     public List<User> findUsers() {
         return accountRepository.findUsers().
             stream().map(User.class::cast).collect(toUnmodifiableList());
+    }
+
+    public List<Account> findAll(AccountSearchCriteria criteria) {
+        return accountRepository.findAll(criteria);
     }
 
     public List<Account> findAll() {

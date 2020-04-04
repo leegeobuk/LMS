@@ -24,11 +24,11 @@ public enum ImageType {
     LEND_BOOK("icon/book/lend.png"),
     RETURN_BOOK("icon/book/return.png"),
     SEARCH_BOOK("icon/book/search.png"),
-    VIEW_CUSTOMER("icon/customer/customers.png"),
-    ADD_CUSTOMER("icon/customer/add.png"),
-    EDIT_CUSTOMER("icon/customer/edit.png"),
-    DELETE_CUSTOMER("icon/customer/delete.png"),
-    SEARCH_CUSTOMER("icon/customer/search.png"),
+    VIEW_USER("icon/customer/customers.png"),
+    ADD_USER("icon/customer/add.png"),
+    EDIT_USER("icon/customer/edit.png"),
+    DELETE_USER("icon/customer/delete.png"),
+    SEARCH_USER("icon/customer/search.png"),
     CLOSE("icon/Close.png");
 
 

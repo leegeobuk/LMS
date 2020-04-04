@@ -1,5 +1,6 @@
 package woowa.lms.front.ui.form;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,15 +8,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import lombok.Getter;
 import woowa.lms.front.component.background.BackgroundBuilder;
 import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.component.textfield.InputField;
-import woowa.lms.front.foolproof.FormFoolProof;
+import woowa.lms.front.foolproof.form.FormFoolProof;
 import woowa.lms.front.ui.FoolProofable;
 import woowa.lms.front.ui.page.Page;
 
@@ -32,21 +35,26 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
     protected Label headerLabel;
     protected ImageView logoImageView;
 
+    @Getter
     protected GridPane form;
     protected List<InputField> inputFields;
     protected Label errorLabel;
 
-    protected FormFoolProof formFoolProof;
+    protected EventHandler<KeyEvent> formFoolProof;
 
     protected HBox buttonBox;
     protected Button okButton;
     protected Button cancelButton;
 
+    protected String title;
+    protected String header;
     protected double imageWidth;
 
-    protected AbstractForm(double width, double height) {
+    protected AbstractForm(double width, double height, String title, String header) {
         this.setWidth(width);
         this.setHeight(height);
+        this.title = title;
+        this.header = header;
         mainPane = new VBox();
         mainPane.setSpacing(height * 0.05);
 
@@ -70,9 +78,9 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
     }
 
     @Override
-    public void setUpComponents(String pageTitle) {
+    public void setUpComponents() {
         background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
-        headerLabel = LabelBuilder.getPageHeader(pageTitle);
+        headerLabel = LabelBuilder.getPageHeader(header);
         logoImageView = getLogo(imageWidth);
 
         errorLabel = LabelBuilder.builder().textFill("red").build().toLabel();
@@ -106,7 +114,7 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
     }
 
     @Override
-    public void setUpStage(String title) {
+    public void setUpStage() {
         Scene scene = new Scene(mainPane);
         this.setScene(scene);
         this.setTitle(title);

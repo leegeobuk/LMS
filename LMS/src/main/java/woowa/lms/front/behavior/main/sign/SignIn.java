@@ -33,7 +33,7 @@ public class SignIn implements Behavior {
         String pw = fields.get(1).getText();
         Admin admin = Admin.of(id, pw);
         try {
-            Account account = accountService.signIn(admin);
+            Account account = accountService.signInAccount(admin);
             Token.getToken().signIn(account);
             MainController.getController().redrawMainPage();
             FormController.getController().closeSignInForm();

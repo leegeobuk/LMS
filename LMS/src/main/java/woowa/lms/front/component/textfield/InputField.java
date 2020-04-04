@@ -8,7 +8,7 @@ import lombok.Setter;
 import woowa.lms.front.foolproof.FieldFoolProof;
 import woowa.lms.front.foolproof.FoolProofType;
 
-import static woowa.lms.front.foolproof.FoolProofType.SIGN_UP_CONFIRM_PW;
+import static woowa.lms.front.foolproof.FoolProofType.CONFIRM_PW;
 
 public class InputField implements CustomInputField {
 
@@ -37,7 +37,7 @@ public class InputField implements CustomInputField {
     }
 
     public boolean isFoolProved() {
-        return foolProofType != SIGN_UP_CONFIRM_PW ? foolProof.validate(textField)
+        return foolProofType != CONFIRM_PW ? foolProof.validate(textField)
             : foolProof.confirm(passwordField.toTextField(), textField);
     }
 

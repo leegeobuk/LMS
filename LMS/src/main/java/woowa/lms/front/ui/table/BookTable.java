@@ -29,17 +29,18 @@ public class BookTable extends AbstractTable<BookModel> {
 
     private static final double WIDTH = 550;
     private static final double HEIGHT = 600;
-    private static final BookTable TABLE = new BookTable(WIDTH, HEIGHT);
+    private static final String TITLE = "Books Table";
+    private static final String HEADER = "Books List";
+    private static final BookTable TABLE = new BookTable();
 
-    private BookTable(double width, double height) {
-        super(width, height);
+    private BookTable() {
+        super(WIDTH, HEIGHT, TITLE, HEADER);
 
-        String headerText = "Books List";
-        setUpComponents(headerText);
+        setUpComponents();
         setUpPage();
         update();
         setFoolProof();
-        setUpStage(headerText);
+        setUpStage();
     }
 
     public static BookTable getInstance() {
@@ -47,7 +48,7 @@ public class BookTable extends AbstractTable<BookModel> {
     }
 
     @Override
-    public void setUpComponents(String pageTitle) {
+    public void setUpComponents() {
         viewBookButton = GeneralButton.getTableButton(ImageType.VIEW_BOOK, VIEW_BOOK);
         addBookButton = GeneralButton.getTableButton(ImageType.ADD_BOOK, SHOW_ADD_BOOK);
         editBookButton = GeneralButton.getTableButton(ImageType.EDIT_BOOK, SHOW_EDIT_BOOK);
@@ -57,7 +58,7 @@ public class BookTable extends AbstractTable<BookModel> {
         searchButton = GeneralButton.getTableButton(ImageType.SEARCH_BOOK, SHOW_SEARCH_BOOK);
         closeButton = GeneralButton.getTableButton(ImageType.CLOSE, CLOSE_BOOK);
 
-        super.setUpComponents(pageTitle);
+        super.setUpComponents();
     }
 
     @Override

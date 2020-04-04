@@ -1,7 +1,6 @@
 package woowa.lms.front.ui.dialog.prompt;
 
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import woowa.lms.front.component.image.ImageBuilder;
 import woowa.lms.front.ui.dialog.AbstractDialog;
@@ -12,17 +11,14 @@ import static woowa.lms.front.component.image.ImageType.WARNING;
 
 public class ExitDialog extends AbstractDialog {
 
-    private static final Alert.AlertType ALERT_TYPE = Alert.AlertType.NONE;
     private static final String TITLE = "Exit Dialog";
-    private static final String HEADER_TEXT = "Application terminates when pressed OK!";
-    private static final String CONTENT_TEXT = "Think twice!!";
-    private static final ExitDialog DIALOG =
-        new ExitDialog(ALERT_TYPE, TITLE, CONTENT_TEXT);
+    private static final String HEADER = "Application terminates when pressed OK!";
+    private static final String CONTENT = "Think twice!!";
+    private static final ExitDialog DIALOG = new ExitDialog();
 
-    private ExitDialog(Alert.AlertType alertType, String title,
-                      String contentText) {
-        super(alertType, title, contentText);
-        setUpComponents(HEADER_TEXT);
+    private ExitDialog() {
+        super(TITLE, HEADER, CONTENT);
+        setUpComponents();
         setUpPage();
     }
 
@@ -31,10 +27,15 @@ public class ExitDialog extends AbstractDialog {
     }
 
     @Override
-    public void setUpComponents(String pageTitle) {
-        super.setUpComponents(pageTitle);
-
+    public void setUpComponents() {
         headerImage = ImageBuilder.getDialogImage(WARNING);
+        super.setUpComponents();
+    }
+
+    @Override
+    public void setUpPage() {
+        dialogPane.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
+        super.setUpPage();
     }
 
     @Override

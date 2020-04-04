@@ -24,12 +24,16 @@ public abstract class AbstractPage extends Stage implements Page {
 
     protected Pane mainBox;
 
+    protected String title;
+    protected String header;
     protected double imageWidth;
     protected boolean signedIn;
 
-    protected AbstractPage(double width, double height) {
+    protected AbstractPage(double width, double height, String title, String header) {
         this.setWidth(width);
         this.setHeight(height);
+        this.title = title;
+        this.header = header;
         mainPane = new VBox();
         mainPane.setSpacing(height * 0.15);
         mainBox = new HBox(width * 0.01);
@@ -38,9 +42,9 @@ public abstract class AbstractPage extends Stage implements Page {
     }
 
     @Override
-    public void setUpComponents(String pageTitle) {
+    public void setUpComponents() {
         background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
-        headerLabel = LabelBuilder.getPageHeader(pageTitle);
+        headerLabel = LabelBuilder.getPageHeader(header);
         logoImageView = ImageBuilder.getLogo(imageWidth);
     }
 
@@ -56,7 +60,7 @@ public abstract class AbstractPage extends Stage implements Page {
     }
 
     @Override
-    public void setUpStage(String title) {
+    public void setUpStage() {
         Scene scene = new Scene(mainPane);
         this.setScene(scene);
         this.setTitle(title);

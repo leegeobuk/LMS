@@ -15,38 +15,38 @@ import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_CANCEL;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_OK;
 import static woowa.lms.front.component.textfield.InputType.PASSWORD;
 import static woowa.lms.front.component.textfield.InputType.TEXT;
-import static woowa.lms.front.foolproof.FoolProofType.SIGN_IN_ID;
-import static woowa.lms.front.foolproof.FoolProofType.SIGN_IN_PW;
+import static woowa.lms.front.foolproof.FoolProofType.NOT_EMPTY;
 
 public class SignInForm extends AbstractForm {
 
     private Label idLabel;
     private Label pwLabel;
-    private InputField idInputField = InputField.of(TEXT, SIGN_IN_ID, "ID");
-    private InputField pwInputField = InputField.of(PASSWORD, SIGN_IN_PW, "Password");
+    private InputField idInputField = InputField.of(TEXT, NOT_EMPTY, "ID");
+    private InputField pwInputField = InputField.of(PASSWORD, NOT_EMPTY, "Password");
 
     private static final double WIDTH = 400;
-    private static final double HEIGHT = 300;
-    public static final SignInForm FORM = new SignInForm(WIDTH, HEIGHT);
+    private static final double HEIGHT = 320;
+    private static final String TITLE = "Sign In Form";
+    private static final String HEADER = "Sign In";
+    public static final SignInForm FORM = new SignInForm();
 
-    private SignInForm(double width, double height) {
-        super(width, height);
+    private SignInForm() {
+        super(WIDTH, HEIGHT, TITLE, HEADER);
         inputFields = List.of(idInputField, pwInputField);
-        String headerText = "Sign In";
-        setUpComponents(headerText);
+        setUpComponents();
         setUpPage();
         setFoolProof();
-        setUpStage(headerText);
+        setUpStage();
     }
 
     @Override
-    public void setUpComponents(String pageTitle) {
+    public void setUpComponents() {
         idLabel = LabelBuilder.getFormLabel("Id");
         pwLabel = LabelBuilder.getFormLabel("Password");
 
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, SIGN_IN);
         cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_SIGN_IN);
-        super.setUpComponents(pageTitle);
+        super.setUpComponents();
     }
 
     @Override
@@ -57,7 +57,6 @@ public class SignInForm extends AbstractForm {
         form.setHgap(this.getWidth() * 0.15);
         form.setVgap(this.getHeight() * 0.02);
         form.setAlignment(Pos.CENTER);
-
         super.setUpPage();
     }
 }

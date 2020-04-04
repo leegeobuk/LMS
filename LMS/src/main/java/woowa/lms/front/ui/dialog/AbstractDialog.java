@@ -19,20 +19,22 @@ public abstract class AbstractDialog implements Showable {
     protected ImageView headerImage;
     protected Label contentLabel;
     protected String title;
-    protected String contentText;
+    protected String header;
+    protected String content;
 
-    protected AbstractDialog(Alert.AlertType alertType, String title, String contentText) {
-        alert = new Alert(alertType);
+    protected AbstractDialog(String title, String header, String content) {
+        alert = new Alert(Alert.AlertType.NONE);
         dialogPane = new DialogPane();
         this.title = title;
-        this.contentText = contentText;
+        this.header = header;
+        this.content = content;
     }
 
     @Override
-    public void setUpComponents(String pageTitle) {
+    public void setUpComponents() {
         background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
-        headerLabel = LabelBuilder.getDialogHeader(pageTitle);
-        contentLabel = LabelBuilder.getDialogContent(contentText);
+        headerLabel = LabelBuilder.getDialogHeader(header);
+        contentLabel = LabelBuilder.getDialogContent(content);
     }
 
     @Override
@@ -41,7 +43,6 @@ public abstract class AbstractDialog implements Showable {
         headerLabel.setGraphic(headerImage);
 
         setUpDialogPane(dialogPane, background, headerLabel, contentLabel);
-        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         alert.setDialogPane(dialogPane);
         alert.setTitle(title);

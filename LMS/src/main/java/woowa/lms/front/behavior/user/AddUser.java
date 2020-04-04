@@ -35,7 +35,7 @@ public class AddUser implements Behavior {
         String contact = fields.get(4).getText();
         User user = User.of(id, pw, name, contact);
         try {
-            accountService.signUp(user);
+            accountService.signUpAccount(user);
             UserTable.getInstance().update();
             FormController.getController().closeAddUserForm();
         } catch (IllegalStateException e) {

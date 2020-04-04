@@ -1,6 +1,5 @@
 package woowa.lms.front.ui.dialog.prompt;
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import woowa.lms.back.util.Token;
 import woowa.lms.front.component.image.ImageBuilder;
@@ -13,18 +12,15 @@ import static woowa.lms.front.component.image.ImageType.CONFIRM;
 
 public class SignOutDialog extends AbstractDialog {
 
-    private static final Alert.AlertType ALERT_TYPE = Alert.AlertType.NONE;
     private static final String TITLE = "Sign Out Dialog";
-    private static final String HEADER_TEXT = "Are you sure you want to sign out?";
-    private static final String CONTENT_TEXT = "Think twice!!";
-    private static final SignOutDialog DIALOG =
-        new SignOutDialog(ALERT_TYPE, TITLE, CONTENT_TEXT);
+    private static final String HEADER = "Are you sure you want to sign out?";
+    private static final String CONTENT = "Think twice!!";
+    private static final SignOutDialog DIALOG = new SignOutDialog();
 
-    private SignOutDialog(Alert.AlertType alertType, String title,
-                          String contentText) {
-        super(alertType, title, contentText);
+    private SignOutDialog() {
+        super(TITLE, HEADER, CONTENT);
 
-        setUpComponents(HEADER_TEXT);
+        setUpComponents();
         setUpPage();
     }
 
@@ -33,10 +29,15 @@ public class SignOutDialog extends AbstractDialog {
     }
 
     @Override
-    public void setUpComponents(String pageTitle) {
-        super.setUpComponents(pageTitle);
-
+    public void setUpComponents() {
         headerImage = ImageBuilder.getDialogImage(CONFIRM);
+        super.setUpComponents();
+    }
+
+    @Override
+    public void setUpPage() {
+        dialogPane.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
+        super.setUpPage();
     }
 
     @Override

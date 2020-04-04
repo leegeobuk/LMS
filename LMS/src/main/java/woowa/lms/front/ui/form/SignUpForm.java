@@ -2,17 +2,11 @@ package woowa.lms.front.ui.form;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import woowa.lms.front.component.button.GeneralButton;
 import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.component.textfield.InputField;
-import woowa.lms.front.ui.form.AbstractForm;
 
 import java.util.List;
 
-import static woowa.lms.front.behavior.BehaviorType.CLOSE_SIGN_UP;
-import static woowa.lms.front.behavior.BehaviorType.SIGN_UP;
-import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_CANCEL;
-import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_OK;
 import static woowa.lms.front.component.textfield.InputType.PASSWORD;
 import static woowa.lms.front.component.textfield.InputType.TEXT;
 import static woowa.lms.front.foolproof.FoolProofType.*;
@@ -24,26 +18,26 @@ public class SignUpForm extends AbstractForm {
     protected Label confirmPwLabel;
     protected Label nameLabel;
     protected Label contactLabel;
-    protected InputField idInputField = InputField.of(TEXT, SIGN_UP_ID, "ID");
-    protected InputField pwInputField = InputField.of(PASSWORD, SIGN_UP_PW, "Password");
-    protected InputField confirmPwInputField = InputField.of(PASSWORD, SIGN_UP_CONFIRM_PW, "Confirm password");
+    protected InputField idInputField = InputField.of(TEXT, ID, "ID");
+    protected InputField pwInputField = InputField.of(PASSWORD, PW, "Password");
+    protected InputField confirmPwInputField = InputField.of(PASSWORD, CONFIRM_PW, "Confirm password");
     protected InputField nameInputField = InputField.of(TEXT, NAME, "Name");
     protected InputField contactInputField = InputField.of(TEXT, CONTACT, "Enter without -");
 
-    public SignUpForm(double width, double height) {
-        super(width, height);
+    public SignUpForm(double width, double height, String title, String header) {
+        super(width, height, title, header);
         inputFields = List.of(idInputField, pwInputField,
             confirmPwInputField, nameInputField, contactInputField);
     }
 
     @Override
-    public void setUpComponents(String pageTitle) {
+    public void setUpComponents() {
         idLabel = LabelBuilder.getFormLabel("Id");
         pwLabel = LabelBuilder.getFormLabel("Password");
         confirmPwLabel = LabelBuilder.getFormLabel("Confirm Password");
         nameLabel = LabelBuilder.getFormLabel("Name");
         contactLabel = LabelBuilder.getFormLabel("Contact");
-        super.setUpComponents(pageTitle);
+        super.setUpComponents();
     }
 
     @Override

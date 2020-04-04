@@ -1,10 +1,14 @@
 package woowa.lms.front.controller;
 
+import javafx.scene.control.TextField;
 import woowa.lms.front.behavior.user.EditUser;
+import woowa.lms.front.behavior.user.SearchUser;
+import woowa.lms.front.model.AccountModel;
 import woowa.lms.front.ui.form.main.MainSignUpForm;
 import woowa.lms.front.ui.form.main.SignInForm;
 import woowa.lms.front.ui.form.user.AddUserForm;
 import woowa.lms.front.ui.form.user.EditUserForm;
+import woowa.lms.front.ui.form.user.SearchUserForm;
 import woowa.lms.front.ui.page.MainPage;
 import woowa.lms.front.ui.table.BookTable;
 import woowa.lms.front.ui.table.UserTable;
@@ -21,6 +25,7 @@ public class FormController {
     private static final SignInForm SIGN_IN_FORM = SignInForm.FORM;
     private static final AddUserForm ADD_USER_FORM = AddUserForm.FORM;
     private static final EditUserForm EDIT_USER_FORM = EditUserForm.FORM;
+    private static final SearchUserForm SEARCH_USER_FORM = SearchUserForm.FORM;
 
     private static final FormController CONTROLLER = new FormController();
 
@@ -42,6 +47,8 @@ public class FormController {
         ADD_USER_FORM.initOwner(USER_TABLE);
         EDIT_USER_FORM.initModality(WINDOW_MODAL);
         EDIT_USER_FORM.initOwner(USER_TABLE);
+        SEARCH_USER_FORM.initModality(WINDOW_MODAL);
+        SEARCH_USER_FORM.initOwner(USER_TABLE);
 
     }
 
@@ -58,7 +65,15 @@ public class FormController {
     }
 
     public void showEditUserForm() {
+        AccountModel selected = USER_TABLE.getTable().getSelectionModel().getSelectedItem();
+        EDIT_USER_FORM.setSelected(selected);
+        EDIT_USER_FORM.getFields().get(0).setText(selected.getName());
+        EDIT_USER_FORM.getFields().get(1).setText(selected.getContact());
         EDIT_USER_FORM.show();
+    }
+
+    public void showSearchUserForm() {
+        SEARCH_USER_FORM.show();
     }
 
     public void closeSignUpForm() {
@@ -79,5 +94,10 @@ public class FormController {
     public void closeEditUserForm() {
         EDIT_USER_FORM.clear();
         EDIT_USER_FORM.hide();
+    }
+
+    public void closeSearchUserForm() {
+        SEARCH_USER_FORM.clear();
+        SEARCH_USER_FORM.hide();
     }
 }

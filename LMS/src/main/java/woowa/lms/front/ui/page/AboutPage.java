@@ -18,22 +18,20 @@ public class AboutPage extends AbstractPage {
 
     private static final double WIDTH = 480;
     private static final double HEIGHT = 400;
+    private static final String TITLE = "About Page";
 
-    public static final AboutPage PAGE = new AboutPage(WIDTH, HEIGHT);
+    public static final AboutPage PAGE = new AboutPage();
 
-    private AboutPage(double width, double height) {
-        super(width, height);
+    private AboutPage() {
+        super(WIDTH, HEIGHT, TITLE, TITLE);
         mainBox = new VBox();
-        String headerText = "About Page";
-        setUpComponents(headerText);
+        setUpComponents();
         setUpPage();
-        setUpStage(headerText);
+        setUpStage();
     }
 
     @Override
-    public void setUpComponents(String pageTitle) {
-        super.setUpComponents(pageTitle);
-
+    public void setUpComponents() {
         AboutPageText pageText = AboutPageText.getInstance();
         aboutText = pageText.toText();
         aboutText.setWrappingWidth(this.getWidth() - 30);
@@ -41,22 +39,22 @@ public class AboutPage extends AbstractPage {
 
         closeButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_ABOUT);
         closeButton.setCancelButton(true);
+        super.setUpComponents();
     }
 
     @Override
     public void setUpPage() {
-        super.setUpPage();
-
         mainBox.getChildren().addAll(aboutText, closeButton);
         ((VBox) mainBox).setAlignment(Pos.CENTER_RIGHT);
 
-        mainPane.setPadding(new Insets(20, 20, 60, 20));
+        mainPane.setPadding(new Insets(20, 20, 20, 20));
         mainPane.setSpacing(this.getHeight() * 0.05);
+        super.setUpPage();
     }
 
     @Override
-    public void setUpStage(String title) {
-        super.setUpStage(title);
+    public void setUpStage() {
+        super.setUpStage();
         this.setResizable(false);
     }
 }

@@ -17,6 +17,6 @@ public class CloseUserTable implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        TableController.getController().closeCustomerTable();
+        TableController.getController().closeUserTable();
     }
 }
