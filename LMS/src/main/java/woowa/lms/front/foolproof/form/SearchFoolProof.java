@@ -1,39 +1,23 @@
 package woowa.lms.front.foolproof.form;
 
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
 import lombok.Builder;
-import lombok.Singular;
 import woowa.lms.front.component.textfield.InputField;
+import woowa.lms.front.foolproof.AbstractFoolProof;
 
 import java.util.List;
 
-@Builder
-public class SearchFoolProof implements EventHandler<KeyEvent> {
+public class SearchFoolProof extends AbstractFoolProof {
 
-    @Builder.Default
-    protected Button button = null;
+    private static final String MESSAGE = "At least one field must be filled";
 
-    @Builder.Default
-    protected Label errorLabel = null;
-
-    @Singular
-    protected List<InputField> inputFields;
-
-    @Override
-    public void handle(KeyEvent event) {
-        if (isFoolProven(inputFields)) {
-            errorLabel.setText("");
-            button.setDisable(false);
-        }
-        else {
-            setErrorMessage(inputFields);
-            button.setDisable(true);
-        }
+    @Builder
+    public SearchFoolProof(Button button, Label errorLabel, List<InputField> inputFields) {
+        super(button, errorLabel, inputFields);
     }
 
+    @Override
     protected boolean isFoolProven(List<InputField> inputFields) {
         boolean allFilled = false;
         for (InputField inputField : inputFields) {
@@ -42,12 +26,8 @@ public class SearchFoolProof implements EventHandler<KeyEvent> {
         return allFilled;
     }
 
+    @Override
     protected void setErrorMessage(List<InputField> inputFields) {
-        for (InputField inputField : inputFields) {
-            if (!inputField.isFoolProved()) {
-                errorLabel.setText(inputField.getValidationMessage());
-                break;
-            }
-        }
+        errorLabel.setText(MESSAGE);
     }
 }

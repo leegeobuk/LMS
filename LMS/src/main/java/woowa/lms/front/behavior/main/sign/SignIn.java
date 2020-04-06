@@ -36,7 +36,7 @@ public class SignIn implements Behavior {
             Account account = accountService.signInAccount(admin);
             Token.getToken().signIn(account);
             MainController.getController().redrawMainPage();
-            FormController.getController().closeSignInForm();
+            Behavior.super.closeForm(event);
         } catch (IllegalStateException e) {
             DialogController.getController().showSignInErrorDialog(e.getMessage());
         }

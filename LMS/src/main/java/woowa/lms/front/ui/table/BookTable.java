@@ -27,7 +27,7 @@ public class BookTable extends AbstractTable<BookModel> {
     private Button searchButton;
     private ItemService<Book> bookService = SpringContext.getBean(BookService.class);
 
-    private static final double WIDTH = 550;
+    private static final double WIDTH = 500;
     private static final double HEIGHT = 600;
     private static final String TITLE = "Books Table";
     private static final String HEADER = "Books List";
@@ -35,7 +35,6 @@ public class BookTable extends AbstractTable<BookModel> {
 
     private BookTable() {
         super(WIDTH, HEIGHT, TITLE, HEADER);
-
         setUpComponents();
         setUpPage();
         update();
@@ -56,8 +55,7 @@ public class BookTable extends AbstractTable<BookModel> {
         lendBookButton = GeneralButton.getTableButton(ImageType.LEND_BOOK, SHOW_LEND_BOOK);
         returnBookButton = GeneralButton.getTableButton(ImageType.RETURN_BOOK, RETURN_BOOK);
         searchButton = GeneralButton.getTableButton(ImageType.SEARCH_BOOK, SHOW_SEARCH_BOOK);
-        closeButton = GeneralButton.getTableButton(ImageType.CLOSE, CLOSE_BOOK);
-
+        closeButton = GeneralButton.getTableButton(ImageType.CLOSE, CLOSE);
         super.setUpComponents();
     }
 

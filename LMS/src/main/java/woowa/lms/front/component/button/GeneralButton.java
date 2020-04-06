@@ -1,5 +1,6 @@
 package woowa.lms.front.component.button;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -53,6 +54,7 @@ public class GeneralButton extends Button implements CustomButton {
         generalButton.setGraphicGap(0);
         generalButton.setBehavior(behavior);
         Button button = generalButton.toButton();
+        button.setPadding(new Insets(4, 8, 4, 8));
         button.setFocusTraversable(false);
         return button;
     }
@@ -63,7 +65,9 @@ public class GeneralButton extends Button implements CustomButton {
         generalButton.setDisplay(GRAPHIC_ONLY);
         generalButton.setGraphicGap(0);
         generalButton.setBehavior(behavior);
-        return generalButton.toButton();
+        Button button = generalButton.toButton();
+        button.setPadding(new Insets(4));
+        return button;
     }
 
     @Override

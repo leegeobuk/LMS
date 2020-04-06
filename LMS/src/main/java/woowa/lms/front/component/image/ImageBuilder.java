@@ -54,8 +54,8 @@ public class ImageBuilder implements CustomImage {
 
     public static ImageView getTableButtonImage(ImageType image) {
         generalImage.setImage(image);
-        generalImage.setWidth(24);
-        generalImage.setHeight(24);
+        generalImage.setWidth(48);
+        generalImage.setHeight(48);
         return generalImage.toImageView();
     }
 

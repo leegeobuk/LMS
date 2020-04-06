@@ -4,7 +4,7 @@ import woowa.lms.front.component.button.GeneralButton;
 import woowa.lms.front.ui.form.SignUpForm;
 
 import static woowa.lms.front.behavior.BehaviorType.ADD_USER;
-import static woowa.lms.front.behavior.BehaviorType.CLOSE_ADD_USER;
+import static woowa.lms.front.behavior.BehaviorType.CLOSE_FORM;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_CANCEL;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_OK;
 
@@ -27,7 +27,7 @@ public class AddUserForm extends SignUpForm {
     @Override
     public void setUpComponents() {
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, ADD_USER);
-        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_ADD_USER);
+        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_FORM);
         super.setUpComponents();
     }
 }

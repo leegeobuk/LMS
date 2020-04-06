@@ -5,7 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import lombok.Getter;
 import lombok.Setter;
-import woowa.lms.front.foolproof.FieldFoolProof;
+import woowa.lms.front.foolproof.field.FieldFoolProof;
 import woowa.lms.front.foolproof.FoolProofType;
 
 import static woowa.lms.front.foolproof.FoolProofType.CONFIRM_PW;
@@ -26,6 +26,10 @@ public class InputField implements CustomInputField {
         this.textField.setPromptText(text);
         this.foolProofType = foolProofType;
         this.foolProof = foolProofType.getFoolProof();
+    }
+
+    public static InputField of(InputType type, FoolProofType foolProofType) {
+        return new InputField(type, foolProofType, "");
     }
 
     public static InputField of(InputType type, FoolProofType foolProofType, String text) {

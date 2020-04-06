@@ -10,7 +10,7 @@ import woowa.lms.front.ui.form.AbstractForm;
 
 import java.util.List;
 
-import static woowa.lms.front.behavior.BehaviorType.CLOSE_SEARCH_USER;
+import static woowa.lms.front.behavior.BehaviorType.CLOSE_FORM;
 import static woowa.lms.front.behavior.BehaviorType.SEARCH_USER;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_CANCEL;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_OK;
@@ -48,7 +48,7 @@ public class SearchUserForm extends AbstractForm {
         contactLabel = LabelBuilder.getFormLabel("Contact");
 
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, SEARCH_USER);
-        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_SEARCH_USER);
+        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_FORM);
         super.setUpComponents();
     }
 
@@ -58,10 +58,10 @@ public class SearchUserForm extends AbstractForm {
         form.addRow(1, nameLabel, nameInputField.toTextField());
         form.addRow(2, contactLabel, contactInputField.toTextField());
         form.add(errorLabel, 0, 3, 2, 2);
-        getFields().forEach(textField -> textField.setPrefWidth(WIDTH * 0.45));
         form.setHgap(WIDTH * 0.1);
         form.setVgap(HEIGHT * 0.02);
         form.setAlignment(Pos.CENTER);
+        getFields().forEach(textField -> textField.setPrefWidth(WIDTH * 0.45));
         super.setUpPage();
     }
 

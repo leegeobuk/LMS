@@ -1,7 +1,6 @@
 package woowa.lms.front.foolproof.field;
 
 import javafx.scene.control.TextField;
-import woowa.lms.front.foolproof.FieldFoolProof;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

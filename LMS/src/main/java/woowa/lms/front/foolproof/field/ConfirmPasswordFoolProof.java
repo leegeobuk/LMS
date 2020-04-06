@@ -3,7 +3,6 @@ package woowa.lms.front.foolproof.field;
 import javafx.scene.control.TextField;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import woowa.lms.front.foolproof.FieldFoolProof;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConfirmPasswordFoolProof implements FieldFoolProof {

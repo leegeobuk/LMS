@@ -25,12 +25,7 @@ public class DeleteUser implements Behavior {
     @Override
     public void handle(ActionEvent event) {
         AccountModel selected = UserTable.getInstance().getTable().getSelectionModel().getSelectedItem();
-        try {
-            accountService.deleteAccount(selected.getId());
-            TableController.getController().updateUserTable();
-        } catch (Exception e) {
-            e.printStackTrace();
-            DialogController.getController().showEditUserErrorDialog(e.getMessage());
-        }
+        accountService.deleteAccount(selected.getId());
+        TableController.getController().updateUserTable();
     }
 }

@@ -33,19 +33,15 @@ public class TableController {
         BOOK_TABLE.show();
     }
 
+    public void updateBookTable() {
+        BOOK_TABLE.update();
+    }
+
     public void showUserTable() {
         USER_TABLE.show();
     }
 
     public void updateUserTable() {
         USER_TABLE.update();
-    }
-
-    public void closeBookTable() {
-        BOOK_TABLE.close();
-    }
-
-    public void closeUserTable() {
-        USER_TABLE.close();
     }
 }

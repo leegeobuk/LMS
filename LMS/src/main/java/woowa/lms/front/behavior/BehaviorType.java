@@ -2,23 +2,17 @@ package woowa.lms.front.behavior;
 
 import lombok.Getter;
 import woowa.lms.front.behavior.book.*;
-import woowa.lms.front.behavior.book.close.CloseBookTable;
 import woowa.lms.front.behavior.book.show.*;
-import woowa.lms.front.behavior.user.*;
-import woowa.lms.front.behavior.main.close.CloseAbout;
-import woowa.lms.front.behavior.main.close.CloseSignIn;
-import woowa.lms.front.behavior.main.close.CloseSignUp;
-import woowa.lms.front.behavior.main.close.ExitProgram;
+import woowa.lms.front.behavior.close.Close;
+import woowa.lms.front.behavior.close.CloseForm;
+import woowa.lms.front.behavior.close.ExitProgram;
 import woowa.lms.front.behavior.main.show.ShowAbout;
 import woowa.lms.front.behavior.main.show.ShowSignIn;
 import woowa.lms.front.behavior.main.show.ShowSignUp;
 import woowa.lms.front.behavior.main.sign.SignIn;
 import woowa.lms.front.behavior.main.sign.SignOut;
 import woowa.lms.front.behavior.main.sign.SignUp;
-import woowa.lms.front.behavior.user.close.CloseAddUser;
-import woowa.lms.front.behavior.user.close.CloseEditUser;
-import woowa.lms.front.behavior.user.close.CloseSearchUser;
-import woowa.lms.front.behavior.user.close.CloseUserTable;
+import woowa.lms.front.behavior.user.*;
 import woowa.lms.front.behavior.user.show.ShowAddUser;
 import woowa.lms.front.behavior.user.show.ShowEditUser;
 import woowa.lms.front.behavior.user.show.ShowSearchUser;
@@ -31,9 +25,8 @@ public enum BehaviorType {
     SHOW_BOOKS(ShowBookTable.getInstance()),
     SHOW_USERS(ShowUserTable.getInstance()),
 
-    CLOSE_ABOUT(CloseAbout.getInstance()),
-    CLOSE_SIGN_UP(CloseSignUp.getInstance()),
-    CLOSE_SIGN_IN(CloseSignIn.getInstance()),
+    CLOSE_FORM(CloseForm.getInstance()),
+    CLOSE(Close.getInstance()),
     EXIT_PROGRAM(ExitProgram.getInstance()),
 
     SIGN_UP(SignUp.getInstance()),
@@ -45,9 +38,12 @@ public enum BehaviorType {
     SHOW_LEND_BOOK(ShowLendBook.getInstance()),
     SHOW_SEARCH_BOOK(ShowSearchBook.getInstance()),
     VIEW_BOOK(ViewBook.getInstance()),
+    ADD_BOOK(AddBook.getInstance()),
+    EDIT_BOOK(EditBook.getInstance()),
     DELETE_BOOK(DeleteBook.getInstance()),
+    LEND_BOOK(LendBook.getInstance()),
     RETURN_BOOK(ReturnBook.getInstance()),
-    CLOSE_BOOK(CloseBookTable.getInstance()),
+    SEARCH_BOOK(SearchBook.getInstance()),
 
     SHOW_ADD_USER(ShowAddUser.getInstance()),
     SHOW_EDIT_USER(ShowEditUser.getInstance()),
@@ -56,11 +52,7 @@ public enum BehaviorType {
     ADD_USER(AddUser.getInstance()),
     EDIT_USER(EditUser.getInstance()),
     DELETE_USER(DeleteUser.getInstance()),
-    SEARCH_USER(SearchUser.getInstance()),
-    CLOSE_ADD_USER(CloseAddUser.getInstance()),
-    CLOSE_EDIT_USER(CloseEditUser.getInstance()),
-    CLOSE_SEARCH_USER(CloseSearchUser.getInstance()),
-    CLOSE_USER(CloseUserTable.getInstance());
+    SEARCH_USER(SearchUser.getInstance());
 
 
     @Getter

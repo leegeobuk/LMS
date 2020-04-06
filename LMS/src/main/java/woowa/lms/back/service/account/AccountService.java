@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import woowa.lms.back.domain.account.Account;
-import woowa.lms.back.domain.account.AccountSearchCriteria;
+import woowa.lms.back.search.AccountSearchCriteria;
 import woowa.lms.back.domain.account.Admin;
 import woowa.lms.back.domain.account.User;
 import woowa.lms.back.repository.account.AccountRepository;
@@ -76,8 +76,8 @@ public class AccountService {
             stream().map(User.class::cast).collect(toUnmodifiableList());
     }
 
-    public List<Account> findAll(AccountSearchCriteria criteria) {
-        return accountRepository.findAll(criteria);
+    public List<Account> search(AccountSearchCriteria criteria) {
+        return accountRepository.search(criteria);
     }
 
     public List<Account> findAll() {

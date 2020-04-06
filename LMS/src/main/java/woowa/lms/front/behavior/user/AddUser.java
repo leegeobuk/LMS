@@ -37,7 +37,7 @@ public class AddUser implements Behavior {
         try {
             accountService.signUpAccount(user);
             UserTable.getInstance().update();
-            FormController.getController().closeAddUserForm();
+            Behavior.super.closeForm(event);
         } catch (IllegalStateException e) {
             DialogController.getController().showSignUpErrorDialog();
         }

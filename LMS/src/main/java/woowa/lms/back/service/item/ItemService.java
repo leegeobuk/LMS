@@ -1,13 +1,14 @@
 package woowa.lms.back.service.item;
 
 import woowa.lms.back.domain.item.Item;
+import woowa.lms.back.search.SearchCriteria;
 
 import java.util.List;
 
 public interface ItemService<T extends Item> {
     void save(T item);
-//    void edit();
+    void edit(Long id, String title, String author, int stock);
+    void delete(Long id);
     T find(Long id);
-    List<T> find(String title);
     List<T> findAll();
 }

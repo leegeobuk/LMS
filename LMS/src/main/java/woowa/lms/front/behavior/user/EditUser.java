@@ -28,13 +28,8 @@ public class EditUser implements Behavior {
         AccountModel selected = EditUserForm.FORM.getSelected();
         String name = EditUserForm.FORM.getFields().get(0).getText();
         String contact = EditUserForm.FORM.getFields().get(1).getText();
-        try {
-            accountService.editAccount(selected.getId(), name, contact);
-            TableController.getController().updateUserTable();
-            FormController.getController().closeEditUserForm();
-        } catch (Exception e) {
-            e.printStackTrace();
-            DialogController.getController().showEditUserErrorDialog(e.getMessage());
-        }
+        accountService.editAccount(selected.getId(), name, contact);
+        TableController.getController().updateUserTable();
+        Behavior.super.closeForm(event);
     }
 }

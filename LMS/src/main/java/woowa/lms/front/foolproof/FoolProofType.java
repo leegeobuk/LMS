@@ -10,6 +10,7 @@ public enum FoolProofType {
     CONFIRM_PW(ConfirmPasswordFoolProof.getInstance()),
     NAME(NameFoolProof.getInstance()),
     CONTACT(ContactFoolProof.getInstance()),
+    STOCK(StockFoolProof.getInstance()),
     NOT_EMPTY(NotEmptyFoolProof.getInstance());
 
 

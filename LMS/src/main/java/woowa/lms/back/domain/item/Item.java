@@ -37,6 +37,11 @@ public abstract class Item {
 
     private int stock;
 
+    public void setStock(int stock) {
+        this.stock = stock;
+        this.status = this.stock > 0 ? ItemStatus.IN : ItemStatus.OUT;
+    }
+
     public void addItem() {
         stock += 1;
     }

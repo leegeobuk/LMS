@@ -1,5 +1,6 @@
 package woowa.lms.front.ui.form.main;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import woowa.lms.front.component.button.GeneralButton;
@@ -9,7 +10,7 @@ import woowa.lms.front.ui.form.AbstractForm;
 
 import java.util.List;
 
-import static woowa.lms.front.behavior.BehaviorType.CLOSE_SIGN_IN;
+import static woowa.lms.front.behavior.BehaviorType.CLOSE_FORM;
 import static woowa.lms.front.behavior.BehaviorType.SIGN_IN;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_CANCEL;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_OK;
@@ -25,7 +26,7 @@ public class SignInForm extends AbstractForm {
     private InputField pwInputField = InputField.of(PASSWORD, NOT_EMPTY, "Password");
 
     private static final double WIDTH = 400;
-    private static final double HEIGHT = 320;
+    private static final double HEIGHT = 300;
     private static final String TITLE = "Sign In Form";
     private static final String HEADER = "Sign In";
     public static final SignInForm FORM = new SignInForm();
@@ -45,7 +46,7 @@ public class SignInForm extends AbstractForm {
         pwLabel = LabelBuilder.getFormLabel("Password");
 
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, SIGN_IN);
-        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_SIGN_IN);
+        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_FORM);
         super.setUpComponents();
     }
 

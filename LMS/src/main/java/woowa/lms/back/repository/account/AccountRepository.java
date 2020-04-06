@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import woowa.lms.back.domain.account.Account;
-import woowa.lms.back.domain.account.AccountSearchCriteria;
-import woowa.lms.back.domain.account.Admin;
-import woowa.lms.back.domain.account.User;
+import woowa.lms.back.search.AccountSearchCriteria;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -48,7 +46,7 @@ public class AccountRepository {
             .getResultList();
     }
 
-    public List<Account> findAll(AccountSearchCriteria criteria) {
+    public List<Account> search(AccountSearchCriteria criteria) {
         String jpql = "SELECT a FROM Account a";
         boolean prevCondition = false;
         if (StringUtils.hasText(criteria.getId())) {

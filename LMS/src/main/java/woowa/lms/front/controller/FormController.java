@@ -1,9 +1,10 @@
 package woowa.lms.front.controller;
 
-import javafx.scene.control.TextField;
-import woowa.lms.front.behavior.user.EditUser;
-import woowa.lms.front.behavior.user.SearchUser;
 import woowa.lms.front.model.AccountModel;
+import woowa.lms.front.model.BookModel;
+import woowa.lms.front.ui.form.book.AddBookForm;
+import woowa.lms.front.ui.form.book.EditBookForm;
+import woowa.lms.front.ui.form.book.SearchBookForm;
 import woowa.lms.front.ui.form.main.MainSignUpForm;
 import woowa.lms.front.ui.form.main.SignInForm;
 import woowa.lms.front.ui.form.user.AddUserForm;
@@ -23,6 +24,11 @@ public class FormController {
 
     private static final MainSignUpForm SIGN_UP_FORM = MainSignUpForm.FORM;
     private static final SignInForm SIGN_IN_FORM = SignInForm.FORM;
+
+    private static final AddBookForm ADD_BOOK_FORM = AddBookForm.FORM;
+    private static final EditBookForm EDIT_BOOK_FORM = EditBookForm.FORM;
+    private static final SearchBookForm SEARCH_BOOK_FORM = SearchBookForm.FORM;
+
     private static final AddUserForm ADD_USER_FORM = AddUserForm.FORM;
     private static final EditUserForm EDIT_USER_FORM = EditUserForm.FORM;
     private static final SearchUserForm SEARCH_USER_FORM = SearchUserForm.FORM;
@@ -43,13 +49,19 @@ public class FormController {
         SIGN_IN_FORM.initModality(WINDOW_MODAL);
         SIGN_IN_FORM.initOwner(MAIN_PAGE);
 
+        ADD_BOOK_FORM.initModality(WINDOW_MODAL);
+        ADD_BOOK_FORM.initOwner(BOOK_TABLE);
+        EDIT_BOOK_FORM.initModality(WINDOW_MODAL);
+        EDIT_BOOK_FORM.initOwner(BOOK_TABLE);
+        SEARCH_BOOK_FORM.initModality(WINDOW_MODAL);
+        SEARCH_BOOK_FORM.initOwner(BOOK_TABLE);
+
         ADD_USER_FORM.initModality(WINDOW_MODAL);
         ADD_USER_FORM.initOwner(USER_TABLE);
         EDIT_USER_FORM.initModality(WINDOW_MODAL);
         EDIT_USER_FORM.initOwner(USER_TABLE);
         SEARCH_USER_FORM.initModality(WINDOW_MODAL);
         SEARCH_USER_FORM.initOwner(USER_TABLE);
-
     }
 
     public void showSignUpForm() {
@@ -58,6 +70,23 @@ public class FormController {
 
     public void showSignInForm() {
         SIGN_IN_FORM.show();
+    }
+
+    public void showAddBookForm() {
+        ADD_BOOK_FORM.show();
+    }
+
+    public void showEditBookForm() {
+        BookModel selected = BOOK_TABLE.getTable().getSelectionModel().getSelectedItem();
+        EDIT_BOOK_FORM.setSelected(selected);
+        EDIT_BOOK_FORM.getFields().get(0).setText(selected.getTitle());
+        EDIT_BOOK_FORM.getFields().get(1).setText(selected.getAuthor());
+        EDIT_BOOK_FORM.getFields().get(2).setText(Integer.toString(selected.getStock()));
+        EDIT_BOOK_FORM.show();
+    }
+
+    public void showSearchBookForm() {
+        SEARCH_BOOK_FORM.show();
     }
 
     public void showAddUserForm() {
@@ -74,30 +103,5 @@ public class FormController {
 
     public void showSearchUserForm() {
         SEARCH_USER_FORM.show();
-    }
-
-    public void closeSignUpForm() {
-        SIGN_UP_FORM.clear();
-        SIGN_UP_FORM.hide();
-    }
-
-    public void closeSignInForm() {
-        SIGN_IN_FORM.clear();
-        SIGN_IN_FORM.hide();
-    }
-
-    public void closeAddUserForm() {
-        ADD_USER_FORM.clear();
-        ADD_USER_FORM.hide();
-    }
-
-    public void closeEditUserForm() {
-        EDIT_USER_FORM.clear();
-        EDIT_USER_FORM.hide();
-    }
-
-    public void closeSearchUserForm() {
-        SEARCH_USER_FORM.clear();
-        SEARCH_USER_FORM.hide();
     }
 }

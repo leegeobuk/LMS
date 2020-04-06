@@ -12,7 +12,7 @@ import woowa.lms.front.ui.form.AbstractForm;
 
 import java.util.List;
 
-import static woowa.lms.front.behavior.BehaviorType.CLOSE_EDIT_USER;
+import static woowa.lms.front.behavior.BehaviorType.CLOSE_FORM;
 import static woowa.lms.front.behavior.BehaviorType.EDIT_USER;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_CANCEL;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_OK;
@@ -22,12 +22,12 @@ import static woowa.lms.front.foolproof.FoolProofType.NAME;
 
 public class EditUserForm extends AbstractForm {
 
-    private Label nameLabel;
-    private Label contactLabel;
     @Getter @Setter
     private AccountModel selected;
-    private InputField nameInputField = InputField.of(TEXT, NAME, "");
-    private InputField contactInputField = InputField.of(TEXT, CONTACT, "");
+    private Label nameLabel;
+    private Label contactLabel;
+    private InputField nameInputField = InputField.of(TEXT, NAME);
+    private InputField contactInputField = InputField.of(TEXT, CONTACT);
 
     private static final double WIDTH = 400;
     private static final double HEIGHT = 350;
@@ -50,7 +50,7 @@ public class EditUserForm extends AbstractForm {
         contactLabel = LabelBuilder.getFormLabel("Contact");
 
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, EDIT_USER);
-        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_EDIT_USER);
+        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_FORM);
         super.setUpComponents();
     }
 

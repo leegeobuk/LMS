@@ -18,6 +18,7 @@ import lombok.Getter;
 import woowa.lms.front.component.background.BackgroundBuilder;
 import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.component.textfield.InputField;
+import woowa.lms.front.foolproof.FoolProof;
 import woowa.lms.front.foolproof.form.FormFoolProof;
 import woowa.lms.front.ui.FoolProofable;
 import woowa.lms.front.ui.page.Page;
@@ -40,7 +41,7 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
     protected List<InputField> inputFields;
     protected Label errorLabel;
 
-    protected EventHandler<KeyEvent> formFoolProof;
+    protected FoolProof formFoolProof;
 
     protected HBox buttonBox;
     protected Button okButton;
@@ -64,12 +65,6 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
         buttonBox = new HBox(10);
 
         imageWidth = width * 0.16;
-    }
-
-    public void clear() {
-        inputFields.forEach(InputField::clear);
-        errorLabel.setText("");
-        okButton.setDisable(true);
     }
 
     public List<TextField> getFields() {
@@ -119,5 +114,14 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
         this.setScene(scene);
         this.setTitle(title);
         this.setResizable(false);
+    }
+
+    @Override
+    public void close() {
+        inputFields.forEach(InputField::clear);
+        getFields().get(0).requestFocus();
+        errorLabel.setText("");
+        okButton.setDisable(true);
+        super.close();
     }
 }

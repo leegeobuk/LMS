@@ -13,13 +13,13 @@ import woowa.lms.front.model.AccountModel;
 import java.util.List;
 
 import static java.util.stream.Collectors.toUnmodifiableList;
+import static woowa.lms.front.behavior.BehaviorType.CLOSE;
 import static woowa.lms.front.behavior.BehaviorType.DELETE_USER;
 import static woowa.lms.front.behavior.BehaviorType.VIEW_USER;
 import static woowa.lms.front.behavior.BehaviorType.*;
 import static woowa.lms.front.component.image.ImageType.ADD_USER;
 import static woowa.lms.front.component.image.ImageType.EDIT_USER;
 import static woowa.lms.front.component.image.ImageType.SEARCH_USER;
-import static woowa.lms.front.component.image.ImageType.*;
 
 public class UserTable extends AbstractTable<AccountModel> {
 
@@ -56,7 +56,7 @@ public class UserTable extends AbstractTable<AccountModel> {
         editUserButton = GeneralButton.getTableButton(EDIT_USER, SHOW_EDIT_USER);
         deleteUserButton = GeneralButton.getTableButton(ImageType.DELETE_USER, DELETE_USER);
         searchButton = GeneralButton.getTableButton(SEARCH_USER, SHOW_SEARCH_USER);
-        closeButton = GeneralButton.getTableButton(CLOSE, CLOSE_USER);
+        closeButton = GeneralButton.getTableButton(ImageType.CLOSE, CLOSE);
 
         super.setUpComponents();
     }

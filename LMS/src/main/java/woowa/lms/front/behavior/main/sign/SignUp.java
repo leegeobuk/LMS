@@ -37,7 +37,7 @@ public class SignUp implements Behavior {
         try {
             accountService.signUpAccount(admin);
             controller.showSignUpSuccessfulDialog();
-            FormController.getController().closeSignUpForm();
+            Behavior.super.closeForm(event);
         } catch (IllegalStateException e) {
             controller.showSignUpErrorDialog();
         }
