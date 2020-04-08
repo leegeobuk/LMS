@@ -2,12 +2,9 @@ package woowa.lms.front.ui.form.user;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import lombok.Getter;
-import lombok.Setter;
 import woowa.lms.front.component.button.GeneralButton;
 import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.component.textfield.InputField;
-import woowa.lms.front.model.AccountModel;
 import woowa.lms.front.ui.form.AbstractForm;
 
 import java.util.List;
@@ -22,8 +19,6 @@ import static woowa.lms.front.foolproof.FoolProofType.NAME;
 
 public class EditUserForm extends AbstractForm {
 
-    @Getter @Setter
-    private AccountModel selected;
     private Label nameLabel;
     private Label contactLabel;
     private InputField nameInputField = InputField.of(TEXT, NAME);

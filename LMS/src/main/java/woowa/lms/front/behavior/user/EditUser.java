@@ -11,6 +11,7 @@ import woowa.lms.front.controller.FormController;
 import woowa.lms.front.controller.TableController;
 import woowa.lms.front.model.AccountModel;
 import woowa.lms.front.ui.form.user.EditUserForm;
+import woowa.lms.front.ui.table.UserTable;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EditUser implements Behavior {
@@ -25,11 +26,11 @@ public class EditUser implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        AccountModel selected = EditUserForm.FORM.getSelected();
+        AccountModel selected = UserTable.getInstance().getSelected();
         String name = EditUserForm.FORM.getFields().get(0).getText();
         String contact = EditUserForm.FORM.getFields().get(1).getText();
         accountService.editAccount(selected.getId(), name, contact);
-        TableController.getController().updateUserTable();
+        UserTable.getInstance().update();
         Behavior.super.closeForm(event);
     }
 }

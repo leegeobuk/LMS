@@ -73,7 +73,7 @@ public class MainPage extends AbstractPage {
         imageWidth = imageWidth * (signedIn ? (7 / 8.0) : (8.0 / 7));
         aboutButton = drawButton("About", ABOUT, SHOW_ABOUT);
         bookButton = drawButton("Books", BOOK, SHOW_BOOKS);
-        customerButton = drawButton("Customers", CUSTOMER, SHOW_USERS);
+        customerButton = drawButton("Users", USER, SHOW_USERS);
         signInButton = signedIn
             ? drawButton("Sign Out", ImageType.SIGN_OUT, SIGN_OUT)
             : drawButton("Sign In", ImageType.SIGN_IN, SHOW_SIGN_IN);

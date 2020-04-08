@@ -15,6 +15,11 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toUnmodifiableList;
 import static woowa.lms.front.behavior.BehaviorType.*;
+import static woowa.lms.front.component.image.ImageType.RETURN_BOOK;
+import static woowa.lms.front.component.image.ImageType.SEARCH_BOOK;
+import static woowa.lms.front.component.image.ImageType.ADD_BOOK;
+import static woowa.lms.front.component.image.ImageType.EDIT_BOOK;
+import static woowa.lms.front.component.image.ImageType.LEND_BOOK;
 
 public class BookTable extends AbstractTable<BookModel> {
 
@@ -25,6 +30,7 @@ public class BookTable extends AbstractTable<BookModel> {
     private Button lendBookButton;
     private Button returnBookButton;
     private Button searchButton;
+
     private ItemService<Book> bookService = SpringContext.getBean(BookService.class);
 
     private static final double WIDTH = 500;
@@ -37,7 +43,6 @@ public class BookTable extends AbstractTable<BookModel> {
         super(WIDTH, HEIGHT, TITLE, HEADER);
         setUpComponents();
         setUpPage();
-        update();
         setFoolProof();
         setUpStage();
     }
@@ -49,12 +54,12 @@ public class BookTable extends AbstractTable<BookModel> {
     @Override
     public void setUpComponents() {
         viewBookButton = GeneralButton.getTableButton(ImageType.VIEW_BOOK, VIEW_BOOK);
-        addBookButton = GeneralButton.getTableButton(ImageType.ADD_BOOK, SHOW_ADD_BOOK);
-        editBookButton = GeneralButton.getTableButton(ImageType.EDIT_BOOK, SHOW_EDIT_BOOK);
+        addBookButton = GeneralButton.getTableButton(ADD_BOOK, SHOW_ADD_BOOK);
+        editBookButton = GeneralButton.getTableButton(EDIT_BOOK, SHOW_EDIT_BOOK);
         deleteBookButton = GeneralButton.getTableButton(ImageType.DELETE_BOOK, DELETE_BOOK);
-        lendBookButton = GeneralButton.getTableButton(ImageType.LEND_BOOK, SHOW_LEND_BOOK);
-        returnBookButton = GeneralButton.getTableButton(ImageType.RETURN_BOOK, RETURN_BOOK);
-        searchButton = GeneralButton.getTableButton(ImageType.SEARCH_BOOK, SHOW_SEARCH_BOOK);
+        lendBookButton = GeneralButton.getTableButton(LEND_BOOK, SHOW_LEND_BOOK);
+        returnBookButton = GeneralButton.getTableButton(RETURN_BOOK, SHOW_UNRETURNED_USERS);
+        searchButton = GeneralButton.getTableButton(SEARCH_BOOK, SHOW_SEARCH_BOOK);
         closeButton = GeneralButton.getTableButton(ImageType.CLOSE, CLOSE);
         super.setUpComponents();
     }
@@ -80,7 +85,6 @@ public class BookTable extends AbstractTable<BookModel> {
         stockColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         stockColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.15));
         table.getColumns().setAll(idColumn, titleColumn, authorColumn, statusColumn, stockColumn);
-
         super.setUpPage();
     }
 

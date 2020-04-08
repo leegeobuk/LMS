@@ -8,9 +8,13 @@ import woowa.lms.back.domain.account.User;
 import woowa.lms.back.domain.item.Book;
 import woowa.lms.back.domain.rental.Rental;
 import woowa.lms.back.domain.rental.RentalItem;
-import woowa.lms.back.repository.account.AccountRepository;
 import woowa.lms.back.repository.RentalRepository;
+import woowa.lms.back.repository.account.AccountRepository;
 import woowa.lms.back.repository.item.ItemRepository;
+
+import java.util.List;
+
+import static java.util.stream.Collectors.toUnmodifiableList;
 
 @Service
 @Transactional(readOnly = true)
@@ -20,6 +24,11 @@ public class RentalService {
     private final RentalRepository rentalRepository;
     private final AccountRepository accountRepository;
     private final ItemRepository<Book> itemRepository;
+
+    public List<User> searchUnreturnedUser(Long itemId) {
+        return rentalRepository.findByItem(itemId)
+            .stream().map(User.class::cast).collect(toUnmodifiableList());
+    }
 
     @Transactional
     public Long lendBooks(String accountId, Long... itemIds) {
@@ -34,7 +43,12 @@ public class RentalService {
         return rental.getId();
     }
 
-    public void returnBooks(Long rentalId) {
-        rentalRepository.findById(rentalId).endRental();
+    @Transactional
+    public void returnBooks(String accountId, Long itemId) {
+        Rental rental = rentalRepository.findByAccount(accountId);
+        rental.endRental(itemId);
+        if (rental.getRentalItems().size() == 0) {
+            rentalRepository.delete(rental);
+        }
     }
 }

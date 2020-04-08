@@ -26,6 +26,6 @@ public class DeleteUser implements Behavior {
     public void handle(ActionEvent event) {
         AccountModel selected = UserTable.getInstance().getTable().getSelectionModel().getSelectedItem();
         accountService.deleteAccount(selected.getId());
-        TableController.getController().updateUserTable();
+        UserTable.getInstance().update();
     }
 }

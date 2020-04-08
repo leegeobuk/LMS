@@ -4,12 +4,14 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.context.ApplicationEventPublisher;
 import woowa.lms.back.domain.account.Account;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
@@ -25,7 +27,7 @@ public class Rental {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL, orphanRemoval = true)
     @Column(nullable = false)
     @Setter(AccessLevel.NONE)
     private List<RentalItem> rentalItems = new ArrayList<>();
@@ -35,10 +37,10 @@ public class Rental {
     private RentalStatus rentalStatus;
 
     @Column(nullable = false)
-    private LocalDateTime rentalDate;
+    private LocalDate lendDate;
 
     @Column(nullable = false)
-    private LocalDateTime returnDate;
+    private LocalDate returnDate;
 
     public void setAccount(Account account) {
         this.account = account;
@@ -56,16 +58,25 @@ public class Rental {
         for (RentalItem rentalItem : rentalItems) {
             rental.setRentalItem(rentalItem);
         }
-        rental.setRentalDate(LocalDateTime.now());
-        rental.setReturnDate(rental.getRentalDate().plusWeeks(2L));
-        rental.setRentalStatus(RentalStatus.LENDED);
+        rental.setLendDate(LocalDate.now());
+        rental.setReturnDate(rental.getLendDate().plusDays(14));
+        rental.setRentalStatus(RentalStatus.DUE);
         return rental;
     }
 
-    public void endRental() {
-        setRentalStatus(RentalStatus.RETURNED);
-        for (RentalItem rentalItem : rentalItems) {
-            rentalItem.returnRentalItem();
+    public void endRental(Long itemId) {
+        int index = findRentalItemIndex(itemId);
+        RentalItem returningItem = rentalItems.get(index);
+        returningItem.returnRentalItem();
+        rentalItems.remove(returningItem);
+    }
+
+    private int findRentalItemIndex(Long itemId) {
+        for (int i = 0; i < rentalItems.size(); i++) {
+            if (rentalItems.get(i).getItem().getId().equals(itemId)) {
+                return i;
+            }
         }
+        return -1;
     }
 }

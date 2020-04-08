@@ -14,9 +14,8 @@ import woowa.lms.front.ui.form.book.SearchBookForm;
 import woowa.lms.front.ui.table.BookTable;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toUnmodifiableList;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SearchBook implements Behavior {

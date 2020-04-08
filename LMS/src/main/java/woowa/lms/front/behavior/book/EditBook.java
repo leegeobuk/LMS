@@ -9,6 +9,7 @@ import woowa.lms.front.behavior.Behavior;
 import woowa.lms.front.controller.TableController;
 import woowa.lms.front.model.BookModel;
 import woowa.lms.front.ui.form.book.EditBookForm;
+import woowa.lms.front.ui.table.BookTable;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EditBook implements Behavior {
@@ -23,7 +24,7 @@ public class EditBook implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        BookModel selected = EditBookForm.FORM.getSelected();
+        BookModel selected = BookTable.getInstance().getSelected();
         String title = EditBookForm.FORM.getFields().get(0).getText();
         String author = EditBookForm.FORM.getFields().get(1).getText();
         int stock = Integer.parseInt(EditBookForm.FORM.getFields().get(2).getText());

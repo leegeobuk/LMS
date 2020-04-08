@@ -4,6 +4,7 @@ import woowa.lms.front.model.AccountModel;
 import woowa.lms.front.model.BookModel;
 import woowa.lms.front.ui.form.book.AddBookForm;
 import woowa.lms.front.ui.form.book.EditBookForm;
+import woowa.lms.front.ui.form.book.LendBookForm;
 import woowa.lms.front.ui.form.book.SearchBookForm;
 import woowa.lms.front.ui.form.main.MainSignUpForm;
 import woowa.lms.front.ui.form.main.SignInForm;
@@ -27,6 +28,7 @@ public class FormController {
 
     private static final AddBookForm ADD_BOOK_FORM = AddBookForm.FORM;
     private static final EditBookForm EDIT_BOOK_FORM = EditBookForm.FORM;
+    private static final LendBookForm LEND_BOOK_FORM = LendBookForm.FORM;
     private static final SearchBookForm SEARCH_BOOK_FORM = SearchBookForm.FORM;
 
     private static final AddUserForm ADD_USER_FORM = AddUserForm.FORM;
@@ -53,6 +55,8 @@ public class FormController {
         ADD_BOOK_FORM.initOwner(BOOK_TABLE);
         EDIT_BOOK_FORM.initModality(WINDOW_MODAL);
         EDIT_BOOK_FORM.initOwner(BOOK_TABLE);
+        LEND_BOOK_FORM.initModality(WINDOW_MODAL);
+        LEND_BOOK_FORM.initOwner(BOOK_TABLE);
         SEARCH_BOOK_FORM.initModality(WINDOW_MODAL);
         SEARCH_BOOK_FORM.initOwner(BOOK_TABLE);
 
@@ -77,12 +81,15 @@ public class FormController {
     }
 
     public void showEditBookForm() {
-        BookModel selected = BOOK_TABLE.getTable().getSelectionModel().getSelectedItem();
-        EDIT_BOOK_FORM.setSelected(selected);
+        BookModel selected = BOOK_TABLE.getSelected();
         EDIT_BOOK_FORM.getFields().get(0).setText(selected.getTitle());
         EDIT_BOOK_FORM.getFields().get(1).setText(selected.getAuthor());
         EDIT_BOOK_FORM.getFields().get(2).setText(Integer.toString(selected.getStock()));
         EDIT_BOOK_FORM.show();
+    }
+
+    public void showLendBookForm() {
+        LEND_BOOK_FORM.show();
     }
 
     public void showSearchBookForm() {
@@ -94,8 +101,7 @@ public class FormController {
     }
 
     public void showEditUserForm() {
-        AccountModel selected = USER_TABLE.getTable().getSelectionModel().getSelectedItem();
-        EDIT_USER_FORM.setSelected(selected);
+        AccountModel selected = USER_TABLE.getSelected();
         EDIT_USER_FORM.getFields().get(0).setText(selected.getName());
         EDIT_USER_FORM.getFields().get(1).setText(selected.getContact());
         EDIT_USER_FORM.show();

@@ -2,13 +2,17 @@ package woowa.lms.front.ui.table;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import woowa.lms.back.domain.account.User;
+import woowa.lms.back.service.RentalService;
 import woowa.lms.back.service.account.AccountService;
 import woowa.lms.back.util.SpringContext;
 import woowa.lms.front.component.button.GeneralButton;
 import woowa.lms.front.component.image.ImageType;
 import woowa.lms.front.model.AccountModel;
+import woowa.lms.front.model.BookModel;
+import woowa.lms.front.ui.form.book.LendBookForm;
 
 import java.util.List;
 
@@ -28,7 +32,9 @@ public class UserTable extends AbstractTable<AccountModel> {
     private Button editUserButton;
     private Button deleteUserButton;
     private Button searchButton;
+
     private AccountService accountService = SpringContext.getBean(AccountService.class);
+    private RentalService rentalService = SpringContext.getBean(RentalService.class);
 
     private static final double WIDTH = 500;
     private static final double HEIGHT = 600;
@@ -40,7 +46,6 @@ public class UserTable extends AbstractTable<AccountModel> {
         super(WIDTH, HEIGHT, TITLE, HEADER);
         setUpComponents();
         setUpPage();
-        update();
         setFoolProof();
         setUpStage();
     }
@@ -88,8 +93,51 @@ public class UserTable extends AbstractTable<AccountModel> {
         table.getItems().setAll(userModels);
     }
 
+    public void showUsers(List<User> users) {
+        List<AccountModel> userModels = users
+            .stream().map(AccountModel::new).collect(toUnmodifiableList());
+        table.getItems().setAll(userModels);
+    }
+
     @Override
     public void setFoolProof() {
         // TODO: 2020-04-02 Implement after buttons implementation
+    }
+
+    public void setToSelectionMode(boolean isSelectionMode) {
+        if (isSelectionMode) {
+            table.setOnMouseClicked(e -> {
+                AccountModel selected = getSelected();
+                if (e.getClickCount() == 2) {
+                    List<TextField> fields = LendBookForm.FORM.getFields();
+                    fields.get(0).setText(selected.getId());
+                    fields.get(1).setText(selected.getName());
+                    fields.get(2).setText(selected.getContact());
+                    LendBookForm.FORM.getOkButton().setDisable(false);
+                    this.close();
+                }
+            });
+        }
+        else {
+            table.setOnMouseClicked(null);
+        }
+    }
+
+    public void setToReturnMode() {
+        table.setOnMouseClicked(e -> {
+            AccountModel selectedUser = getSelected();
+            if (e.getClickCount() == 2) {
+                BookModel selectedItem = BookTable.getInstance().getSelected();
+                rentalService.returnBooks(selectedUser.getId(), selectedItem.getId());
+                BookTable.getInstance().update();
+                this.close();
+            }
+        });
+    }
+
+    @Override
+    public void close() {
+        setToSelectionMode(false);
+        super.close();
     }
 }

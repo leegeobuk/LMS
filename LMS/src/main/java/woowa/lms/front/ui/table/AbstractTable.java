@@ -1,5 +1,6 @@
 package woowa.lms.front.ui.table;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -52,7 +53,15 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
         imageWidth = width * 0.1;
     }
 
-        @Override
+    public E getSelected() {
+        return table.getSelectionModel().getSelectedItem();
+    }
+
+    public ObservableList<E> getSelections() {
+        return table.getSelectionModel().getSelectedItems();
+    }
+
+    @Override
     public void setUpComponents() {
         background = BackgroundBuilder.DEFAULT_BACKGROUND.toBackground();
         headerLabel = LabelBuilder.getPageHeader(header);

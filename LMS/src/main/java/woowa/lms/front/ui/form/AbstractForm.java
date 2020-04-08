@@ -44,6 +44,7 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
     protected FoolProof formFoolProof;
 
     protected HBox buttonBox;
+    @Getter
     protected Button okButton;
     protected Button cancelButton;
 

@@ -13,10 +13,7 @@ import woowa.lms.front.behavior.main.sign.SignIn;
 import woowa.lms.front.behavior.main.sign.SignOut;
 import woowa.lms.front.behavior.main.sign.SignUp;
 import woowa.lms.front.behavior.user.*;
-import woowa.lms.front.behavior.user.show.ShowAddUser;
-import woowa.lms.front.behavior.user.show.ShowEditUser;
-import woowa.lms.front.behavior.user.show.ShowSearchUser;
-import woowa.lms.front.behavior.user.show.ShowUserTable;
+import woowa.lms.front.behavior.user.show.*;
 
 public enum BehaviorType {
     SHOW_ABOUT(ShowAbout.getInstance()),
@@ -40,13 +37,15 @@ public enum BehaviorType {
     VIEW_BOOK(ViewBook.getInstance()),
     ADD_BOOK(AddBook.getInstance()),
     EDIT_BOOK(EditBook.getInstance()),
+    RETURN_BOOK(ReturnBook.getInstance()),
     DELETE_BOOK(DeleteBook.getInstance()),
     LEND_BOOK(LendBook.getInstance()),
-    RETURN_BOOK(ReturnBook.getInstance()),
     SEARCH_BOOK(SearchBook.getInstance()),
 
     SHOW_ADD_USER(ShowAddUser.getInstance()),
     SHOW_EDIT_USER(ShowEditUser.getInstance()),
+    SHOW_SELECT_USERS(ShowSelectUser.getInstance()),
+    SHOW_UNRETURNED_USERS(ShowUnreturnedUser.getInstance()),
     SHOW_SEARCH_USER(ShowSearchUser.getInstance()),
     VIEW_USER(ViewUser.getInstance()),
     ADD_USER(AddUser.getInstance()),
