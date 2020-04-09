@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import woowa.lms.front.behavior.Behavior;
-import woowa.lms.front.controller.TableController;
+import woowa.lms.front.controller.account.AccountTableController;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ShowUserTable implements Behavior {
@@ -17,6 +17,6 @@ public class ShowUserTable implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        TableController.getController().showUserTable();
+        AccountTableController.getController().showUserTable();
     }
 }

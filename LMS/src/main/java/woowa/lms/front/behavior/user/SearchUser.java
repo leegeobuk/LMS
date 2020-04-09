@@ -9,6 +9,7 @@ import woowa.lms.back.search.AccountSearchCriteria;
 import woowa.lms.back.service.account.AccountService;
 import woowa.lms.back.util.SpringContext;
 import woowa.lms.front.behavior.Behavior;
+import woowa.lms.front.controller.MainController;
 import woowa.lms.front.model.AccountModel;
 import woowa.lms.front.ui.form.user.SearchUserForm;
 import woowa.lms.front.ui.table.UserTable;
@@ -30,7 +31,7 @@ public class SearchUser implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        List<TextField> fields = SearchUserForm.FORM.getFields();
+        List<TextField> fields = SearchUserForm.getForm().getFields();
         String id = fields.get(0).getText();
         String name = fields.get(1).getText();
         String contact = fields.get(2).getText();
@@ -38,7 +39,7 @@ public class SearchUser implements Behavior {
         List<Account> found = accountService.search(criteria);
         List<AccountModel> accountModels = found
             .stream().map(AccountModel::new).collect(toUnmodifiableList());
-        UserTable.getInstance().getTable().getItems().setAll(accountModels);
-        Behavior.super.closeForm(event);
+        UserTable.getInstance().getTableView().getItems().setAll(accountModels);
+        MainController.getController().close(event);
     }
 }

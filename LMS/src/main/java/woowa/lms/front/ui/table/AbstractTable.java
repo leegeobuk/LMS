@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
 import woowa.lms.front.component.background.BackgroundBuilder;
@@ -19,6 +20,8 @@ import woowa.lms.front.component.image.ImageBuilder;
 import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.ui.FoolProofable;
 import woowa.lms.front.ui.page.Page;
+
+import java.util.List;
 
 public abstract class AbstractTable<E> extends Stage implements Page, FoolProofable {
 
@@ -32,7 +35,7 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
     protected HBox iconBar;
     protected Button closeButton;
     @Getter
-    protected TableView<E> table;
+    protected TableView<E> tableView;
 
     protected String title;
     protected String header;
@@ -48,17 +51,17 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
 
         tableBox = new VBox();
         iconBar = new HBox();
-        table = new TableView<>();
+        tableView = new TableView<>();
 
         imageWidth = width * 0.1;
     }
 
     public E getSelected() {
-        return table.getSelectionModel().getSelectedItem();
+        return tableView.getSelectionModel().getSelectedItem();
     }
 
     public ObservableList<E> getSelections() {
-        return table.getSelectionModel().getSelectedItems();
+        return tableView.getSelectionModel().getSelectedItems();
     }
 
     @Override
@@ -76,8 +79,8 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
         headerLabel.setGraphicTextGap(this.getWidth() * 0.05);
 
         iconBar.setAlignment(Pos.CENTER_LEFT);
-        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tableBox.getChildren().addAll(iconBar, table);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        tableBox.getChildren().addAll(iconBar, tableView);
 
         mainPane.setBackground(background);
         mainPane.getChildren().addAll(headerLabel, tableBox);
@@ -85,7 +88,7 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
         mainPane.setAlignment(Pos.TOP_CENTER);
     }
 
-    public abstract void update();
+    public abstract void update(List<E> tableItems);
 
     @Override
     public abstract void setFoolProof();
@@ -95,5 +98,6 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
         Scene scene = new Scene(mainPane);
         this.setScene(scene);
         this.setTitle(title);
+        this.initModality(Modality.WINDOW_MODAL);
     }
 }

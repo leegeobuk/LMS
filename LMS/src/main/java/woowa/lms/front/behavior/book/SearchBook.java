@@ -9,6 +9,7 @@ import woowa.lms.back.search.BookSearchCriteria;
 import woowa.lms.back.service.item.BookService;
 import woowa.lms.back.util.SpringContext;
 import woowa.lms.front.behavior.Behavior;
+import woowa.lms.front.controller.MainController;
 import woowa.lms.front.model.BookModel;
 import woowa.lms.front.ui.form.book.SearchBookForm;
 import woowa.lms.front.ui.table.BookTable;
@@ -30,14 +31,14 @@ public class SearchBook implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        List<TextField> fields = SearchBookForm.FORM.getFields();
+        List<TextField> fields = SearchBookForm.getForm().getFields();
         String title = fields.get(0).getText();
         String author = fields.get(1).getText();
         BookSearchCriteria criteria = new BookSearchCriteria(title, author);
         List<Book> books = bookService.search(criteria);
         List<BookModel> bookModels = books
             .stream().map(BookModel::new).collect(toUnmodifiableList());
-        BookTable.getInstance().getTable().getItems().setAll(bookModels);
-        Behavior.super.closeForm(event);
+        BookTable.getTable().getTableView().getItems().setAll(bookModels);
+        MainController.getController().close(event);
     }
 }

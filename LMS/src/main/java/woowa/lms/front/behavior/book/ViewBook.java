@@ -17,6 +17,6 @@ public class ViewBook implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        BookTable.getInstance().update();
+        BookTable.getTable().update();
     }
 }

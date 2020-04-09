@@ -1,6 +1,6 @@
 package woowa.lms.front.ui.form;
 
-import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -8,11 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
 import woowa.lms.front.component.background.BackgroundBuilder;
@@ -37,7 +37,7 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
     protected ImageView logoImageView;
 
     @Getter
-    protected GridPane form;
+    protected GridPane formPane;
     protected List<InputField> inputFields;
     protected Label errorLabel;
 
@@ -60,7 +60,7 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
         mainPane = new VBox();
         mainPane.setSpacing(height * 0.05);
 
-        form = new GridPane();
+        formPane = new GridPane();
         errorLabel = new Label();
 
         buttonBox = new HBox(10);
@@ -97,7 +97,7 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
         buttonBox.setAlignment(Pos.CENTER);
 
         mainPane.setBackground(background);
-        mainPane.getChildren().addAll(headerLabel, form, buttonBox);
+        mainPane.getChildren().addAll(headerLabel, formPane, buttonBox);
         mainPane.setPadding(new Insets(20));
         mainPane.setAlignment(Pos.TOP_CENTER);
     }
@@ -115,6 +115,7 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
         this.setScene(scene);
         this.setTitle(title);
         this.setResizable(false);
+        this.initModality(Modality.WINDOW_MODAL);
     }
 
     @Override

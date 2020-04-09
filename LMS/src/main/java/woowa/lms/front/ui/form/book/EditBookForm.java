@@ -6,10 +6,11 @@ import woowa.lms.front.component.button.GeneralButton;
 import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.component.textfield.InputField;
 import woowa.lms.front.ui.form.AbstractForm;
+import woowa.lms.front.ui.table.BookTable;
 
 import java.util.List;
 
-import static woowa.lms.front.behavior.BehaviorType.CLOSE_FORM;
+import static woowa.lms.front.behavior.BehaviorType.CLOSE;
 import static woowa.lms.front.behavior.BehaviorType.EDIT_BOOK;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_CANCEL;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_OK;
@@ -30,7 +31,7 @@ public class EditBookForm extends AbstractForm {
     private static final double HEIGHT = 350;
     private static final String TITLE = "Edit Book Form";
     private static final String HEADER = "Edit Book";
-    public static final EditBookForm FORM = new EditBookForm();
+    private static final EditBookForm FORM = new EditBookForm();
 
     public EditBookForm() {
         super(WIDTH, HEIGHT, TITLE, HEADER);
@@ -41,6 +42,10 @@ public class EditBookForm extends AbstractForm {
         setUpStage();
     }
 
+    public static EditBookForm getForm() {
+        return FORM;
+    }
+
     @Override
     public void setUpComponents() {
         titleLabel = LabelBuilder.getFormLabel("Title");
@@ -48,19 +53,25 @@ public class EditBookForm extends AbstractForm {
         stockLabel = LabelBuilder.getFormLabel("Stock");
 
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, EDIT_BOOK);
-        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_FORM);
+        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE);
         super.setUpComponents();
     }
 
     @Override
     public void setUpPage() {
-        form.addRow(0, titleLabel, titleInputField.toTextField());
-        form.addRow(1, authorLabel, authorInputField.toTextField());
-        form.addRow(2, stockLabel, stockInputField.toTextField());
-        form.add(errorLabel, 0, 3, 2, 2);
-        form.setHgap(WIDTH * 0.08);
-        form.setVgap(HEIGHT * 0.02);
-        form.setAlignment(Pos.CENTER);
+        formPane.addRow(0, titleLabel, titleInputField.toTextField());
+        formPane.addRow(1, authorLabel, authorInputField.toTextField());
+        formPane.addRow(2, stockLabel, stockInputField.toTextField());
+        formPane.add(errorLabel, 0, 3, 2, 2);
+        formPane.setHgap(WIDTH * 0.08);
+        formPane.setVgap(HEIGHT * 0.02);
+        formPane.setAlignment(Pos.CENTER);
         super.setUpPage();
+    }
+
+    @Override
+    public void setUpStage() {
+        super.setUpStage();
+        this.initOwner(BookTable.getTable());
     }
 }

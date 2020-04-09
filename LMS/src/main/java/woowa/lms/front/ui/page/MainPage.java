@@ -30,13 +30,17 @@ public class MainPage extends AbstractPage {
     private static final String TITLE = "Woowa Library Management System";
     private static final String HEADER = "Woowa Library";
 
-    public static final MainPage PAGE = new MainPage();
+    private static final MainPage PAGE = new MainPage();
 
     private MainPage() {
         super(WIDTH, HEIGHT, TITLE, HEADER);
         setUpComponents();
         setUpPage();
         setUpStage();
+    }
+
+    public static MainPage getPage() {
+        return PAGE;
     }
 
     @Override

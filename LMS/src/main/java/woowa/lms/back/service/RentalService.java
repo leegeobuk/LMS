@@ -25,13 +25,13 @@ public class RentalService {
     private final AccountRepository accountRepository;
     private final ItemRepository<Book> itemRepository;
 
-    public List<User> searchUnreturnedUser(Long itemId) {
+    public List<User> searchBorrowedUser(Long itemId) {
         return rentalRepository.findByItem(itemId)
             .stream().map(User.class::cast).collect(toUnmodifiableList());
     }
 
     @Transactional
-    public Long lendBooks(String accountId, Long... itemIds) {
+    public void lendBooks(String accountId, Long... itemIds) {
         Account account = accountRepository.findById(accountId);
         RentalItem[] rentalItems = new RentalItem[itemIds.length];
         for (int i = 0; i < itemIds.length; i++) {
@@ -40,7 +40,6 @@ public class RentalService {
 
         Rental rental = Rental.create(account, rentalItems);
         rentalRepository.save(rental);
-        return rental.getId();
     }
 
     @Transactional

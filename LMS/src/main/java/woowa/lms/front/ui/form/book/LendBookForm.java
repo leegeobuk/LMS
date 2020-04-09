@@ -7,6 +7,7 @@ import woowa.lms.front.component.button.GeneralButton;
 import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.component.textfield.InputField;
 import woowa.lms.front.ui.form.AbstractForm;
+import woowa.lms.front.ui.table.BookTable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -36,7 +37,7 @@ public class LendBookForm extends AbstractForm {
     private static final double HEIGHT = 450;
     private static final String TITLE = "Lend Book Form";
     private static final String HEADER = "Lend Book";
-    public static final LendBookForm FORM = new LendBookForm();
+    private static final LendBookForm FORM = new LendBookForm();
 
     private LendBookForm() {
         super(WIDTH, HEIGHT, TITLE, HEADER);
@@ -46,6 +47,10 @@ public class LendBookForm extends AbstractForm {
         setUpPage();
         setFoolProof();
         setUpStage();
+    }
+
+    public static LendBookForm getForm() {
+        return FORM;
     }
 
     @Override
@@ -65,7 +70,7 @@ public class LendBookForm extends AbstractForm {
         userButton = GeneralButton.builder().image(getImageView(USER, 24)).graphicGap(0)
             .display(GRAPHIC_ONLY).behavior(SHOW_SELECT_USERS).build().toButton();
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, LEND_BOOK);
-        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_FORM);
+        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE);
         super.setUpComponents();
     }
 
@@ -78,21 +83,27 @@ public class LendBookForm extends AbstractForm {
 
     @Override
     public void setUpPage() {
-        form.addRow(0, idLabel, idInputField.toTextField());
-        form.addRow(1, nameLabel, nameInputField.toTextField());
-        form.addRow(2, contactLabel, contactInputField.toTextField());
-        form.addRow(3, lendLabel, lendInputField.toTextField());
-        form.addRow(4, returnLabel, returnInputField.toTextField());
-        form.addRow(5, userButton);
-        form.setHgap(WIDTH * 0.08);
-        form.setVgap(HEIGHT * 0.02);
-        form.setAlignment(Pos.CENTER);
+        formPane.addRow(0, idLabel, idInputField.toTextField());
+        formPane.addRow(1, nameLabel, nameInputField.toTextField());
+        formPane.addRow(2, contactLabel, contactInputField.toTextField());
+        formPane.addRow(3, lendLabel, lendInputField.toTextField());
+        formPane.addRow(4, returnLabel, returnInputField.toTextField());
+        formPane.addRow(5, userButton);
+        formPane.setHgap(WIDTH * 0.08);
+        formPane.setVgap(HEIGHT * 0.02);
+        formPane.setAlignment(Pos.CENTER);
         super.setUpPage();
     }
 
     @Override
     public void setFoolProof() {
         formFoolProof = null;
+    }
+
+    @Override
+    public void setUpStage() {
+        super.setUpStage();
+        this.initOwner(BookTable.getTable());
     }
 
     @Override

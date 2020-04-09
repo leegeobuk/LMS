@@ -42,15 +42,15 @@ public class SignUpForm extends AbstractForm {
 
     @Override
     public void setUpPage() {
-        form.addRow(0, idLabel, idInputField.toTextField());
-        form.addRow(1, pwLabel, pwInputField.toTextField());
-        form.addRow(2, confirmPwLabel, confirmPwInputField.toTextField());
-        form.addRow(3, nameLabel, nameInputField.toTextField());
-        form.addRow(4, contactLabel, contactInputField.toTextField());
-        form.add(errorLabel, 0, 5, 2, 4);
-        form.setHgap(this.getWidth() * 0.08);
-        form.setVgap(this.getHeight() * 0.02);
-        form.setAlignment(Pos.CENTER);
+        formPane.addRow(0, idLabel, idInputField.toTextField());
+        formPane.addRow(1, pwLabel, pwInputField.toTextField());
+        formPane.addRow(2, confirmPwLabel, confirmPwInputField.toTextField());
+        formPane.addRow(3, nameLabel, nameInputField.toTextField());
+        formPane.addRow(4, contactLabel, contactInputField.toTextField());
+        formPane.add(errorLabel, 0, 5, 2, 4);
+        formPane.setHgap(this.getWidth() * 0.08);
+        formPane.setVgap(this.getHeight() * 0.02);
+        formPane.setAlignment(Pos.CENTER);
         super.setUpPage();
     }
 

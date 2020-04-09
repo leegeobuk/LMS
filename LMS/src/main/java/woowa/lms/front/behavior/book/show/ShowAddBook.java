@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import woowa.lms.front.behavior.Behavior;
-import woowa.lms.front.controller.FormController;
+import woowa.lms.front.controller.item.ItemFormController;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ShowAddBook implements Behavior {
@@ -17,6 +17,6 @@ public class ShowAddBook implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        FormController.getController().showAddBookForm();
+        ItemFormController.getController().showAddBookForm();
     }
 }

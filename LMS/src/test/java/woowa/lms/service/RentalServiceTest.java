@@ -59,14 +59,15 @@ class RentalServiceTest extends Account {
     @Test
     void returnBooks() {
         //given
-        when(rental.getId()).thenReturn(1L);
-        when(rentalRepository.findById(rental.getId())).thenReturn(rental);
+        when(account.getId()).thenReturn("lee");
+        when(item.getId()).thenReturn(1L);
+        when(rentalRepository.findByAccount(account.getId())).thenReturn(rental);
 
         //when
-        rentalService.returnBooks(rental.getId());
+        rentalService.returnBooks(account.getId(), item.getId());
 
         //then
-        verify(rentalRepository).findById(rental.getId());
-        verify(rental).endRental();
+        verify(rentalRepository).findByAccount(account.getId());
+        verify(rental).endRental(item.getId());
     }
 }

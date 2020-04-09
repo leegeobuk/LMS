@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import woowa.lms.front.behavior.Behavior;
-import woowa.lms.front.controller.DialogController;
+import woowa.lms.front.controller.account.AccountDialogController;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SignOut implements Behavior {
@@ -17,6 +17,6 @@ public class SignOut implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        DialogController.getController().showSignOutDialog();
+        AccountDialogController.getController().showSignOutDialog();
     }
 }

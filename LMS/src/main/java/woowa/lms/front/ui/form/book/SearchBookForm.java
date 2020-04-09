@@ -7,10 +7,11 @@ import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.component.textfield.InputField;
 import woowa.lms.front.foolproof.form.SearchFoolProof;
 import woowa.lms.front.ui.form.AbstractForm;
+import woowa.lms.front.ui.table.BookTable;
 
 import java.util.List;
 
-import static woowa.lms.front.behavior.BehaviorType.CLOSE_FORM;
+import static woowa.lms.front.behavior.BehaviorType.CLOSE;
 import static woowa.lms.front.behavior.BehaviorType.SEARCH_BOOK;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_CANCEL;
 import static woowa.lms.front.component.image.ImageBuilder.FORM_BUTTON_OK;
@@ -28,7 +29,7 @@ public class SearchBookForm extends AbstractForm {
     private static final double HEIGHT = 300;
     private static final String TITLE = "Search Book Form";
     private static final String HEADER = "Search Book";
-    public static final SearchBookForm FORM = new SearchBookForm();
+    private static final SearchBookForm FORM = new SearchBookForm();
 
     private SearchBookForm() {
         super(WIDTH, HEIGHT, TITLE, HEADER);
@@ -39,24 +40,28 @@ public class SearchBookForm extends AbstractForm {
         setUpStage();
     }
 
+    public static SearchBookForm getForm() {
+        return FORM;
+    }
+
     @Override
     public void setUpComponents() {
         titleLabel = LabelBuilder.getFormLabel("Title");
         authorLabel = LabelBuilder.getFormLabel("Author");
 
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, SEARCH_BOOK);
-        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE_FORM);
+        cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE);
         super.setUpComponents();
     }
 
     @Override
     public void setUpPage() {
-        form.addRow(0, titleLabel, titleInputField.toTextField());
-        form.addRow(1, authorLabel, authorInputField.toTextField());
-        form.add(errorLabel, 0, 2, 2, 2);
-        form.setHgap(WIDTH * 0.08);
-        form.setVgap(HEIGHT * 0.02);
-        form.setAlignment(Pos.CENTER);
+        formPane.addRow(0, titleLabel, titleInputField.toTextField());
+        formPane.addRow(1, authorLabel, authorInputField.toTextField());
+        formPane.add(errorLabel, 0, 2, 2, 2);
+        formPane.setHgap(WIDTH * 0.08);
+        formPane.setVgap(HEIGHT * 0.02);
+        formPane.setAlignment(Pos.CENTER);
         getFields().forEach(textField -> textField.setPrefWidth(WIDTH * 0.5));
         super.setUpPage();
     }
@@ -66,5 +71,11 @@ public class SearchBookForm extends AbstractForm {
         formFoolProof = SearchFoolProof.builder().button(okButton)
             .errorLabel(errorLabel).inputFields(inputFields).build();
         inputFields.forEach(inputField -> inputField.setOnKeyReleased(formFoolProof));
+    }
+
+    @Override
+    public void setUpStage() {
+        super.setUpStage();
+        this.initOwner(BookTable.getTable());
     }
 }

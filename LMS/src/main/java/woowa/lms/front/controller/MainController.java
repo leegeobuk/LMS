@@ -1,28 +1,24 @@
 package woowa.lms.front.controller;
 
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import woowa.lms.front.ui.dialog.prompt.ExitDialog;
 import woowa.lms.front.ui.page.AboutPage;
 import woowa.lms.front.ui.page.MainPage;
 
-import static javafx.stage.Modality.WINDOW_MODAL;
-
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MainController {
 
-    private static final MainPage MAIN_PAGE = MainPage.PAGE;
-    private static final AboutPage ABOUT_PAGE = AboutPage.PAGE;
+    private static final MainPage MAIN_PAGE = MainPage.getPage();
+    private static final AboutPage ABOUT_PAGE = AboutPage.getPage();
 
     private static final MainController CONTROLLER = new MainController();
 
-    private MainController() {
-        setModality();
-    }
-
     public static MainController getController() {
         return CONTROLLER;
-    }
-
-    private void setModality() {
-        ABOUT_PAGE.initModality(WINDOW_MODAL);
-        ABOUT_PAGE.initOwner(MAIN_PAGE);
     }
 
     public void showMainPage() {
@@ -38,7 +34,12 @@ public class MainController {
         ABOUT_PAGE.show();
     }
 
-    public void closeAboutPage() {
-        ABOUT_PAGE.close();
+    public void showExitDialog() {
+        ExitDialog.getDialog().show();
+    }
+
+    public void close(ActionEvent event) {
+        Button button = (Button) event.getSource();
+        ((Stage) button.getScene().getWindow()).close();
     }
 }

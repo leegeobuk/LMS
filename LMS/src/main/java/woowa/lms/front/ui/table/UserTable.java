@@ -4,19 +4,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import woowa.lms.back.domain.account.User;
 import woowa.lms.back.service.RentalService;
-import woowa.lms.back.service.account.AccountService;
 import woowa.lms.back.util.SpringContext;
 import woowa.lms.front.component.button.GeneralButton;
 import woowa.lms.front.component.image.ImageType;
 import woowa.lms.front.model.AccountModel;
 import woowa.lms.front.model.BookModel;
 import woowa.lms.front.ui.form.book.LendBookForm;
+import woowa.lms.front.ui.page.MainPage;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toUnmodifiableList;
 import static woowa.lms.front.behavior.BehaviorType.CLOSE;
 import static woowa.lms.front.behavior.BehaviorType.DELETE_USER;
 import static woowa.lms.front.behavior.BehaviorType.VIEW_USER;
@@ -33,7 +31,6 @@ public class UserTable extends AbstractTable<AccountModel> {
     private Button deleteUserButton;
     private Button searchButton;
 
-    private AccountService accountService = SpringContext.getBean(AccountService.class);
     private RentalService rentalService = SpringContext.getBean(RentalService.class);
 
     private static final double WIDTH = 500;
@@ -73,30 +70,20 @@ public class UserTable extends AbstractTable<AccountModel> {
 
         TableColumn<AccountModel, String > idColumn = new TableColumn<>("User Id");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        idColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.3));
+        idColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.3));
         TableColumn<AccountModel, String > nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        nameColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.4));
+        nameColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.4));
         TableColumn<AccountModel, String > contactColumn = new TableColumn<>("Contact");
         contactColumn.setCellValueFactory(new PropertyValueFactory<>("contact"));
-        contactColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.3));
-        table.getColumns().setAll(idColumn, nameColumn, contactColumn);
-
+        contactColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.3));
+        tableView.getColumns().setAll(idColumn, nameColumn, contactColumn);
         super.setUpPage();
     }
 
     @Override
-    public void update() {
-        List<User> users = accountService.findUsers();
-        List<AccountModel> userModels = users
-            .stream().map(AccountModel::new).collect(toUnmodifiableList());
-        table.getItems().setAll(userModels);
-    }
-
-    public void showUsers(List<User> users) {
-        List<AccountModel> userModels = users
-            .stream().map(AccountModel::new).collect(toUnmodifiableList());
-        table.getItems().setAll(userModels);
+    public void update(List<AccountModel> userModels) {
+        tableView.getItems().setAll(userModels);
     }
 
     @Override
@@ -106,33 +93,39 @@ public class UserTable extends AbstractTable<AccountModel> {
 
     public void setToSelectionMode(boolean isSelectionMode) {
         if (isSelectionMode) {
-            table.setOnMouseClicked(e -> {
+            tableView.setOnMouseClicked(e -> {
                 AccountModel selected = getSelected();
                 if (e.getClickCount() == 2) {
-                    List<TextField> fields = LendBookForm.FORM.getFields();
+                    List<TextField> fields = LendBookForm.getForm().getFields();
                     fields.get(0).setText(selected.getId());
                     fields.get(1).setText(selected.getName());
                     fields.get(2).setText(selected.getContact());
-                    LendBookForm.FORM.getOkButton().setDisable(false);
+                    LendBookForm.getForm().getOkButton().setDisable(false);
                     this.close();
                 }
             });
         }
         else {
-            table.setOnMouseClicked(null);
+            tableView.setOnMouseClicked(null);
         }
     }
 
     public void setToReturnMode() {
-        table.setOnMouseClicked(e -> {
+        tableView.setOnMouseClicked(e -> {
             AccountModel selectedUser = getSelected();
             if (e.getClickCount() == 2) {
-                BookModel selectedItem = BookTable.getInstance().getSelected();
+                BookModel selectedItem = BookTable.getTable().getSelected();
                 rentalService.returnBooks(selectedUser.getId(), selectedItem.getId());
-                BookTable.getInstance().update();
+                BookTable.getTable().update();
                 this.close();
             }
         });
+    }
+
+    @Override
+    public void setUpStage() {
+        super.setUpStage();
+        this.initOwner(MainPage.getPage());
     }
 
     @Override

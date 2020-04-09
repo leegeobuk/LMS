@@ -24,14 +24,14 @@ public class LendBook implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        ObservableList<BookModel> selections = BookTable.getInstance().getSelections();
-        String userId = LendBookForm.FORM.getFields().get(0).getText();
+        ObservableList<BookModel> selections = BookTable.getTable().getSelections();
+        String userId = LendBookForm.getForm().getFields().get(0).getText();
         Long[] itemIds = new Long[selections.size()];
         for (int i = 0; i < selections.size(); i++) {
             itemIds[i] = selections.get(i).getId();
         }
         rentalService.lendBooks(userId, itemIds);
-        BookTable.getInstance().update();
-        LendBookForm.FORM.close();
+        BookTable.getTable().update();
+        LendBookForm.getForm().close();
     }
 }

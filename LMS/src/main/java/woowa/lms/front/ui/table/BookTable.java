@@ -3,23 +3,21 @@ package woowa.lms.front.ui.table;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import woowa.lms.back.domain.item.Book;
-import woowa.lms.back.service.item.BookService;
-import woowa.lms.back.service.item.ItemService;
-import woowa.lms.back.util.SpringContext;
 import woowa.lms.front.component.button.GeneralButton;
 import woowa.lms.front.component.image.ImageType;
 import woowa.lms.front.model.BookModel;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toUnmodifiableList;
+import static woowa.lms.front.behavior.BehaviorType.CLOSE;
+import static woowa.lms.front.behavior.BehaviorType.DELETE_BOOK;
+import static woowa.lms.front.behavior.BehaviorType.VIEW_BOOK;
 import static woowa.lms.front.behavior.BehaviorType.*;
-import static woowa.lms.front.component.image.ImageType.RETURN_BOOK;
-import static woowa.lms.front.component.image.ImageType.SEARCH_BOOK;
 import static woowa.lms.front.component.image.ImageType.ADD_BOOK;
 import static woowa.lms.front.component.image.ImageType.EDIT_BOOK;
 import static woowa.lms.front.component.image.ImageType.LEND_BOOK;
+import static woowa.lms.front.component.image.ImageType.RETURN_BOOK;
+import static woowa.lms.front.component.image.ImageType.SEARCH_BOOK;
 
 public class BookTable extends AbstractTable<BookModel> {
 
@@ -30,8 +28,6 @@ public class BookTable extends AbstractTable<BookModel> {
     private Button lendBookButton;
     private Button returnBookButton;
     private Button searchButton;
-
-    private ItemService<Book> bookService = SpringContext.getBean(BookService.class);
 
     private static final double WIDTH = 500;
     private static final double HEIGHT = 600;
@@ -47,7 +43,7 @@ public class BookTable extends AbstractTable<BookModel> {
         setUpStage();
     }
 
-    public static BookTable getInstance() {
+    public static BookTable getTable() {
         return TABLE;
     }
 
@@ -71,29 +67,26 @@ public class BookTable extends AbstractTable<BookModel> {
 
         TableColumn<BookModel, Long> idColumn = new TableColumn<>("Book Id");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        idColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.15));
+        idColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.15));
         TableColumn<BookModel, String > titleColumn = new TableColumn<>("Title");
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        titleColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.35));
+        titleColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.35));
         TableColumn<BookModel, String > authorColumn = new TableColumn<>("Author");
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
-        authorColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.2));
+        authorColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.2));
         TableColumn<BookModel, String > statusColumn = new TableColumn<>("Status");
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-        statusColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.15));
+        statusColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.15));
         TableColumn<BookModel, Integer> stockColumn = new TableColumn<>("Stock");
         stockColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        stockColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.15));
-        table.getColumns().setAll(idColumn, titleColumn, authorColumn, statusColumn, stockColumn);
+        stockColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.15));
+        tableView.getColumns().setAll(idColumn, titleColumn, authorColumn, statusColumn, stockColumn);
         super.setUpPage();
     }
 
     @Override
-    public void update() {
-        List<Book> books = bookService.findAll();
-        List<BookModel> bookModels = books
-            .stream().map(BookModel::new).collect(toUnmodifiableList());
-        table.getItems().setAll(bookModels);
+    public void update(List<BookModel> bookModels) {
+        tableView.getItems().setAll(bookModels);
     }
 
     @Override

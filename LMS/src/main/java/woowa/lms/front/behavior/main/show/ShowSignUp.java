@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import woowa.lms.front.behavior.Behavior;
-import woowa.lms.front.controller.FormController;
+import woowa.lms.front.controller.account.AccountFormController;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ShowSignUp implements Behavior {
@@ -17,6 +17,6 @@ public class ShowSignUp implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        FormController.getController().showSignUpForm();
+        AccountFormController.getController().showSignUpForm();
     }
 }

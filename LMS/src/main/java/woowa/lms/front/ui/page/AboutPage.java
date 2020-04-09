@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import woowa.lms.front.component.button.GeneralButton;
 
 import static woowa.lms.front.behavior.BehaviorType.CLOSE;
@@ -19,7 +20,7 @@ public class AboutPage extends AbstractPage {
     private static final double HEIGHT = 395;
     private static final String TITLE = "About Page";
 
-    public static final AboutPage PAGE = new AboutPage();
+    private static final AboutPage PAGE = new AboutPage();
 
     private AboutPage() {
         super(WIDTH, HEIGHT, TITLE, TITLE);
@@ -27,6 +28,10 @@ public class AboutPage extends AbstractPage {
         setUpComponents();
         setUpPage();
         setUpStage();
+    }
+
+    public static AboutPage getPage() {
+        return PAGE;
     }
 
     @Override
@@ -54,5 +59,7 @@ public class AboutPage extends AbstractPage {
     public void setUpStage() {
         super.setUpStage();
         this.setResizable(false);
+        this.initModality(Modality.WINDOW_MODAL);
+        this.initOwner(MainPage.getPage());
     }
 }

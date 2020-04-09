@@ -4,7 +4,6 @@ import lombok.Getter;
 import woowa.lms.front.behavior.book.*;
 import woowa.lms.front.behavior.book.show.*;
 import woowa.lms.front.behavior.close.Close;
-import woowa.lms.front.behavior.close.CloseForm;
 import woowa.lms.front.behavior.close.ExitProgram;
 import woowa.lms.front.behavior.main.show.ShowAbout;
 import woowa.lms.front.behavior.main.show.ShowSignIn;
@@ -22,7 +21,6 @@ public enum BehaviorType {
     SHOW_BOOKS(ShowBookTable.getInstance()),
     SHOW_USERS(ShowUserTable.getInstance()),
 
-    CLOSE_FORM(CloseForm.getInstance()),
     CLOSE(Close.getInstance()),
     EXIT_PROGRAM(ExitProgram.getInstance()),
 
@@ -44,8 +42,8 @@ public enum BehaviorType {
 
     SHOW_ADD_USER(ShowAddUser.getInstance()),
     SHOW_EDIT_USER(ShowEditUser.getInstance()),
-    SHOW_SELECT_USERS(ShowSelectUser.getInstance()),
-    SHOW_UNRETURNED_USERS(ShowUnreturnedUser.getInstance()),
+    SHOW_SELECT_USERS(ShowUserToLend.getInstance()),
+    SHOW_UNRETURNED_USERS(ShowBorrowedUser.getInstance()),
     SHOW_SEARCH_USER(ShowSearchUser.getInstance()),
     VIEW_USER(ViewUser.getInstance()),
     ADD_USER(AddUser.getInstance()),
