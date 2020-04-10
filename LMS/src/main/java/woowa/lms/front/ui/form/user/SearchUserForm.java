@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import woowa.lms.front.component.button.GeneralButton;
 import woowa.lms.front.component.label.LabelBuilder;
 import woowa.lms.front.component.textfield.InputField;
-import woowa.lms.front.foolproof.form.SearchFoolProof;
+import woowa.lms.front.foolproof.form.SearchFormFoolProof;
 import woowa.lms.front.ui.form.AbstractForm;
 import woowa.lms.front.ui.table.UserTable;
 
@@ -72,7 +72,7 @@ public class SearchUserForm extends AbstractForm {
 
     @Override
     public void setFoolProof() {
-        formFoolProof = SearchFoolProof.builder().button(okButton)
+        formFoolProof = SearchFormFoolProof.builder().button(okButton)
             .errorLabel(errorLabel).inputFields(inputFields).build();
         inputFields.forEach(inputField -> inputField.setOnKeyReleased(formFoolProof));
     }
@@ -80,6 +80,6 @@ public class SearchUserForm extends AbstractForm {
     @Override
     public void setUpStage() {
         super.setUpStage();
-        this.initOwner(UserTable.getInstance());
+        this.initOwner(UserTable.getTable());
     }
 }

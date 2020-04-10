@@ -1,6 +1,5 @@
 package woowa.lms.front.ui.form;
 
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -8,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -41,10 +41,9 @@ public abstract class AbstractForm extends Stage implements Page, FoolProofable 
     protected List<InputField> inputFields;
     protected Label errorLabel;
 
-    protected FoolProof formFoolProof;
+    protected FoolProof<KeyEvent> formFoolProof;
 
     protected HBox buttonBox;
-    @Getter
     protected Button okButton;
     protected Button cancelButton;
 

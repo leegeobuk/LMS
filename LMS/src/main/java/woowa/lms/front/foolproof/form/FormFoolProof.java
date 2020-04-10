@@ -2,13 +2,13 @@ package woowa.lms.front.foolproof.form;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import lombok.Builder;
 import woowa.lms.front.component.textfield.InputField;
-import woowa.lms.front.foolproof.AbstractFoolProof;
 
 import java.util.List;
 
-public class FormFoolProof extends AbstractFoolProof {
+public class FormFoolProof extends AbstractFormFoolProof<KeyEvent> {
 
     @Builder
     public FormFoolProof(Button button, Label errorLabel, List<InputField> inputFields) {

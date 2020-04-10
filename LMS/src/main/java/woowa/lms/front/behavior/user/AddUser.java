@@ -10,6 +10,7 @@ import woowa.lms.back.util.SpringContext;
 import woowa.lms.front.behavior.Behavior;
 import woowa.lms.front.controller.MainController;
 import woowa.lms.front.controller.account.AccountDialogController;
+import woowa.lms.front.controller.account.AccountFormController;
 import woowa.lms.front.ui.form.user.AddUserForm;
 import woowa.lms.front.ui.table.UserTable;
 
@@ -28,18 +29,6 @@ public class AddUser implements Behavior {
 
     @Override
     public void handle(ActionEvent event) {
-        List<TextField> fields = AddUserForm.getForm().getFields();
-        String id = fields.get(0).getText();
-        String pw = fields.get(1).getText();
-        String name = fields.get(3).getText();
-        String contact = fields.get(4).getText();
-        User user = User.of(id, pw, name, contact);
-        try {
-            accountService.signUpAccount(user);
-            UserTable.getInstance().update();
-            MainController.getController().close(event);
-        } catch (IllegalStateException e) {
-            AccountDialogController.getController().showSignUpErrorDialog();
-        }
+        AccountFormController.getController().addUserAndClose(event);
     }
 }

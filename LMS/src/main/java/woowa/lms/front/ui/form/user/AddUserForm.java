@@ -2,7 +2,6 @@ package woowa.lms.front.ui.form.user;
 
 import woowa.lms.front.component.button.GeneralButton;
 import woowa.lms.front.ui.form.SignUpForm;
-import woowa.lms.front.ui.page.MainPage;
 import woowa.lms.front.ui.table.UserTable;
 
 import static woowa.lms.front.behavior.BehaviorType.ADD_USER;
@@ -40,6 +39,6 @@ public class AddUserForm extends SignUpForm {
     @Override
     public void setUpStage() {
         super.setUpStage();
-        this.initOwner(UserTable.getInstance());
+        this.initOwner(UserTable.getTable());
     }
 }

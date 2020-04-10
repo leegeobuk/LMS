@@ -6,6 +6,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import woowa.lms.front.component.button.GeneralButton;
 import woowa.lms.front.component.image.ImageType;
 import woowa.lms.front.model.BookModel;
+import woowa.lms.front.ui.page.MainPage;
 
 import java.util.List;
 
@@ -16,8 +17,8 @@ import static woowa.lms.front.behavior.BehaviorType.*;
 import static woowa.lms.front.component.image.ImageType.ADD_BOOK;
 import static woowa.lms.front.component.image.ImageType.EDIT_BOOK;
 import static woowa.lms.front.component.image.ImageType.LEND_BOOK;
-import static woowa.lms.front.component.image.ImageType.RETURN_BOOK;
 import static woowa.lms.front.component.image.ImageType.SEARCH_BOOK;
+import static woowa.lms.front.component.image.ImageType.*;
 
 public class BookTable extends AbstractTable<BookModel> {
 
@@ -54,15 +55,17 @@ public class BookTable extends AbstractTable<BookModel> {
         editBookButton = GeneralButton.getTableButton(EDIT_BOOK, SHOW_EDIT_BOOK);
         deleteBookButton = GeneralButton.getTableButton(ImageType.DELETE_BOOK, DELETE_BOOK);
         lendBookButton = GeneralButton.getTableButton(LEND_BOOK, SHOW_LEND_BOOK);
-        returnBookButton = GeneralButton.getTableButton(RETURN_BOOK, SHOW_UNRETURNED_USERS);
+        returnBookButton = GeneralButton.getTableButton(RETURN_BOOK, SHOW_BORROWED_USER);
         searchButton = GeneralButton.getTableButton(SEARCH_BOOK, SHOW_SEARCH_BOOK);
         closeButton = GeneralButton.getTableButton(ImageType.CLOSE, CLOSE);
+        foolProvedButtons = List.of(editBookButton, deleteBookButton, lendBookButton,
+            returnBookButton);
         super.setUpComponents();
     }
 
     @Override
     public void setUpPage() {
-        iconBar.getChildren().addAll(viewBookButton, addBookButton, editBookButton,
+        buttonBar.getChildren().addAll(viewBookButton, addBookButton, editBookButton,
             deleteBookButton, lendBookButton, returnBookButton, searchButton, closeButton);
 
         TableColumn<BookModel, Long> idColumn = new TableColumn<>("Book Id");
@@ -85,12 +88,8 @@ public class BookTable extends AbstractTable<BookModel> {
     }
 
     @Override
-    public void update(List<BookModel> bookModels) {
-        tableView.getItems().setAll(bookModels);
-    }
-
-    @Override
-    public void setFoolProof() {
-        // TODO: 2020-04-02 Implement after buttons are implemented
+    public void setUpStage() {
+        super.setUpStage();
+        this.initOwner(MainPage.getPage());
     }
 }

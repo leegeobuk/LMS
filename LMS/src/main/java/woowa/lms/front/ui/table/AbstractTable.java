@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,12 +19,14 @@ import lombok.Getter;
 import woowa.lms.front.component.background.BackgroundBuilder;
 import woowa.lms.front.component.image.ImageBuilder;
 import woowa.lms.front.component.label.LabelBuilder;
+import woowa.lms.front.foolproof.FoolProof;
+import woowa.lms.front.foolproof.table.TableFoolProof;
 import woowa.lms.front.ui.FoolProofable;
 import woowa.lms.front.ui.page.Page;
 
 import java.util.List;
 
-public abstract class AbstractTable<E> extends Stage implements Page, FoolProofable {
+public abstract class AbstractTable<S> extends Stage implements Page, FoolProofable {
 
     protected VBox mainPane;
     protected Background background;
@@ -32,10 +35,12 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
     protected ImageView logoImageView;
 
     protected VBox tableBox;
-    protected HBox iconBar;
+    protected HBox buttonBar;
+    protected List<Button> foolProvedButtons;
     protected Button closeButton;
+    protected FoolProof<MouseEvent> tableFoolProof;
     @Getter
-    protected TableView<E> tableView;
+    protected TableView<S> tableView;
 
     protected String title;
     protected String header;
@@ -50,17 +55,17 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
         mainPane.setSpacing(height * 0.05);
 
         tableBox = new VBox();
-        iconBar = new HBox();
+        buttonBar = new HBox();
         tableView = new TableView<>();
 
         imageWidth = width * 0.1;
     }
 
-    public E getSelected() {
+    public S getSelected() {
         return tableView.getSelectionModel().getSelectedItem();
     }
 
-    public ObservableList<E> getSelections() {
+    public ObservableList<S> getSelections() {
         return tableView.getSelectionModel().getSelectedItems();
     }
 
@@ -70,6 +75,7 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
         headerLabel = LabelBuilder.getPageHeader(header);
         logoImageView = ImageBuilder.getLogo(imageWidth);
 
+        foolProvedButtons.forEach(button -> button.setDisable(true));
         closeButton.setCancelButton(true);
     }
 
@@ -78,9 +84,9 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
         headerLabel.setGraphic(logoImageView);
         headerLabel.setGraphicTextGap(this.getWidth() * 0.05);
 
-        iconBar.setAlignment(Pos.CENTER_LEFT);
+        buttonBar.setAlignment(Pos.CENTER_LEFT);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tableBox.getChildren().addAll(iconBar, tableView);
+        tableBox.getChildren().addAll(buttonBar, tableView);
 
         mainPane.setBackground(background);
         mainPane.getChildren().addAll(headerLabel, tableBox);
@@ -88,10 +94,17 @@ public abstract class AbstractTable<E> extends Stage implements Page, FoolProofa
         mainPane.setAlignment(Pos.TOP_CENTER);
     }
 
-    public abstract void update(List<E> tableItems);
+    public void update(List<S> tableItems) {
+        tableView.getItems().setAll(tableItems);
+        foolProvedButtons.forEach(button -> button.setDisable(true));
+    }
 
     @Override
-    public abstract void setFoolProof();
+    public void setFoolProof() {
+        tableFoolProof = TableFoolProof.<S>builder().tableView(tableView)
+            .buttons(foolProvedButtons).build();
+        tableView.setOnMouseReleased(tableFoolProof);
+    }
 
     @Override
     public void setUpStage() {

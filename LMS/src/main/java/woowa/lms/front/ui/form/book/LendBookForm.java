@@ -53,6 +53,10 @@ public class LendBookForm extends AbstractForm {
         return FORM;
     }
 
+    public Button getOkButton() {
+        return okButton;
+    }
+
     @Override
     public void setUpComponents() {
         idLabel = LabelBuilder.getFormLabel("User Id");
@@ -68,7 +72,8 @@ public class LendBookForm extends AbstractForm {
         });
 
         userButton = GeneralButton.builder().image(getImageView(USER, 24)).graphicGap(0)
-            .display(GRAPHIC_ONLY).behavior(SHOW_SELECT_USERS).build().toButton();
+            .display(GRAPHIC_ONLY).behavior(SHOW_USER_TO_LEND).build().toButton();
+        userButton.requestFocus();
         okButton = GeneralButton.getFormButton(FORM_BUTTON_OK, LEND_BOOK);
         cancelButton = GeneralButton.getFormButton(FORM_BUTTON_CANCEL, CLOSE);
         super.setUpComponents();
@@ -109,6 +114,7 @@ public class LendBookForm extends AbstractForm {
     @Override
     public void close() {
         inputFields.forEach(InputField::clear);
+        userButton.requestFocus();
         setDate();
         okButton.setDisable(true);
         this.hide();

@@ -2,15 +2,10 @@ package woowa.lms.front.ui.table;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import woowa.lms.back.service.RentalService;
-import woowa.lms.back.util.SpringContext;
 import woowa.lms.front.component.button.GeneralButton;
 import woowa.lms.front.component.image.ImageType;
 import woowa.lms.front.model.AccountModel;
-import woowa.lms.front.model.BookModel;
-import woowa.lms.front.ui.form.book.LendBookForm;
 import woowa.lms.front.ui.page.MainPage;
 
 import java.util.List;
@@ -31,8 +26,6 @@ public class UserTable extends AbstractTable<AccountModel> {
     private Button deleteUserButton;
     private Button searchButton;
 
-    private RentalService rentalService = SpringContext.getBean(RentalService.class);
-
     private static final double WIDTH = 500;
     private static final double HEIGHT = 600;
     private static final String TITLE = "Users Table";
@@ -47,7 +40,7 @@ public class UserTable extends AbstractTable<AccountModel> {
         setUpStage();
     }
 
-    public static UserTable getInstance() {
+    public static UserTable getTable() {
         return TABLE;
     }
 
@@ -59,13 +52,13 @@ public class UserTable extends AbstractTable<AccountModel> {
         deleteUserButton = GeneralButton.getTableButton(ImageType.DELETE_USER, DELETE_USER);
         searchButton = GeneralButton.getTableButton(SEARCH_USER, SHOW_SEARCH_USER);
         closeButton = GeneralButton.getTableButton(ImageType.CLOSE, CLOSE);
-
+        foolProvedButtons = List.of(editUserButton, deleteUserButton);
         super.setUpComponents();
     }
 
     @Override
     public void setUpPage() {
-        iconBar.getChildren().addAll(viewUserButton, addUserButton,
+        buttonBar.getChildren().addAll(viewUserButton, addUserButton,
             editUserButton, deleteUserButton, searchButton, closeButton);
 
         TableColumn<AccountModel, String > idColumn = new TableColumn<>("User Id");
@@ -82,47 +75,6 @@ public class UserTable extends AbstractTable<AccountModel> {
     }
 
     @Override
-    public void update(List<AccountModel> userModels) {
-        tableView.getItems().setAll(userModels);
-    }
-
-    @Override
-    public void setFoolProof() {
-        // TODO: 2020-04-02 Implement after buttons implementation
-    }
-
-    public void setToSelectionMode(boolean isSelectionMode) {
-        if (isSelectionMode) {
-            tableView.setOnMouseClicked(e -> {
-                AccountModel selected = getSelected();
-                if (e.getClickCount() == 2) {
-                    List<TextField> fields = LendBookForm.getForm().getFields();
-                    fields.get(0).setText(selected.getId());
-                    fields.get(1).setText(selected.getName());
-                    fields.get(2).setText(selected.getContact());
-                    LendBookForm.getForm().getOkButton().setDisable(false);
-                    this.close();
-                }
-            });
-        }
-        else {
-            tableView.setOnMouseClicked(null);
-        }
-    }
-
-    public void setToReturnMode() {
-        tableView.setOnMouseClicked(e -> {
-            AccountModel selectedUser = getSelected();
-            if (e.getClickCount() == 2) {
-                BookModel selectedItem = BookTable.getTable().getSelected();
-                rentalService.returnBooks(selectedUser.getId(), selectedItem.getId());
-                BookTable.getTable().update();
-                this.close();
-            }
-        });
-    }
-
-    @Override
     public void setUpStage() {
         super.setUpStage();
         this.initOwner(MainPage.getPage());
@@ -130,7 +82,7 @@ public class UserTable extends AbstractTable<AccountModel> {
 
     @Override
     public void close() {
-        setToSelectionMode(false);
+        tableView.setOnMouseClicked(null);
         super.close();
     }
 }

@@ -69,6 +69,6 @@ public class EditUserForm extends AbstractForm {
     @Override
     public void setUpStage() {
         super.setUpStage();
-        this.initOwner(UserTable.getInstance());
+        this.initOwner(UserTable.getTable());
     }
 }
