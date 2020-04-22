@@ -6,13 +6,17 @@ import org.springframework.transaction.annotation.Transactional;
 import woowa.lms.back.domain.account.Account;
 import woowa.lms.back.domain.account.User;
 import woowa.lms.back.domain.item.Book;
+import woowa.lms.back.domain.item.Item;
 import woowa.lms.back.domain.rental.Rental;
 import woowa.lms.back.domain.rental.RentalItem;
 import woowa.lms.back.repository.RentalRepository;
 import woowa.lms.back.repository.account.AccountRepository;
+import woowa.lms.back.repository.account.CustomAccountRepositoryImpl;
 import woowa.lms.back.repository.item.ItemRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toUnmodifiableList;
 
@@ -23,7 +27,7 @@ public class RentalService {
 
     private final RentalRepository rentalRepository;
     private final AccountRepository accountRepository;
-    private final ItemRepository<Book> itemRepository;
+    private final ItemRepository itemRepository;
 
     public List<User> searchBorrowedUser(Long itemId) {
         return rentalRepository.findByItem(itemId)
@@ -31,15 +35,18 @@ public class RentalService {
     }
 
     @Transactional
-    public void lendBooks(String accountId, Long... itemIds) {
-        Account account = accountRepository.findById(accountId);
-        RentalItem[] rentalItems = new RentalItem[itemIds.length];
-        for (int i = 0; i < itemIds.length; i++) {
-            rentalItems[i] = RentalItem.create(itemRepository.findById(itemIds[i]));
+    public void lendBooks(String accountId, List<Long> itemIds) {
+        List<RentalItem> rentalItems = new ArrayList<>();
+        for (Long itemId : itemIds) {
+            itemRepository.findById(itemId)
+                .ifPresent(item -> rentalItems.add(RentalItem.create(item)));
         }
 
-        Rental rental = Rental.create(account, rentalItems);
-        rentalRepository.save(rental);
+        accountRepository.findById(accountId)
+            .ifPresent(account -> {
+                Rental rental = Rental.create(account, rentalItems);
+                rentalRepository.save(rental);
+            });
     }
 
     @Transactional

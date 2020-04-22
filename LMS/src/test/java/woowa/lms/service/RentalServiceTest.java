@@ -1,12 +1,10 @@
 package woowa.lms.service;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import woowa.lms.back.domain.account.Account;
-import woowa.lms.back.domain.item.Book;
 import woowa.lms.back.domain.item.Item;
 import woowa.lms.back.domain.rental.Rental;
 import woowa.lms.back.repository.RentalRepository;
@@ -14,12 +12,16 @@ import woowa.lms.back.repository.account.AccountRepository;
 import woowa.lms.back.repository.item.ItemRepository;
 import woowa.lms.back.service.RentalService;
 
+import java.util.List;
+import java.util.Optional;
+
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-class RentalServiceTest extends Account {
+//@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+class RentalServiceTest {
 
     @Mock
     Account account;
@@ -32,7 +34,7 @@ class RentalServiceTest extends Account {
     AccountRepository accountRepository;
 
     @Mock
-    ItemRepository<Book> itemRepository;
+    ItemRepository itemRepository;
 
     @Mock
     RentalRepository rentalRepository;
@@ -45,11 +47,11 @@ class RentalServiceTest extends Account {
         //given
         when(account.getId()).thenReturn("lee");
         when(item.getId()).thenReturn(1L);
-        when(accountRepository.findById(account.getId())).thenReturn(account);
-        when(itemRepository.findById(item.getId())).thenReturn(item);
+        when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
+        when(itemRepository.findById(item.getId())).thenReturn(Optional.of(item));
 
         //when
-        rentalService.lendBooks(account.getId(), item.getId());
+        rentalService.lendBooks(account.getId(), List.of(item.getId()));
 
         //then
         verify(accountRepository).findById(anyString());

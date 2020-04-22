@@ -4,14 +4,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.ApplicationEventPublisher;
 import woowa.lms.back.domain.account.Account;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
@@ -52,7 +50,7 @@ public class Rental {
         rentalItem.setRental(this);
     }
 
-    public static Rental create(Account account, RentalItem... rentalItems) {
+    public static Rental create(Account account, List<RentalItem> rentalItems) {
         Rental rental = new Rental();
         rental.setAccount(account);
         for (RentalItem rentalItem : rentalItems) {

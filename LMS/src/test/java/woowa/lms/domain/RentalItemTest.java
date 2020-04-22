@@ -1,18 +1,17 @@
 package woowa.lms.domain;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import woowa.lms.back.domain.account.Account;
+import org.springframework.boot.test.context.SpringBootTest;
 import woowa.lms.back.domain.item.Item;
 import woowa.lms.back.domain.rental.RentalItem;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-class RentalItemTest extends Account {
+@SpringBootTest
+class RentalItemTest {
 
     @Mock
     Item item;
@@ -35,7 +34,6 @@ class RentalItemTest extends Account {
     @Test
     void returnRentalItem() {
         //given
-//        RentalItem rentalItem = RentalItem.create(Book.of("S", "H", 1));
         RentalItem rentalItem = RentalItem.create(item);
         when(item.getStock()).thenReturn(0, 1);
 

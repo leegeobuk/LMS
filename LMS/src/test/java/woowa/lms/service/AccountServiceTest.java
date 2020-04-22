@@ -1,10 +1,9 @@
 package woowa.lms.service;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import woowa.lms.back.domain.account.Account;
 import woowa.lms.back.domain.account.Admin;
 import woowa.lms.back.domain.account.Owner;
@@ -12,14 +11,15 @@ import woowa.lms.back.repository.account.AccountRepository;
 import woowa.lms.back.service.account.AccountService;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-class AccountServiceTest extends Account {
+@SpringBootTest
+class AccountServiceTest {
 
     static final String ID = "leegeobuk";
     static final String PW = "password";
@@ -34,7 +34,7 @@ class AccountServiceTest extends Account {
     @Test
     void singUp() {
         //given
-        when(accountRepository.findById(anyString())).thenReturn(null);
+        when(accountRepository.findById(anyString())).thenReturn(Optional.empty());
 
         //when
         String ownerId = accountService.signUpAccount(ADMIN);
@@ -48,7 +48,7 @@ class AccountServiceTest extends Account {
     @Test
     void testValidateDuplicateException() {
         //given
-        when(accountRepository.findById(anyString())).thenReturn(ADMIN);
+        when(accountRepository.findById(anyString())).thenReturn(Optional.of(ADMIN));
 
         //when
         assertThrows(IllegalStateException.class, () -> accountService.signUpAccount(ADMIN),
@@ -63,7 +63,7 @@ class AccountServiceTest extends Account {
     void edit() {
         //given
         Owner ownerMock = mock(Owner.class);
-        when(accountRepository.findById(anyString())).thenReturn(ownerMock);
+        when(accountRepository.findById(anyString())).thenReturn(Optional.of(ownerMock));
 
         //when
         accountService.editAccount(ID, "lego", "01011112222");
@@ -77,15 +77,15 @@ class AccountServiceTest extends Account {
     @Test
     void find() {
         //given
-        when(accountRepository.findById(anyString())).thenReturn(ADMIN);
+        when(accountRepository.findById(anyString())).thenReturn(Optional.of(ADMIN));
 
         //when
-        Account account = accountService.findAccount(ID);
+        Optional<Account> account = accountService.findAccount(ID);
 
         //then
         verify(accountRepository).findById(anyString());
 
-        assertEquals(ADMIN, account, "Wrong account returned from find");
+        assertEquals(Optional.of(ADMIN), account, "Wrong account returned from find");
     }
 
     @Test

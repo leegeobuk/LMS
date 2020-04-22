@@ -21,6 +21,7 @@ import woowa.lms.front.ui.form.book.SearchBookForm;
 import woowa.lms.front.ui.table.BookTable;
 import woowa.lms.front.ui.table.UserTable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -90,9 +91,9 @@ public class BookFormController {
 
     public void lendBookAndClose() {
         ObservableList<BookModel> selections = BOOK_TABLE.getSelections();
-        Long[] itemIds = new Long[selections.size()];
-        for (int i = 0; i < selections.size(); i++) {
-            itemIds[i] = selections.get(i).getId();
+        List<Long> itemIds = new ArrayList<>();
+        for (BookModel selection : selections) {
+            itemIds.add(selection.getId());
         }
         String userId = LEND_BOOK_FORM.getFields().get(0).getText();
         rentalService.lendBooks(userId, itemIds);

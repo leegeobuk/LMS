@@ -4,12 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import woowa.lms.back.domain.account.Account;
-import woowa.lms.back.search.AccountSearchCriteria;
 import woowa.lms.back.domain.account.Admin;
 import woowa.lms.back.domain.account.User;
 import woowa.lms.back.repository.account.AccountRepository;
+import woowa.lms.back.search.AccountSearchCriteria;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toUnmodifiableList;
 
@@ -28,10 +29,10 @@ public class AccountService {
     }
 
     private void validateDuplicate(Account account) throws IllegalStateException {
-        Account found = accountRepository.findById(account.getId());
-        if (found != null) {
-            throw new IllegalStateException("Id already exists!");
-        }
+        accountRepository.findById(account.getId())
+            .ifPresent(a -> {
+                    throw new IllegalStateException("Id already exists!");
+            });
     }
 
     public Account signInAccount(Account account) throws IllegalStateException {
@@ -40,40 +41,42 @@ public class AccountService {
     }
 
     private void validateSignIn(Account account) throws IllegalStateException {
-        Account found = accountRepository.findById(account.getId());
-        if (found == null) {
+        Optional<Account> found = accountRepository.findById(account.getId());
+        if (found.isEmpty()) {
             throw new IllegalStateException("Id doesn't exist!");
         }
-        else if (!found.getPw().equals(account.getPw())) {
+        else if (!found.get().getPw().equals(account.getPw())) {
             throw new IllegalStateException("Incorrect password!");
         }
     }
 
     @Transactional
     public void editAccount(String id, String name, String contact) {
-        Account account = accountRepository.findById(id);
-        account.setName(name);
-        account.setContact(contact);
+        accountRepository.findById(id)
+            .ifPresent(account -> {
+                account.setName(name);
+                account.setContact(contact);
+            });
     }
 
     @Transactional
     public void deleteAccount(String  accountId) {
-        Account account = findAccount(accountId);
-        accountRepository.delete(account);
+        findAccount(accountId)
+            .ifPresent(accountRepository::delete);
     }
 
-    public Account findAccount(String id) {
+    public Optional<Account> findAccount(String id) {
         return accountRepository.findById(id);
     }
 
     public List<Admin> findAdmins() {
-        return accountRepository.findAdmins().
-            stream().map(Admin.class::cast).collect(toUnmodifiableList());
+        return accountRepository.findAdmins().stream()
+            .map(Admin.class::cast).collect(toUnmodifiableList());
     }
 
     public List<User> findUsers() {
-        return accountRepository.findUsers().
-            stream().map(User.class::cast).collect(toUnmodifiableList());
+        return accountRepository.findUsers().stream()
+            .map(User.class::cast).collect(toUnmodifiableList());
     }
 
     public List<Account> search(AccountSearchCriteria criteria) {

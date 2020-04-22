@@ -27,7 +27,7 @@ javafx {
     modules = [ 'javafx.controls' ]
 }
 
-mainClassName = 'woowa.lms.Boot'
+mainClassName = 'woowa.lms.App'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -38,8 +38,6 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    testCompile 'org.mockito:mockito-core:3.3.0'
-    testCompile 'org.mockito:mockito-junit-jupiter:3.3.0'
 }
 
 test {
