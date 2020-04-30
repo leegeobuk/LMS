@@ -10,6 +10,7 @@ import woowa.lms.back.domain.rental.Rental;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,8 @@ public abstract class Account implements Persistable<String> {
     private String pw;
 
     @CreatedDate
-    private LocalDate createdDate;
+    @Column(updatable = false)
+    private LocalDateTime createdDate;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "auth", nullable = false)

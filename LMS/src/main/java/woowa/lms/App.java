@@ -5,11 +5,13 @@ import javafx.stage.Stage;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import woowa.lms.front.controller.MainController;
 
 import java.util.Locale;
 
 @SpringBootApplication
+@EnableJpaAuditing
 public class App extends Application {
 
     private ConfigurableApplicationContext applicationContext;
